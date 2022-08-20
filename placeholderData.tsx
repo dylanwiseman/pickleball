@@ -1,6 +1,6 @@
 const data = [
     {
-        id: 1,
+        id: '1',
         userScore: 11,
         oppScore: 9,
         dayOfWeek: 'Saturday',
@@ -12,7 +12,7 @@ const data = [
         player4: 'robert',
     },
     {
-        id: 2,
+        id: '2',
         userScore: 6,
         oppScore: 11,
         dayOfWeek: 'Saturday',
@@ -24,7 +24,7 @@ const data = [
         player4: 'robert',
     },
     {
-        id: 3,
+        id: '3',
         userScore: 11,
         oppScore: 9,
         dayOfWeek: 'Saturday',

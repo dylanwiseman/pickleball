@@ -16,3 +16,16 @@ export const SIZES = {
     large: 18,
     extraLarge: 24,
 };
+
+export const SHADOWS = {
+    dark: {
+        shadowColor: '#74858C',
+        shadowOffset: {
+            width: 0,
+            height: 7,
+        },
+        shadowOpacity: 0.41,
+        shadowRadius: 9.11,
+        elevation: 14,
+    },
+};

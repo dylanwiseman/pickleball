@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
-import { COLORS, SIZES } from '../constants/theme';
+import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import tw from 'twrnc';
 
 const GameCard = ({ game }) => {
@@ -11,16 +11,8 @@ const GameCard = ({ game }) => {
                 margin: SIZES.small,
                 marginBottom: 0,
                 borderRadius: 20,
-                shadowColor: COLORS.gray,
-                shadowOffset: {
-                    width: 0,
-                    height: 7,
-                },
-                shadowOpacity: 0.41,
-                shadowRadius: 9.11,
                 backgroundColor: COLORS.white,
-                elevation: 14,
-                // overflow: 'hidden',
+                ...SHADOWS.dark,
             }}
         >
             <View
