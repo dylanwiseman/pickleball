@@ -15,7 +15,12 @@
     "react-dom": "18.0.0",
     "react-native": "0.69.4",
     "react-native-web": "~0.18.7",
-    "twrnc": "^3.4.0"
+    "twrnc": "^3.4.0",
+    "react-native-gesture-handler": "~2.5.0",
+    "react-native-safe-area-context": "4.3.1",
+    "expo-font": "~10.2.0",
+    "@react-navigation/native": "^6.0.8",
+    "@react-navigation/stack": "^6.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
