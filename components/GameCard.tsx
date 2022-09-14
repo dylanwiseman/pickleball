@@ -17,7 +17,7 @@ const GameCard = ({ game }) => {
         >
             <View
                 style={{
-                    backgroundColor: COLORS.green,
+                    backgroundColor: game?.win ? COLORS.green : COLORS.red,
                     height: '55%',
                     width: '100%',
                     borderTopLeftRadius: 20,
@@ -40,26 +40,83 @@ const GameCard = ({ game }) => {
                             justifyContent: 'center',
                         }}
                     >
-                        <Text style={{ color: COLORS.darkGreen }}>
-                            {game.dayOfWeek}
-                        </Text>
-                        <Text style={{ color: COLORS.darkGreen }}>
-                            {game.date}
-                        </Text>
-                        <Text style={{ color: COLORS.darkGreen }}>
-                            {game.time}
+                        <Text
+                            style={{
+                                color: game?.win
+                                    ? COLORS.darkGreen
+                                    : COLORS.darkRed,
+                                fontStyle: 'italic',
+                            }}
+                        >
+                            {`${game.dayOfWeek}\n${game.date}\n${game.time}`}
                         </Text>
                     </View>
                     <Text
                         style={{
-                            color: COLORS.darkGreen,
+                            color: game?.win
+                                ? COLORS.darkGreen
+                                : COLORS.darkRed,
                             fontSize: 76,
                         }}
                     >{`${game.userScore} - ${game.oppScore}`}</Text>
                 </View>
             </View>
-            <View>
-                <Text>GameCard</Text>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    height: '45%',
+                    alignItems: 'center',
+                }}
+            >
+                <View
+                    style={{
+                        flexDirection: 'column',
+                        height: '100%',
+                        justifyContent: 'center',
+                        paddingLeft: SIZES.small,
+                        width: '30%',
+                        left: 0,
+                    }}
+                >
+                    <Text
+                        style={{
+                            fontSize: SIZES.large,
+                            paddingBottom: SIZES.medium,
+                            textAlign: 'right',
+                        }}
+                    >{`${game?.player1}`}</Text>
+                    <Text
+                        style={{
+                            fontSize: SIZES.large,
+                            textAlign: 'right',
+                        }}
+                    >{`${game?.player2}`}</Text>
+                </View>
+                <Text style={{ width: '40%', textAlign: 'center' }}>vs.</Text>
+                <View
+                    style={{
+                        flexDirection: 'column',
+                        height: '100%',
+                        justifyContent: 'center',
+                        paddingRight: SIZES.small,
+                        width: '30%',
+                        right: 0,
+                    }}
+                >
+                    <Text
+                        style={{
+                            fontSize: SIZES.large,
+                            paddingBottom: SIZES.medium,
+                            textAlign: 'left',
+                        }}
+                    >{`${game?.player3}`}</Text>
+                    <Text
+                        style={{
+                            fontSize: SIZES.large,
+                            textAlign: 'left',
+                        }}
+                    >{`${game?.player4}`}</Text>
+                </View>
             </View>
         </View>
     );
