@@ -1,3 +1,8 @@
+import dylanImg from './assets/dylan.png';
+import kassImg from './assets/kass.png';
+import madsImg from './assets/mads.png';
+import jakeImg from './assets/jake.png';
+
 const data = [
     {
         id: '1',
@@ -7,10 +12,10 @@ const data = [
         dayOfWeek: 'Saturday',
         date: 'Aug 20 2022',
         time: '5:13pm',
-        player1: 'dylan',
-        player2: 'kass',
-        player3: 'mads',
-        player4: 'robert',
+        player1: { name: 'dylan', pic: dylanImg },
+        player2: { name: 'kass', pic: kassImg },
+        player3: { name: 'mads', pic: madsImg },
+        player4: { name: 'jake', pic: jakeImg },
     },
     {
         id: '2',
@@ -20,10 +25,10 @@ const data = [
         dayOfWeek: 'Saturday',
         date: 'Aug 20 2022',
         time: '6:45pm',
-        player1: 'dylan',
-        player2: 'kass',
-        player3: 'mads',
-        player4: 'robert',
+        player1: { name: 'dylan', pic: dylanImg },
+        player2: { name: 'kass', pic: kassImg },
+        player3: { name: 'mads', pic: madsImg },
+        player4: { name: 'jake', pic: jakeImg },
     },
     {
         id: '3',
@@ -33,10 +38,10 @@ const data = [
         dayOfWeek: 'Saturday',
         date: 'Aug 20 2022',
         time: '5:13pm',
-        player1: 'dylan',
-        player2: 'kass',
-        player3: 'mads',
-        player4: 'robert',
+        player1: { name: 'dylan', pic: dylanImg },
+        player2: { name: 'kass', pic: kassImg },
+        player3: { name: 'mads', pic: madsImg },
+        player4: { name: 'jake', pic: jakeImg },
     },
 ];
 

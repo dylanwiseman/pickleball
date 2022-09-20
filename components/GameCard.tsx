@@ -1,7 +1,7 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import React from 'react';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
-import tw from 'twrnc';
+// import tw from 'twrnc';
 
 const GameCard = ({ game }) => {
     return (
@@ -84,13 +84,13 @@ const GameCard = ({ game }) => {
                             paddingBottom: SIZES.medium,
                             textAlign: 'right',
                         }}
-                    >{`${game?.player1}`}</Text>
+                    >{`${game?.player1?.name}`}</Text>
                     <Text
                         style={{
                             fontSize: SIZES.large,
                             textAlign: 'right',
                         }}
-                    >{`${game?.player2}`}</Text>
+                    >{`${game?.player2?.name}`}</Text>
                 </View>
                 <Text style={{ width: '40%', textAlign: 'center' }}>vs.</Text>
                 <View
@@ -103,19 +103,54 @@ const GameCard = ({ game }) => {
                         right: 0,
                     }}
                 >
-                    <Text
+                    <View
                         style={{
-                            fontSize: SIZES.large,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
                             paddingBottom: SIZES.medium,
-                            textAlign: 'left',
                         }}
-                    >{`${game?.player3}`}</Text>
-                    <Text
+                    >
+                        <Text
+                            style={{
+                                fontSize: SIZES.large,
+                                textAlign: 'left',
+                                height: 20,
+                                marginTop: 'auto',
+                                marginBottom: 'auto',
+                            }}
+                        >{`${game?.player3?.name}`}</Text>
+                        <Image
+                            source={game?.player3?.pic}
+                            style={{
+                                width: 40,
+                                height: 40,
+                                borderRadius: '50%',
+                            }}
+                        />
+                    </View>
+                    <View
                         style={{
-                            fontSize: SIZES.large,
-                            textAlign: 'left',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
                         }}
-                    >{`${game?.player4}`}</Text>
+                    >
+                        <Text
+                            style={{
+                                fontSize: SIZES.large,
+                                textAlign: 'left',
+                            }}
+                        >{`${game?.player4?.name}`}</Text>
+                        <Image
+                            source={game?.player4?.pic}
+                            style={{
+                                width: 40,
+                                height: 40,
+                                borderRadius: '50%',
+                            }}
+                        />
+                    </View>
                 </View>
             </View>
         </View>
