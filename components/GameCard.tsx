@@ -3,6 +3,31 @@ import React from 'react';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 // import tw from 'twrnc';
 
+const PlayerNameAndPic = ({ player, pic, picSide }) => {
+    return (
+        <View
+            style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+            }}
+        >
+            {picSide === 'left' && (
+                <Image source={pic} style={styles.playerPic} />
+            )}
+            <Text
+                style={{
+                    fontSize: SIZES.large,
+                    textAlign: picSide,
+                }}
+            >{`${player}`}</Text>
+            {picSide === 'right' && (
+                <Image source={pic} style={styles.playerPic} />
+            )}
+        </View>
+    );
+};
+
 const GameCard = ({ game }) => {
     return (
         <View
@@ -78,19 +103,16 @@ const GameCard = ({ game }) => {
                         left: 0,
                     }}
                 >
-                    <Text
-                        style={{
-                            fontSize: SIZES.large,
-                            paddingBottom: SIZES.medium,
-                            textAlign: 'right',
-                        }}
-                    >{`${game?.player1?.name}`}</Text>
-                    <Text
-                        style={{
-                            fontSize: SIZES.large,
-                            textAlign: 'right',
-                        }}
-                    >{`${game?.player2?.name}`}</Text>
+                    <PlayerNameAndPic
+                        player={game?.player1?.name}
+                        picSide={'right'}
+                        pic={game?.player1?.pic}
+                    />
+                    <PlayerNameAndPic
+                        player={game?.player2?.name}
+                        picSide={'right'}
+                        pic={game?.player2?.pic}
+                    />
                 </View>
                 <Text style={{ width: '40%', textAlign: 'center' }}>vs.</Text>
                 <View
@@ -103,54 +125,16 @@ const GameCard = ({ game }) => {
                         right: 0,
                     }}
                 >
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            paddingBottom: SIZES.medium,
-                        }}
-                    >
-                        <Text
-                            style={{
-                                fontSize: SIZES.large,
-                                textAlign: 'left',
-                                height: 20,
-                                marginTop: 'auto',
-                                marginBottom: 'auto',
-                            }}
-                        >{`${game?.player3?.name}`}</Text>
-                        <Image
-                            source={game?.player3?.pic}
-                            style={{
-                                width: 40,
-                                height: 40,
-                                borderRadius: '50%',
-                            }}
-                        />
-                    </View>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                        }}
-                    >
-                        <Text
-                            style={{
-                                fontSize: SIZES.large,
-                                textAlign: 'left',
-                            }}
-                        >{`${game?.player4?.name}`}</Text>
-                        <Image
-                            source={game?.player4?.pic}
-                            style={{
-                                width: 40,
-                                height: 40,
-                                borderRadius: '50%',
-                            }}
-                        />
-                    </View>
+                    <PlayerNameAndPic
+                        player={game?.player3?.name}
+                        picSide={'left'}
+                        pic={game?.player3?.pic}
+                    />
+                    <PlayerNameAndPic
+                        player={game?.player4?.name}
+                        picSide={'left'}
+                        pic={game?.player4?.pic}
+                    />
                 </View>
             </View>
         </View>
@@ -161,6 +145,11 @@ const styles = StyleSheet.create({
     winningContainer: {
         backgroundColor: COLORS.green,
         color: COLORS.darkGreen,
+    },
+    playerPic: {
+        width: 40,
+        height: 40,
+        borderRadius: '50%',
     },
 });
 

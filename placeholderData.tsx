@@ -33,7 +33,7 @@ const data = [
     {
         id: '3',
         userScore: 11,
-        oppScore: 9,
+        oppScore: 2,
         win: true,
         dayOfWeek: 'Saturday',
         date: 'Aug 20 2022',
