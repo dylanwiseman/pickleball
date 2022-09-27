@@ -5,7 +5,15 @@ import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 // import tw from 'twrnc';
 
-const PlayerNameAndPic = ({ player, pic, picSide }) => {
+const PlayerNameAndPic = ({
+    player,
+    pic,
+    picSide,
+}: {
+    player: any;
+    pic: any;
+    picSide: string;
+}) => {
     return (
         <View
             style={{
@@ -30,7 +38,7 @@ const PlayerNameAndPic = ({ player, pic, picSide }) => {
     );
 };
 
-const GameCard = ({ game }) => {
+const GameCard = ({ game }: { game: any }) => {
     const navigation = useNavigation();
     return (
         <View

@@ -27,11 +27,14 @@ const HomeHeader = () => {
                         justifyContent: 'flex-end',
                     }}
                 >
-                    <Text
-                        style={{
-                            fontSize: SIZES.large,
-                        }}
-                    >{`tanjiro`}</Text>
+                    <View style={{ flexDirection: 'column' }}>
+                        <Text
+                            style={{
+                                fontSize: SIZES.large,
+                            }}
+                        >{`tanjiro`}</Text>
+                        <Text style={{ textAlign: 'right' }}>122</Text>
+                    </View>
                     <Image
                         source={pic}
                         style={{
