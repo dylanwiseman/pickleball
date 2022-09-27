@@ -1,11 +1,26 @@
-import { View, Text } from 'react-native';
+import { View, SafeAreaView, Text, Button } from 'react-native';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 const GameDetails = () => {
+    const navigation = useNavigation();
     return (
-        <View>
-            <Text>GameDetails</Text>
-        </View>
+        <SafeAreaView
+            style={{
+                flex: 1,
+                backgroundColor: 'white',
+            }}
+        >
+            <View style={{ backgroundColor: 'white' }}>
+                <Text>GameDetails</Text>
+            </View>
+            <Button
+                title="Home"
+                onPress={() => {
+                    navigation.navigate('Home');
+                }}
+            ></Button>
+        </SafeAreaView>
     );
 };
 

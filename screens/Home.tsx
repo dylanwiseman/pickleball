@@ -2,6 +2,7 @@ import { View, SafeAreaView, FlatList } from 'react-native';
 import React from 'react';
 import placeholderData from '../placeholderData';
 import GameCard from '../components/GameCard';
+import HomeHeader from '../components/HomeHeader';
 
 const Home = () => {
     return (
@@ -10,9 +11,9 @@ const Home = () => {
                 flex: 1,
             }}
         >
-            {/* <FocusedStatusBar background={COLORS.primary} /> */}
             <View>
                 <FlatList
+                    stickyHeaderIndices={[0]}
                     data={placeholderData}
                     renderItem={({ item }) => <GameCard game={item} />}
                     keyExtractor={(item) => item.id}
@@ -22,6 +23,7 @@ const Home = () => {
                         justifyContent: 'center',
                         width: '100%',
                     }}
+                    ListHeaderComponent={<HomeHeader />}
                 />
             </View>
         </SafeAreaView>

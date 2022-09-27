@@ -1,6 +1,8 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Touchable } from 'react-native';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 // import tw from 'twrnc';
 
 const PlayerNameAndPic = ({ player, pic, picSide }) => {
@@ -29,6 +31,7 @@ const PlayerNameAndPic = ({ player, pic, picSide }) => {
 };
 
 const GameCard = ({ game }) => {
+    const navigation = useNavigation();
     return (
         <View
             style={{
@@ -40,103 +43,109 @@ const GameCard = ({ game }) => {
                 ...SHADOWS.dark,
             }}
         >
-            <View
-                style={{
-                    backgroundColor: game?.win ? COLORS.green : COLORS.red,
-                    height: '55%',
-                    width: '100%',
-                    borderTopLeftRadius: 20,
-                    borderTopRightRadius: 20,
-                }}
-                // style={[tw`h-2/4`]}
+            <TouchableWithoutFeedback
+                onPress={() => navigation.navigate('GameDetails', { game })}
             >
                 <View
                     style={{
-                        flexDirection: 'row',
-                        padding: SIZES.small,
-                        height: '100%',
+                        backgroundColor: game?.win ? COLORS.green : COLORS.red,
+                        height: '55%',
+                        width: '100%',
+                        borderTopLeftRadius: 20,
+                        borderTopRightRadius: 20,
                     }}
+                    // style={[tw`h-2/4`]}
                 >
                     <View
                         style={{
-                            flex: 1,
-                            flexDirection: 'column',
-                            alignContent: 'center',
-                            justifyContent: 'center',
+                            flexDirection: 'row',
+                            padding: SIZES.small,
+                            height: '100%',
                         }}
                     >
+                        <View
+                            style={{
+                                flex: 1,
+                                flexDirection: 'column',
+                                alignContent: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    color: game?.win
+                                        ? COLORS.darkGreen
+                                        : COLORS.darkRed,
+                                    fontStyle: 'italic',
+                                }}
+                            >
+                                {`${game.dayOfWeek}\n${game.date}\n${game.time}`}
+                            </Text>
+                        </View>
                         <Text
                             style={{
                                 color: game?.win
                                     ? COLORS.darkGreen
                                     : COLORS.darkRed,
-                                fontStyle: 'italic',
+                                fontSize: 76,
                             }}
-                        >
-                            {`${game.dayOfWeek}\n${game.date}\n${game.time}`}
-                        </Text>
+                        >{`${game.userScore} - ${game.oppScore}`}</Text>
                     </View>
-                    <Text
+                </View>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        height: '45%',
+                        alignItems: 'center',
+                    }}
+                >
+                    <View
                         style={{
-                            color: game?.win
-                                ? COLORS.darkGreen
-                                : COLORS.darkRed,
-                            fontSize: 76,
+                            flexDirection: 'column',
+                            height: '100%',
+                            justifyContent: 'center',
+                            paddingLeft: SIZES.small,
+                            width: '30%',
+                            left: 0,
                         }}
-                    >{`${game.userScore} - ${game.oppScore}`}</Text>
+                    >
+                        <PlayerNameAndPic
+                            player={game?.player1?.name}
+                            picSide={'right'}
+                            pic={game?.player1?.pic}
+                        />
+                        <PlayerNameAndPic
+                            player={game?.player2?.name}
+                            picSide={'right'}
+                            pic={game?.player2?.pic}
+                        />
+                    </View>
+                    <Text style={{ width: '40%', textAlign: 'center' }}>
+                        vs.
+                    </Text>
+                    <View
+                        style={{
+                            flexDirection: 'column',
+                            height: '100%',
+                            justifyContent: 'center',
+                            paddingRight: SIZES.small,
+                            width: '30%',
+                            right: 0,
+                        }}
+                    >
+                        <PlayerNameAndPic
+                            player={game?.player3?.name}
+                            picSide={'left'}
+                            pic={game?.player3?.pic}
+                        />
+                        <PlayerNameAndPic
+                            player={game?.player4?.name}
+                            picSide={'left'}
+                            pic={game?.player4?.pic}
+                        />
+                    </View>
                 </View>
-            </View>
-            <View
-                style={{
-                    flexDirection: 'row',
-                    height: '45%',
-                    alignItems: 'center',
-                }}
-            >
-                <View
-                    style={{
-                        flexDirection: 'column',
-                        height: '100%',
-                        justifyContent: 'center',
-                        paddingLeft: SIZES.small,
-                        width: '30%',
-                        left: 0,
-                    }}
-                >
-                    <PlayerNameAndPic
-                        player={game?.player1?.name}
-                        picSide={'right'}
-                        pic={game?.player1?.pic}
-                    />
-                    <PlayerNameAndPic
-                        player={game?.player2?.name}
-                        picSide={'right'}
-                        pic={game?.player2?.pic}
-                    />
-                </View>
-                <Text style={{ width: '40%', textAlign: 'center' }}>vs.</Text>
-                <View
-                    style={{
-                        flexDirection: 'column',
-                        height: '100%',
-                        justifyContent: 'center',
-                        paddingRight: SIZES.small,
-                        width: '30%',
-                        right: 0,
-                    }}
-                >
-                    <PlayerNameAndPic
-                        player={game?.player3?.name}
-                        picSide={'left'}
-                        pic={game?.player3?.pic}
-                    />
-                    <PlayerNameAndPic
-                        player={game?.player4?.name}
-                        picSide={'left'}
-                        pic={game?.player4?.pic}
-                    />
-                </View>
-            </View>
+            </TouchableWithoutFeedback>
         </View>
     );
 };

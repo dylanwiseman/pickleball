@@ -1,7 +1,7 @@
-import dylanImg from './assets/dylan.png';
-import kassImg from './assets/kass.png';
-import madsImg from './assets/mads.png';
-import jakeImg from './assets/jake.png';
+import tanjiroImg from './assets/tanjiro.png';
+import inosukeImg from './assets/inosuke.png';
+import nezukoImg from './assets/nezuko.png';
+import zenitsuImg from './assets/zenitsu.png';
 
 const data = [
     {
@@ -12,10 +12,10 @@ const data = [
         dayOfWeek: 'Saturday',
         date: 'Aug 20 2022',
         time: '5:13pm',
-        player1: { name: 'dylan', pic: dylanImg },
-        player2: { name: 'kass', pic: kassImg },
-        player3: { name: 'mads', pic: madsImg },
-        player4: { name: 'jake', pic: jakeImg },
+        player1: { name: 'tanjiro', pic: tanjiroImg },
+        player2: { name: 'inosuke', pic: inosukeImg },
+        player3: { name: 'nezuko', pic: nezukoImg },
+        player4: { name: 'zenitsu', pic: zenitsuImg },
     },
     {
         id: '2',
@@ -25,10 +25,10 @@ const data = [
         dayOfWeek: 'Saturday',
         date: 'Aug 20 2022',
         time: '6:45pm',
-        player1: { name: 'dylan', pic: dylanImg },
-        player2: { name: 'kass', pic: kassImg },
-        player3: { name: 'mads', pic: madsImg },
-        player4: { name: 'jake', pic: jakeImg },
+        player1: { name: 'tanjiro', pic: tanjiroImg },
+        player2: { name: 'inosuke', pic: inosukeImg },
+        player3: { name: 'nezuko', pic: nezukoImg },
+        player4: { name: 'zenitsu', pic: zenitsuImg },
     },
     {
         id: '3',
@@ -38,10 +38,23 @@ const data = [
         dayOfWeek: 'Saturday',
         date: 'Aug 20 2022',
         time: '5:13pm',
-        player1: { name: 'dylan', pic: dylanImg },
-        player2: { name: 'kass', pic: kassImg },
-        player3: { name: 'mads', pic: madsImg },
-        player4: { name: 'jake', pic: jakeImg },
+        player1: { name: 'tanjiro', pic: tanjiroImg },
+        player2: { name: 'inosuke', pic: inosukeImg },
+        player3: { name: 'nezuko', pic: nezukoImg },
+        player4: { name: 'zenitsu', pic: zenitsuImg },
+    },
+    {
+        id: '4',
+        userScore: 10,
+        oppScore: 12,
+        win: false,
+        dayOfWeek: 'Saturday',
+        date: 'Aug 20 2022',
+        time: '5:13pm',
+        player1: { name: 'tanjiro', pic: tanjiroImg },
+        player2: { name: 'inosuke', pic: inosukeImg },
+        player3: { name: 'nezuko', pic: nezukoImg },
+        player4: { name: 'zenitsu', pic: zenitsuImg },
     },
 ];
 
