@@ -6,6 +6,7 @@ import {
     Image,
     StyleSheet,
     FlatList,
+    Pressable,
 } from 'react-native';
 import React from 'react';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
@@ -255,6 +256,7 @@ const GameDetails = ({ route, navigation }: any) => {
                 <View>
                     <FlatList
                         style={{ paddingVertical: 30 }}
+                        scrollEnabled={false}
                         data={[player1, player2, player3, player4]}
                         renderItem={({ item }) => (
                             <PlayerStats
@@ -271,12 +273,46 @@ const GameDetails = ({ route, navigation }: any) => {
                         }}
                     />
                 </View>
-                <Button
-                    title="Home"
-                    onPress={() => {
-                        navigation.navigate('Home');
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        width: '100%',
+                        paddingHorizontal: 60,
+                        paddingTop: 40,
                     }}
-                ></Button>
+                >
+                    <Pressable
+                        onPress={() => {
+                            navigation.navigate('Home');
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: 'black',
+                                fontSize: 24,
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            REMATCH
+                        </Text>
+                    </Pressable>
+                    <Pressable
+                        onPress={() => {
+                            navigation.navigate('Home');
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: 'black',
+                                fontSize: 24,
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            HOME
+                        </Text>
+                    </Pressable>
+                </View>
             </View>
         </SafeAreaView>
     );

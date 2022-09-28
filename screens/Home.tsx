@@ -1,17 +1,19 @@
-import { View, SafeAreaView, FlatList } from 'react-native';
+import { View, SafeAreaView, FlatList, Text, Pressable } from 'react-native';
 import React from 'react';
 import placeholderData from '../placeholderData';
 import GameCard from '../components/GameCard';
 import HomeHeader from '../components/HomeHeader';
+import { SHADOWS } from '../constants/theme';
 
-const Home = () => {
+const Home = ({ route, navigation }: any) => {
     return (
         <SafeAreaView
             style={{
                 flex: 1,
+                position: 'relative',
             }}
         >
-            <View>
+            <View style={{ position: 'relative', overflow: 'hidden' }}>
                 <FlatList
                     stickyHeaderIndices={[0]}
                     data={placeholderData}
@@ -25,6 +27,34 @@ const Home = () => {
                     }}
                     ListHeaderComponent={<HomeHeader />}
                 />
+                <View
+                    style={{
+                        height: 60,
+                        width: '100%',
+                        backgroundColor: 'white',
+                        alignItems: 'center',
+                        position: 'absolute',
+                        bottom: 0,
+                        justifyContent: 'center',
+                        ...SHADOWS.dark,
+                    }}
+                >
+                    <Pressable
+                        onPress={() => {
+                            navigation.navigate('NewGame');
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: 'black',
+                                fontSize: 24,
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            NEW GAME
+                        </Text>
+                    </Pressable>
+                </View>
             </View>
         </SafeAreaView>
     );

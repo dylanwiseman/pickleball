@@ -1,11 +1,80 @@
-import { View, Text } from 'react-native';
-import React from 'react';
+import { View, Text, SafeAreaView, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { TextInput } from 'react-native-gesture-handler';
 
-const NewGame = () => {
+const NewGame = ({ route, navigation }: any) => {
+    const [player1, setPlayer1] = useState('');
+
     return (
-        <View>
-            <Text>NewGame</Text>
-        </View>
+        <SafeAreaView
+            style={{ width: '100%', backgroundColor: 'white', height: '100%' }}
+        >
+            <View style={{ paddingHorizontal: 40 }}>
+                <Text
+                    style={{
+                        color: 'black',
+                        fontSize: 24,
+                        fontWeight: 'bold',
+                    }}
+                >
+                    Team 1:
+                </Text>
+                <TextInput
+                    placeholder="Player 1"
+                    style={{
+                        width: '100%',
+                        borderColor: 'gray',
+                        borderWidth: 1,
+                        borderRadius: 5,
+                        height: 55,
+                        paddingHorizontal: 20,
+                        fontSize: 18,
+                    }}
+                    onChangeText={(text) => setPlayer1(text)}
+                    value={player1}
+                />
+            </View>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    width: '100%',
+                    paddingHorizontal: 60,
+                    paddingTop: 40,
+                }}
+            >
+                <Pressable
+                    onPress={() => {
+                        navigation.navigate('Home');
+                    }}
+                >
+                    <Text
+                        style={{
+                            color: 'black',
+                            fontSize: 24,
+                            fontWeight: 'bold',
+                        }}
+                    >
+                        BACK
+                    </Text>
+                </Pressable>
+                <Pressable
+                    onPress={() => {
+                        navigation.navigate('Home');
+                    }}
+                >
+                    <Text
+                        style={{
+                            color: 'black',
+                            fontSize: 24,
+                            fontWeight: 'bold',
+                        }}
+                    >
+                        NEXT
+                    </Text>
+                </Pressable>
+            </View>
+        </SafeAreaView>
     );
 };
 

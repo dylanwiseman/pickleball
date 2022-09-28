@@ -96,6 +96,7 @@ const GameCard = ({ game }: { game: any }) => {
                                     ? COLORS.darkGreen
                                     : COLORS.darkRed,
                                 fontSize: 76,
+                                fontWeight: 'bold',
                             }}
                         >{`${game.userScore} - ${game.oppScore}`}</Text>
                     </View>
