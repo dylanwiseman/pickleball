@@ -199,12 +199,12 @@ const GameDetails = ({ route, navigation }: any) => {
         <SafeAreaView
             style={{
                 flex: 1,
-                backgroundColor: COLORS.green,
+                backgroundColor: game?.win ? COLORS.green : COLORS.red,
             }}
         >
             <View
                 style={{
-                    backgroundColor: COLORS.green,
+                    backgroundColor: game?.win ? COLORS.green : COLORS.red,
                     height: 120,
                     justifyContent: 'space-evenly',
                     alignItems: 'center',
