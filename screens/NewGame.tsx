@@ -4,6 +4,9 @@ import { TextInput } from 'react-native-gesture-handler';
 
 const NewGame = ({ route, navigation }: any) => {
     const [player1, setPlayer1] = useState('');
+    const [player2, setPlayer2] = useState('');
+    const [player3, setPlayer3] = useState('');
+    const [player4, setPlayer4] = useState('');
 
     return (
         <SafeAreaView
@@ -32,6 +35,20 @@ const NewGame = ({ route, navigation }: any) => {
                     }}
                     onChangeText={(text) => setPlayer1(text)}
                     value={player1}
+                />
+                <TextInput
+                    placeholder="Player 2"
+                    style={{
+                        width: '100%',
+                        borderColor: 'gray',
+                        borderWidth: 1,
+                        borderRadius: 5,
+                        height: 55,
+                        paddingHorizontal: 20,
+                        fontSize: 18,
+                    }}
+                    onChangeText={(text) => setPlayer2(text)}
+                    value={player2}
                 />
             </View>
             <View
