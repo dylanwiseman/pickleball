@@ -294,7 +294,7 @@ const GameDetails = ({ route, navigation }: any) => {
                                 fontWeight: 'bold',
                             }}
                         >
-                            REMATCH
+                            HOME
                         </Text>
                     </Pressable>
                     <Pressable
@@ -309,7 +309,7 @@ const GameDetails = ({ route, navigation }: any) => {
                                 fontWeight: 'bold',
                             }}
                         >
-                            HOME
+                            REMATCH
                         </Text>
                     </Pressable>
                 </View>
