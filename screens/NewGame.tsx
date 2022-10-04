@@ -1,8 +1,16 @@
-import { View, Text, SafeAreaView, Pressable, StyleSheet } from 'react-native';
+import {
+    View,
+    Text,
+    SafeAreaView,
+    Pressable,
+    StyleSheet,
+    Dimensions,
+} from 'react-native';
 import React, { useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import InsetShadow from 'react-native-inset-shadow';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const NewGame = ({ route, navigation }: any) => {
     const [player1, setPlayer1] = useState('');
@@ -19,102 +27,128 @@ const NewGame = ({ route, navigation }: any) => {
                 justifyContent: 'center',
             }}
         >
-            <View
+            <KeyboardAwareScrollView
                 style={{
-                    paddingHorizontal: 40,
+                    height: Dimensions.get('window').height,
+                    width: Dimensions.get('window').width,
                 }}
+                contentContainerStyle={{ justifyContent: 'center' }}
             >
-                <Text
+                <View
                     style={{
-                        ...styles.text,
-                        marginBottom: 15,
+                        paddingHorizontal: 40,
+                        justifyContent: 'center',
                     }}
                 >
-                    Team 1:
-                </Text>
-                <View style={styles.shadowContainer}>
-                    <InsetShadow shadowRadius={3} bottom={false}>
-                        <TextInput
-                            placeholder="Player 1"
-                            style={styles.textInput}
-                            onChangeText={(text) => setPlayer1(text)}
-                            value={player1}
-                        />
-                    </InsetShadow>
-                </View>
-                <View style={styles.shadowContainer}>
-                    <InsetShadow shadowRadius={3} bottom={false}>
-                        <TextInput
-                            placeholder="Player 2"
-                            style={styles.textInput}
-                            onChangeText={(text) => setPlayer2(text)}
-                            value={player2}
-                        />
-                    </InsetShadow>
+                    <View
+                        style={{
+                            borderBottomColor: 'black',
+                            borderBottomWidth: 2,
+                            marginVertical: 40,
+                        }}
+                    >
+                        <Text
+                            style={{
+                                ...styles.text,
+                                marginBottom: 15,
+                            }}
+                        >
+                            Assign your teams
+                        </Text>
+                    </View>
+                    <Text
+                        style={{
+                            ...styles.text,
+                            marginBottom: 15,
+                        }}
+                    >
+                        Team 1:
+                    </Text>
+                    <View style={styles.shadowContainer}>
+                        <InsetShadow shadowRadius={3} bottom={false}>
+                            <TextInput
+                                placeholder="Player 1"
+                                style={styles.textInput}
+                                onChangeText={(text) => setPlayer1(text)}
+                                value={player1}
+                            />
+                        </InsetShadow>
+                    </View>
+                    <View style={styles.shadowContainer}>
+                        <InsetShadow shadowRadius={3} bottom={false}>
+                            <TextInput
+                                placeholder="Player 2"
+                                style={styles.textInput}
+                                onChangeText={(text) => setPlayer2(text)}
+                                value={player2}
+                            />
+                        </InsetShadow>
+                    </View>
+
+                    <Text
+                        style={{
+                            ...styles.text,
+                            textAlign: 'center',
+                            marginVertical: 20,
+                        }}
+                    >
+                        vs
+                    </Text>
+                    <Text
+                        style={{
+                            ...styles.text,
+                            marginBottom: 15,
+                        }}
+                    >
+                        Team 2:
+                    </Text>
+                    <View style={styles.shadowContainer}>
+                        <InsetShadow shadowRadius={3} bottom={false}>
+                            <TextInput
+                                placeholder="Player 3"
+                                style={styles.textInput}
+                                onChangeText={(text) => setPlayer3(text)}
+                                value={player3}
+                            />
+                        </InsetShadow>
+                    </View>
+                    <View style={styles.shadowContainer}>
+                        <InsetShadow shadowRadius={3} bottom={false}>
+                            <TextInput
+                                placeholder="Player 4"
+                                style={styles.textInput}
+                                onChangeText={(text) => setPlayer4(text)}
+                                value={player4}
+                            />
+                        </InsetShadow>
+                    </View>
                 </View>
 
-                <Text
+                <View
                     style={{
-                        ...styles.text,
-                        textAlign: 'center',
-                        marginVertical: 20,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        width: '100%',
+                        paddingHorizontal: 60,
+                        paddingTop: 40,
                     }}
                 >
-                    vs
-                </Text>
-                <Text
-                    style={{
-                        ...styles.text,
-                        marginBottom: 15,
-                    }}
-                >
-                    Team 2:
-                </Text>
-                <View style={styles.shadowContainer}>
-                    <InsetShadow shadowRadius={3} bottom={false}>
-                        <TextInput
-                            placeholder="Player 3"
-                            style={styles.textInput}
-                            onChangeText={(text) => setPlayer3(text)}
-                            value={player3}
-                        />
-                    </InsetShadow>
+                    <Pressable
+                        onPress={() => {
+                            navigation.navigate('Home');
+                        }}
+                    >
+                        <Text style={styles.text}>BACK</Text>
+                    </Pressable>
+                    <Pressable
+                        onPress={() => {
+                            navigation.navigate('Home');
+                        }}
+                    >
+                        <Text style={styles.text}>NEXT</Text>
+                    </Pressable>
                 </View>
-                <View style={styles.shadowContainer}>
-                    <InsetShadow shadowRadius={3} bottom={false}>
-                        <TextInput
-                            placeholder="Player 4"
-                            style={styles.textInput}
-                            onChangeText={(text) => setPlayer4(text)}
-                            value={player4}
-                        />
-                    </InsetShadow>
-                </View>
-            </View>
-            <View
-                style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    width: '100%',
-                    paddingHorizontal: 60,
-                    paddingTop: 40,
-                }}
-            >
-                <Pressable
-                    onPress={() => {
-                        navigation.navigate('Home');
-                    }}
-                >
-                    <Text style={styles.text}>BACK</Text>
-                </Pressable>
-                <Pressable
-                    onPress={() => {
-                        navigation.navigate('Home');
-                    }}
-                >
-                    <Text style={styles.text}>NEXT</Text>
-                </Pressable>
-            </View>
+            </KeyboardAwareScrollView>
         </SafeAreaView>
     );
 };
