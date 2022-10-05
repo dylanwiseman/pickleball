@@ -7,6 +7,7 @@ import { useFonts } from 'expo-font';
 import Home from './screens/Home';
 import GameDetails from './screens/GameDetails';
 import NewGame from './screens/NewGame';
+import ServeSelection from './screens/ServeSelection';
 
 export default function App() {
     const Stack = createStackNavigator();
@@ -27,6 +28,10 @@ export default function App() {
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="GameDetails" component={GameDetails} />
                 <Stack.Screen name="NewGame" component={NewGame} />
+                <Stack.Screen
+                    name="ServeSelection"
+                    component={ServeSelection}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );

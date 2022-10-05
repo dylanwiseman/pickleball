@@ -142,7 +142,7 @@ const NewGame = ({ route, navigation }: any) => {
                     </Pressable>
                     <Pressable
                         onPress={() => {
-                            navigation.navigate('Home');
+                            navigation.navigate('ServeSelection');
                         }}
                     >
                         <Text style={styles.text}>NEXT</Text>
