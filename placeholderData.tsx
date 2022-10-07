@@ -13,6 +13,7 @@ const data = [
         date: 'Aug 20 2022',
         time: '5:13pm',
         player1: {
+            index: 0,
             name: 'tanjiro',
             pic: tanjiroImg,
             plus: 10,
@@ -21,6 +22,7 @@ const data = [
             minusPoint: 3,
         },
         player2: {
+            index: 1,
             name: 'inosuke',
             pic: inosukeImg,
             plus: 9,
@@ -29,6 +31,7 @@ const data = [
             minusPoint: 3,
         },
         player3: {
+            index: 2,
             name: 'nezuko',
             pic: nezukoImg,
             plus: 4,
@@ -37,6 +40,7 @@ const data = [
             minusPoint: 3,
         },
         player4: {
+            index: 3,
             name: 'zenitsu',
             pic: zenitsuImg,
             plus: 5,

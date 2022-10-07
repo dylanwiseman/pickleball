@@ -5,28 +5,109 @@ import {
     Pressable,
     StyleSheet,
     Dimensions,
-    Image,
 } from 'react-native';
 import React, { useState } from 'react';
-import { TextInput } from 'react-native-gesture-handler';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
-import InsetShadow from 'react-native-inset-shadow';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import PlayerNameAndPic from '../components/PlayerNameAndPic';
 import placeholderData from '../placeholderData';
 
 const ServeSelection = ({ route, navigation }: any) => {
-    const [player1, setPlayer1] = useState('');
-    const [player2, setPlayer2] = useState('');
-    const [player3, setPlayer3] = useState('');
-    const [player4, setPlayer4] = useState('');
+    // const [player1, setPlayer1] = useState('');
+    // const [player2, setPlayer2] = useState('');
+    // const [player3, setPlayer3] = useState('');
+    // const [player4, setPlayer4] = useState('');
 
-    const [message, setMessage] = useState('Who is serving first?');
+    const [serveHighlight, setServeHighlight] = useState(4);
+    const [receiveHighlight, setReceiveHighlight] = useState(4);
 
-    const [firstServe, setFirstServe] = useState();
-    const [firstReceive, setFirstReceive] = useState();
+    const [firstServe, setFirstServe] = useState('');
+    const [firstReceive, setFirstReceive] = useState('');
 
     const game = placeholderData[0];
+
+    const handlePress = (index: number, playerName: string) => {
+        if (index === serveHighlight) {
+            setServeHighlight(4);
+            setFirstServe('');
+            setReceiveHighlight(4);
+            setFirstReceive('');
+        } else if (index === receiveHighlight) {
+            setReceiveHighlight(4);
+            setFirstReceive('');
+        } else if (serveHighlight === 4) {
+            setServeHighlight(index);
+            setFirstServe(playerName);
+        } else {
+            setReceiveHighlight(index);
+            setFirstReceive(playerName);
+        }
+    };
+
+    const team1Array = [game?.player1, game?.player2];
+    const team2Array = [game?.player3, game?.player4];
+
+    const createPlayerServeCards = (teamArray: any[]) => {
+        return teamArray.map((player: any, index: number) => {
+            console.log(player.i);
+            return (
+                <Pressable
+                    key={index}
+                    onPress={() => {
+                        handlePress(player.index, player.name);
+                    }}
+                >
+                    <View
+                        style={[
+                            {
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                width: '100%',
+                            },
+                            serveHighlight === player.index
+                                ? styles.highlight
+                                : receiveHighlight === player.index
+                                ? styles.highlightR
+                                : styles.playerBox,
+                        ]}
+                    >
+                        <PlayerNameAndPic
+                            player={player.name}
+                            picSide={'left'}
+                            pic={player.pic}
+                        />
+                        {serveHighlight === player.index && (
+                            <Text
+                                style={[
+                                    styles.text,
+                                    {
+                                        color: COLORS.darkGreen,
+                                        fontStyle: 'italic',
+                                    },
+                                ]}
+                            >
+                                SERVE
+                            </Text>
+                        )}
+                        {receiveHighlight === player.index && (
+                            <Text
+                                style={[
+                                    styles.text,
+                                    {
+                                        color: COLORS.darkRed,
+                                        fontStyle: 'italic',
+                                    },
+                                ]}
+                            >
+                                RECEIVE
+                            </Text>
+                        )}
+                    </View>
+                </Pressable>
+            );
+        });
+    };
 
     return (
         <SafeAreaView
@@ -63,7 +144,18 @@ const ServeSelection = ({ route, navigation }: any) => {
                                 marginBottom: 15,
                             }}
                         >
-                            {message}
+                            Who is{' '}
+                            <Text
+                                style={{
+                                    color:
+                                        serveHighlight === 4
+                                            ? COLORS.green
+                                            : COLORS.red,
+                                }}
+                            >
+                                {serveHighlight === 4 ? 'serving' : 'receiving'}
+                            </Text>{' '}
+                            first?
                         </Text>
                     </View>
                     <Text
@@ -74,36 +166,7 @@ const ServeSelection = ({ route, navigation }: any) => {
                     >
                         Team 1:
                     </Text>
-                    <Pressable>
-                        <View
-                            style={{
-                                ...SHADOWS.dark,
-                                backgroundColor: 'white',
-                                height: 65,
-                                marginBottom: 10,
-                                borderRadius: 7,
-                                alignItems: 'flex-start',
-                                justifyContent: 'center',
-                                paddingHorizontal: 20,
-                            }}
-                        >
-                            <PlayerNameAndPic
-                                player={game?.player1?.name}
-                                picSide={'left'}
-                                pic={game?.player1?.pic}
-                            />
-                        </View>
-                    </Pressable>
-                    <View style={styles.shadowContainer}>
-                        <InsetShadow shadowRadius={3} bottom={false}>
-                            <TextInput
-                                placeholder="Player 2"
-                                style={styles.textInput}
-                                onChangeText={(text) => setPlayer2(text)}
-                                value={player2}
-                            />
-                        </InsetShadow>
-                    </View>
+                    {createPlayerServeCards(team1Array)}
 
                     <Text
                         style={{
@@ -122,26 +185,7 @@ const ServeSelection = ({ route, navigation }: any) => {
                     >
                         Team 2:
                     </Text>
-                    <View style={styles.shadowContainer}>
-                        <InsetShadow shadowRadius={3} bottom={false}>
-                            <TextInput
-                                placeholder="Player 3"
-                                style={styles.textInput}
-                                onChangeText={(text) => setPlayer3(text)}
-                                value={player3}
-                            />
-                        </InsetShadow>
-                    </View>
-                    <View style={styles.shadowContainer}>
-                        <InsetShadow shadowRadius={3} bottom={false}>
-                            <TextInput
-                                placeholder="Player 4"
-                                style={styles.textInput}
-                                onChangeText={(text) => setPlayer4(text)}
-                                value={player4}
-                            />
-                        </InsetShadow>
-                    </View>
+                    {createPlayerServeCards(team2Array)}
                 </View>
 
                 <View
@@ -191,6 +235,35 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         borderColor: COLORS.green,
         borderWidth: 1,
+    },
+    playerBox: {
+        height: 65,
+        marginBottom: 10,
+        borderRadius: 7,
+        // alignItems: 'flex-start',
+        // justifyContent: 'center',
+        paddingHorizontal: 20,
+        ...SHADOWS.dark,
+        backgroundColor: 'white',
+    },
+    highlight: {
+        backgroundColor: COLORS.green,
+        height: 65,
+        marginBottom: 10,
+        borderRadius: 7,
+        paddingHorizontal: 20,
+    },
+    highlightR: {
+        backgroundColor: COLORS.red,
+        height: 65,
+        marginBottom: 10,
+        borderRadius: 7,
+        paddingHorizontal: 20,
+    },
+    playerPic: {
+        width: 40,
+        height: 40,
+        borderRadius: '50%',
     },
 });
 
