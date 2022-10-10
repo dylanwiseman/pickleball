@@ -13,10 +13,7 @@ import PlayerNameAndPic from '../components/PlayerNameAndPic';
 import placeholderData from '../placeholderData';
 
 const ServeSelection = ({ route, navigation }: any) => {
-    // const [player1, setPlayer1] = useState('');
-    // const [player2, setPlayer2] = useState('');
-    // const [player3, setPlayer3] = useState('');
-    // const [player4, setPlayer4] = useState('');
+    const { player1, player2, player3, player4 } = route.params;
 
     const [serveHighlight, setServeHighlight] = useState(4);
     const [receiveHighlight, setReceiveHighlight] = useState(4);
@@ -44,8 +41,8 @@ const ServeSelection = ({ route, navigation }: any) => {
         }
     };
 
-    const team1Array = [game?.player1, game?.player2];
-    const team2Array = [game?.player3, game?.player4];
+    const team1Array = [player1, player2];
+    const team2Array = [player3, player4];
 
     const createPlayerServeCards = (teamArray: any[]) => {
         return teamArray.map((player: any, index: number) => {
@@ -206,7 +203,7 @@ const ServeSelection = ({ route, navigation }: any) => {
                     </Pressable>
                     <Pressable
                         onPress={() => {
-                            navigation.navigate('Home');
+                            navigation.navigate('ScoreKeeper');
                         }}
                     >
                         <Text style={styles.text}>NEXT</Text>

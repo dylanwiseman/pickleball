@@ -174,4 +174,43 @@ const data = [
     },
 ];
 
+export const players = [
+    {
+        index: 0,
+        name: 'tanjiro',
+        pic: tanjiroImg,
+        plus: 10,
+        plusPoint: 5,
+        minus: 7,
+        minusPoint: 3,
+    },
+    {
+        index: 1,
+        name: 'inosuke',
+        pic: inosukeImg,
+        plus: 9,
+        plusPoint: 6,
+        minus: 5,
+        minusPoint: 3,
+    },
+    {
+        index: 2,
+        name: 'nezuko',
+        pic: nezukoImg,
+        plus: 4,
+        plusPoint: 2,
+        minus: 10,
+        minusPoint: 3,
+    },
+    {
+        index: 3,
+        name: 'zenitsu',
+        pic: zenitsuImg,
+        plus: 5,
+        plusPoint: 1,
+        minus: 6,
+        minusPoint: 4,
+    },
+];
+
 export default data;

@@ -8,6 +8,7 @@ import Home from './screens/Home';
 import GameDetails from './screens/GameDetails';
 import NewGame from './screens/NewGame';
 import ServeSelection from './screens/ServeSelection';
+import ScoreKeeper from './screens/ScoreKeeper';
 
 export default function App() {
     const Stack = createStackNavigator();
@@ -32,6 +33,7 @@ export default function App() {
                     name="ServeSelection"
                     component={ServeSelection}
                 />
+                <Stack.Screen name="ScoreKeeper" component={ScoreKeeper} />
             </Stack.Navigator>
         </NavigationContainer>
     );

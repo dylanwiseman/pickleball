@@ -11,12 +11,30 @@ import { TextInput } from 'react-native-gesture-handler';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import InsetShadow from 'react-native-inset-shadow';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { players } from '../placeholderData';
 
 const NewGame = ({ route, navigation }: any) => {
-    const [player1, setPlayer1] = useState('');
-    const [player2, setPlayer2] = useState('');
-    const [player3, setPlayer3] = useState('');
-    const [player4, setPlayer4] = useState('');
+    const [player1, setPlayer1] = useState({});
+    const [player1Name, setPlayer1Name] = useState('');
+    const [player2, setPlayer2] = useState({});
+    const [player3, setPlayer3] = useState({});
+    const [player4, setPlayer4] = useState({});
+
+    console.log(player1);
+
+    const getPlayer = (playerName: string) => {
+        console.log('looking for players: ', playerName);
+        let tempPlayer;
+        players.forEach((player) => {
+            console.log('checking player: ', player.name);
+            if (player.name === playerName) {
+                console.log('found!');
+                tempPlayer = player;
+                return;
+            }
+        });
+        return tempPlayer;
+    };
 
     return (
         <SafeAreaView
@@ -69,8 +87,12 @@ const NewGame = ({ route, navigation }: any) => {
                             <TextInput
                                 placeholder="Player 1"
                                 style={styles.textInput}
-                                onChangeText={(text) => setPlayer1(text)}
-                                value={player1}
+                                onChangeText={(text) => setPlayer1Name(text)}
+                                value={player1Name}
+                                onBlur={() => {
+                                    console.log(player1Name);
+                                    setPlayer1(getPlayer(player1Name));
+                                }}
                             />
                         </InsetShadow>
                     </View>
@@ -142,7 +164,12 @@ const NewGame = ({ route, navigation }: any) => {
                     </Pressable>
                     <Pressable
                         onPress={() => {
-                            navigation.navigate('ServeSelection');
+                            navigation.navigate('ServeSelection', {
+                                player1,
+                                player2,
+                                player3,
+                                player4,
+                            });
                         }}
                     >
                         <Text style={styles.text}>NEXT</Text>
