@@ -10,34 +10,23 @@ import React, { useState } from 'react';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import PlayerNameAndPic from '../components/PlayerNameAndPic';
-import placeholderData from '../placeholderData';
 
 const ServeSelection = ({ route, navigation }: any) => {
     const { player1, player2, player3, player4 } = route.params;
 
-    const [serveHighlight, setServeHighlight] = useState(4);
-    const [receiveHighlight, setReceiveHighlight] = useState(4);
+    const [firstServe, setFirstServe] = useState(0);
+    const [firstReceive, setFirstReceive] = useState(0);
 
-    const [firstServe, setFirstServe] = useState('');
-    const [firstReceive, setFirstReceive] = useState('');
-
-    const game = placeholderData[0];
-
-    const handlePress = (index: number, playerName: string) => {
-        if (index === serveHighlight) {
-            setServeHighlight(4);
-            setFirstServe('');
-            setReceiveHighlight(4);
-            setFirstReceive('');
-        } else if (index === receiveHighlight) {
-            setReceiveHighlight(4);
-            setFirstReceive('');
-        } else if (serveHighlight === 4) {
-            setServeHighlight(index);
-            setFirstServe(playerName);
+    const handlePress = (playerId: number) => {
+        if (playerId === firstServe) {
+            setFirstServe(0);
+            setFirstReceive(0);
+        } else if (playerId === firstReceive) {
+            setFirstReceive(0);
+        } else if (firstServe === 0) {
+            setFirstServe(playerId);
         } else {
-            setReceiveHighlight(index);
-            setFirstReceive(playerName);
+            setFirstReceive(playerId);
         }
     };
 
@@ -50,7 +39,7 @@ const ServeSelection = ({ route, navigation }: any) => {
                 <Pressable
                     key={index}
                     onPress={() => {
-                        handlePress(player.index, player.name);
+                        handlePress(player.id);
                     }}
                 >
                     <View
@@ -61,9 +50,9 @@ const ServeSelection = ({ route, navigation }: any) => {
                                 alignItems: 'center',
                                 width: '100%',
                             },
-                            serveHighlight === player.index
+                            firstServe === player.id
                                 ? styles.highlight
-                                : receiveHighlight === player.index
+                                : firstReceive === player.id
                                 ? styles.highlightR
                                 : styles.playerBox,
                         ]}
@@ -73,7 +62,7 @@ const ServeSelection = ({ route, navigation }: any) => {
                             picSide={'left'}
                             pic={player.pic}
                         />
-                        {serveHighlight === player.index && (
+                        {firstServe === player.id && (
                             <Text
                                 style={[
                                     styles.text,
@@ -86,7 +75,7 @@ const ServeSelection = ({ route, navigation }: any) => {
                                 SERVE
                             </Text>
                         )}
-                        {receiveHighlight === player.index && (
+                        {firstReceive === player.id && (
                             <Text
                                 style={[
                                     styles.text,
@@ -144,12 +133,12 @@ const ServeSelection = ({ route, navigation }: any) => {
                             <Text
                                 style={{
                                     color:
-                                        serveHighlight === 4
+                                        firstServe === 0
                                             ? COLORS.green
                                             : COLORS.red,
                                 }}
                             >
-                                {serveHighlight === 4 ? 'serving' : 'receiving'}
+                                {firstServe === 0 ? 'serving' : 'receiving'}
                             </Text>{' '}
                             first?
                         </Text>
@@ -202,7 +191,16 @@ const ServeSelection = ({ route, navigation }: any) => {
                     </Pressable>
                     <Pressable
                         onPress={() => {
-                            navigation.navigate('ScoreKeeper');
+                            navigation.navigate('ScoreKeeper', {
+                                player1,
+                                player2,
+                                player3,
+                                player4,
+                                team1Array,
+                                team2Array,
+                                firstServe,
+                                firstReceive,
+                            });
                         }}
                     >
                         <Text style={styles.text}>NEXT</Text>

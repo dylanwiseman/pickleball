@@ -27,7 +27,7 @@ const NewGame = ({ route, navigation }: any) => {
     const getPlayer = (playerName: string) => {
         let tempPlayer;
         players.forEach((player) => {
-            if (player.name === playerName) {
+            if (player.name === playerName.toLowerCase()) {
                 tempPlayer = player;
                 return;
             }
@@ -177,25 +177,83 @@ const NewGame = ({ route, navigation }: any) => {
                     >
                         Team 2:
                     </Text>
-                    <View style={styles.shadowContainer}>
-                        <InsetShadow shadowRadius={3} bottom={false}>
-                            <TextInput
-                                placeholder="Player 3"
-                                style={styles.textInput}
-                                onChangeText={(text) => setPlayer3(text)}
-                                value={player3}
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                        }}
+                    >
+                        <View
+                            style={{
+                                ...styles.shadowContainer,
+                                backgroundColor: player3?.name
+                                    ? COLORS.green
+                                    : 'white',
+                            }}
+                        >
+                            <InsetShadow
+                                shadowRadius={player3?.name ? 0 : 3}
+                                bottom={false}
+                            >
+                                <TextInput
+                                    placeholder="Player 3"
+                                    style={styles.textInput}
+                                    onChangeText={(text) =>
+                                        setPlayer3Name(text)
+                                    }
+                                    value={player3Name}
+                                    onBlur={() => {
+                                        setPlayer3(getPlayer(player3Name));
+                                    }}
+                                />
+                            </InsetShadow>
+                        </View>
+                        {player3?.pic ? (
+                            <Image
+                                source={player3?.pic}
+                                style={styles.playerPic}
                             />
-                        </InsetShadow>
+                        ) : (
+                            ''
+                        )}
                     </View>
-                    <View style={styles.shadowContainer}>
-                        <InsetShadow shadowRadius={3} bottom={false}>
-                            <TextInput
-                                placeholder="Player 4"
-                                style={styles.textInput}
-                                onChangeText={(text) => setPlayer4(text)}
-                                value={player4}
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                        }}
+                    >
+                        <View
+                            style={{
+                                ...styles.shadowContainer,
+                                backgroundColor: player4?.name
+                                    ? COLORS.green
+                                    : 'white',
+                            }}
+                        >
+                            <InsetShadow
+                                shadowRadius={player4?.name ? 0 : 3}
+                                bottom={false}
+                            >
+                                <TextInput
+                                    placeholder="Player 4"
+                                    style={styles.textInput}
+                                    onChangeText={(text) =>
+                                        setPlayer4Name(text)
+                                    }
+                                    value={player4Name}
+                                    onBlur={() => {
+                                        setPlayer4(getPlayer(player4Name));
+                                    }}
+                                />
+                            </InsetShadow>
+                        </View>
+                        {player4?.pic ? (
+                            <Image
+                                source={player4?.pic}
+                                style={styles.playerPic}
                             />
-                        </InsetShadow>
+                        ) : (
+                            ''
+                        )}
                     </View>
                 </View>
 

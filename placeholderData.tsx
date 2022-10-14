@@ -176,7 +176,7 @@ const data = [
 
 export const players = [
     {
-        index: 0,
+        id: 4,
         name: 'tanjiro',
         pic: tanjiroImg,
         plus: 10,
@@ -185,7 +185,7 @@ export const players = [
         minusPoint: 3,
     },
     {
-        index: 1,
+        id: 1,
         name: 'inosuke',
         pic: inosukeImg,
         plus: 9,
@@ -194,7 +194,7 @@ export const players = [
         minusPoint: 3,
     },
     {
-        index: 2,
+        id: 2,
         name: 'nezuko',
         pic: nezukoImg,
         plus: 4,
@@ -203,7 +203,7 @@ export const players = [
         minusPoint: 3,
     },
     {
-        index: 3,
+        id: 3,
         name: 'zenitsu',
         pic: zenitsuImg,
         plus: 5,
