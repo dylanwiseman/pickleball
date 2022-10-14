@@ -5,6 +5,7 @@ import {
     Pressable,
     StyleSheet,
     Dimensions,
+    Image,
 } from 'react-native';
 import React, { useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
@@ -17,18 +18,16 @@ const NewGame = ({ route, navigation }: any) => {
     const [player1, setPlayer1] = useState({});
     const [player1Name, setPlayer1Name] = useState('');
     const [player2, setPlayer2] = useState({});
+    const [player2Name, setPlayer2Name] = useState('');
     const [player3, setPlayer3] = useState({});
+    const [player3Name, setPlayer3Name] = useState('');
     const [player4, setPlayer4] = useState({});
-
-    console.log(player1);
+    const [player4Name, setPlayer4Name] = useState('');
 
     const getPlayer = (playerName: string) => {
-        console.log('looking for players: ', playerName);
         let tempPlayer;
         players.forEach((player) => {
-            console.log('checking player: ', player.name);
             if (player.name === playerName) {
-                console.log('found!');
                 tempPlayer = player;
                 return;
             }
@@ -82,29 +81,83 @@ const NewGame = ({ route, navigation }: any) => {
                     >
                         Team 1:
                     </Text>
-                    <View style={styles.shadowContainer}>
-                        <InsetShadow shadowRadius={3} bottom={false}>
-                            <TextInput
-                                placeholder="Player 1"
-                                style={styles.textInput}
-                                onChangeText={(text) => setPlayer1Name(text)}
-                                value={player1Name}
-                                onBlur={() => {
-                                    console.log(player1Name);
-                                    setPlayer1(getPlayer(player1Name));
-                                }}
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                        }}
+                    >
+                        <View
+                            style={{
+                                ...styles.shadowContainer,
+                                backgroundColor: player1?.name
+                                    ? COLORS.green
+                                    : 'white',
+                            }}
+                        >
+                            <InsetShadow
+                                shadowRadius={player1?.name ? 0 : 3}
+                                bottom={false}
+                            >
+                                <TextInput
+                                    placeholder="Player 1"
+                                    style={styles.textInput}
+                                    onChangeText={(text) =>
+                                        setPlayer1Name(text)
+                                    }
+                                    value={player1Name}
+                                    onBlur={() => {
+                                        setPlayer1(getPlayer(player1Name));
+                                    }}
+                                />
+                            </InsetShadow>
+                        </View>
+                        {player1?.pic ? (
+                            <Image
+                                source={player1.pic}
+                                style={styles.playerPic}
                             />
-                        </InsetShadow>
+                        ) : (
+                            ''
+                        )}
                     </View>
-                    <View style={styles.shadowContainer}>
-                        <InsetShadow shadowRadius={3} bottom={false}>
-                            <TextInput
-                                placeholder="Player 2"
-                                style={styles.textInput}
-                                onChangeText={(text) => setPlayer2(text)}
-                                value={player2}
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                        }}
+                    >
+                        <View
+                            style={{
+                                ...styles.shadowContainer,
+                                backgroundColor: player2?.name
+                                    ? COLORS.green
+                                    : 'white',
+                            }}
+                        >
+                            <InsetShadow
+                                shadowRadius={player2?.name ? 0 : 3}
+                                bottom={false}
+                            >
+                                <TextInput
+                                    placeholder="Player 2"
+                                    style={styles.textInput}
+                                    onChangeText={(text) =>
+                                        setPlayer2Name(text)
+                                    }
+                                    value={player2Name}
+                                    onBlur={() => {
+                                        setPlayer2(getPlayer(player2Name));
+                                    }}
+                                />
+                            </InsetShadow>
+                        </View>
+                        {player2?.pic ? (
+                            <Image
+                                source={player2.pic}
+                                style={styles.playerPic}
                             />
-                        </InsetShadow>
+                        ) : (
+                            ''
+                        )}
                     </View>
 
                     <Text
@@ -192,13 +245,19 @@ const styles = StyleSheet.create({
     },
     text: { color: 'black', fontSize: 24, fontWeight: 'bold' },
     shadowContainer: {
-        width: '100%',
+        width: '80%',
         height: 55,
         marginBottom: 10,
+        marginRight: 25,
         borderRadius: 7,
         overflow: 'hidden',
         borderColor: COLORS.green,
         borderWidth: 1,
+    },
+    playerPic: {
+        width: 55,
+        height: 55,
+        borderRadius: '50%',
     },
 });
 

@@ -46,7 +46,6 @@ const ServeSelection = ({ route, navigation }: any) => {
 
     const createPlayerServeCards = (teamArray: any[]) => {
         return teamArray.map((player: any, index: number) => {
-            console.log(player.i);
             return (
                 <Pressable
                     key={index}

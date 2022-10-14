@@ -184,7 +184,6 @@ const PlayerStats = ({
 
 const GameDetails = ({ route, navigation }: any) => {
     const { game } = route.params;
-    console.log(game);
     const { player1, player2, player3, player4 } = game;
     let maxContribution: number = Math.max(
         player1.plus,
