@@ -10,6 +10,7 @@ import React, { useState } from 'react';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import PlayerNameAndPic from '../components/PlayerNameAndPic';
+import Game from '../data-structures/game';
 
 const ServeSelection = ({ route, navigation }: any) => {
     const { player1, player2, player3, player4 } = route.params;
@@ -191,7 +192,16 @@ const ServeSelection = ({ route, navigation }: any) => {
                     </Pressable>
                     <Pressable
                         onPress={() => {
+                            const game = new Game(
+                                player1,
+                                player2,
+                                player3,
+                                player4,
+                                firstReceive,
+                                firstServe
+                            );
                             navigation.navigate('ScoreKeeper', {
+                                game,
                                 player1,
                                 player2,
                                 player3,

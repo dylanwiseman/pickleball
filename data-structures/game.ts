@@ -1,67 +1,57 @@
-import { TabBarIOS } from 'react-native';
-
 class Game {
-    player1: {
-        name: string;
-        plus: number;
-        plusPoint: number;
-        minus: number;
-        minusPoint: number;
-    };
-    player2: {
-        name: string;
-        plus: number;
-        plusPoint: number;
-        minus: number;
-        minusPoint: number;
-    };
-    player3: {
-        name: string;
-        plus: number;
-        plusPoint: number;
-        minus: number;
-        minusPoint: number;
-    };
-    player4: {
-        name: string;
-        plus: number;
-        plusPoint: number;
-        minus: number;
-        minusPoint: number;
-    };
-    team1Score: number = 0;
-    team2Score: number = 0;
+    player1: any;
+    player2: any;
+    player3: any;
+    player4: any;
+    team1Score: number = 1;
+    team2Score: number = 1;
     serveIndex: number = 0;
-    firstRecieve: number = 2;
-    playerArray: any;
+    firstServe: number;
+    firstRecieve: number;
+    playerArray: any[];
 
-    constructor(p1: string, p2: string, p3: string, p4: string) {
-        this.player1.name = p1;
-        this.player1.plus = 0;
-        this.player1.plusPoint = 0;
-        this.player1.minus = 0;
-        this.player1.minusPoint = 0;
-        this.player2.name = p2;
-        this.player2.plus = 0;
-        this.player2.plusPoint = 0;
-        this.player2.minus = 0;
-        this.player2.minusPoint = 0;
-        this.player3.name = p3;
-        this.player3.plus = 0;
-        this.player3.plusPoint = 0;
-        this.player3.minus = 0;
-        this.player3.minusPoint = 0;
-        this.player4.name = p4;
-        this.player4.plus = 0;
-        this.player4.plusPoint = 0;
-        this.player4.minus = 0;
-        this.player4.minusPoint = 0;
+    constructor(p1: any, p2: any, p3: any, p4: any, f1: number, r1: number) {
+        if (Game.instance) return Game.instance;
+        Game.instance = this;
+        this.player1 = {
+            ...p1,
+            plus: 0,
+            plusPoint: 0,
+            minus: 0,
+            minusPoint: 0,
+        };
+        this.player2 = {
+            ...p2,
+            plus: 0,
+            plusPoint: 0,
+            minus: 0,
+            minusPoint: 0,
+        };
+        this.player3 = {
+            ...p3,
+            plus: 0,
+            plusPoint: 0,
+            minus: 0,
+            minusPoint: 0,
+        };
+        this.player4 = {
+            ...p4,
+            plus: 0,
+            plusPoint: 0,
+            minus: 0,
+            minusPoint: 0,
+        };
         this.playerArray = [
             this.player1,
             this.player2,
             this.player3,
             this.player4,
         ];
+        this.firstServe = f1;
+        this.firstRecieve = r1;
+    }
+    getScore(team: number) {
+        return team === 1 ? this.team1Score : this.team2Score;
     }
     nextServe() {
         if (this.serveIndex === 3) {
@@ -96,3 +86,5 @@ class Game {
         }
     }
 }
+
+export default Game;

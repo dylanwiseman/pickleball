@@ -7,18 +7,47 @@ import {
     FlatList,
     Pressable,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import placeholderData from '../placeholderData';
+import Game from '../data-structures/game';
 
 const ScoreKeeper = ({ route, navigation }: any) => {
-    const playerData = placeholderData[0];
-    const { player1, player2, player3, player4 } = playerData;
+    const {
+        player1,
+        player2,
+        player3,
+        player4,
+        team1Array,
+        team2Array,
+        firstServe,
+        firstReceive,
+        game,
+    } = route.params;
 
     // Game States:
     const [team1Score, setTeam1Score] = useState(0);
     const [team2Score, setTeam2Score] = useState(0);
     const [serveIndex, setServeIndex] = useState();
+
+    // const [servingObject, setServingObject]= useState({
+    //     initial: true,
+    //     1: firstServe,
+    //     2:
+    // })
+    // let game: any;
+    // useEffect(() => {
+    //     game = new Game(
+    //         player1,
+    //         player2,
+    //         player3,
+    //         player4,
+    //         firstReceive,
+    //         firstServe
+    //     );
+    // }, []);
+
+    const handlePress = (plus: boolean, player: any) => {};
 
     return (
         <SafeAreaView
@@ -43,14 +72,8 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                         alignItems: 'center',
                     }}
                 >
-                    <Image
-                        source={playerData?.player1.pic}
-                        style={styles.playerPic}
-                    />
-                    <Image
-                        source={playerData?.player2.pic}
-                        style={styles.playerPic}
-                    />
+                    <Image source={player1.pic} style={styles.playerPic} />
+                    <Image source={player2.pic} style={styles.playerPic} />
                 </View>
                 <Text
                     style={{
@@ -58,7 +81,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                         fontSize: 76,
                         fontWeight: 'bold',
                     }}
-                >{`${playerData?.userScore} - ${playerData?.oppScore}`}</Text>
+                >{`${game?.getScore(1)} - ${game.getScore(2)}`}</Text>
                 <View
                     style={{
                         flexDirection: 'column',
@@ -66,36 +89,76 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                         alignItems: 'center',
                     }}
                 >
-                    <Image
-                        source={playerData?.player3.pic}
-                        style={styles.playerPic}
-                    />
-                    <Image
-                        source={playerData?.player4.pic}
-                        style={styles.playerPic}
-                    />
+                    <Image source={player3.pic} style={styles.playerPic} />
+                    <Image source={player4.pic} style={styles.playerPic} />
                 </View>
             </View>
             <View style={{ backgroundColor: 'white', height: '100%' }}>
-                <View>
-                    {/* <FlatList
-                        style={{ paddingVertical: 30 }}
-                        scrollEnabled={false}
-                        data={[player1, player2, player3, player4]}
-                        renderItem={({ item }) => (
-                            <PlayerStats
-                                player={item}
-                                maxContribution={maxContribution}
-                            />
-                        )}
-                        // keyExtractor={(item) => item.id}
-                        showsVerticalScrollIndicator={false}
-                        contentContainerStyle={{
-                            flexGrow: 1,
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-evenly',
+                        alignItems: 'center',
+                        height: 100,
+                    }}
+                >
+                    <View
+                        style={{
+                            flexDirection: 'column',
                             justifyContent: 'center',
-                            width: '100%',
+                            alignItems: 'center',
                         }}
-                    /> */}
+                    >
+                        <Image source={player1.pic} style={styles.playerPic} />
+                        <Text>{player1.name}</Text>
+                    </View>
+                    <Pressable
+                        style={{
+                            width: '30%',
+                            backgroundColor: COLORS.green,
+                            height: '100%',
+                            borderRadius: 10,
+                            ...SHADOWS.dark,
+                        }}
+                        onPress={() => {
+                            handlePress(true, player1);
+                        }}
+                    >
+                        <Text
+                            style={{
+                                width: '100%',
+                                textAlign: 'center',
+                                fontSize: 72,
+                                fontWeight: 'bold',
+                                color: COLORS.darkGreen,
+                                marginVertical: 'auto',
+                            }}
+                        >
+                            +
+                        </Text>
+                    </Pressable>
+                    <Pressable
+                        style={{
+                            width: '30%',
+                            backgroundColor: COLORS.red,
+                            height: '100%',
+                            borderRadius: 10,
+                            ...SHADOWS.dark,
+                        }}
+                    >
+                        <Text
+                            style={{
+                                width: '100%',
+                                textAlign: 'center',
+                                fontSize: 72,
+                                fontWeight: 'bold',
+                                color: COLORS.darkRed,
+                                marginVertical: 'auto',
+                            }}
+                        >
+                            -
+                        </Text>
+                    </Pressable>
                 </View>
                 <View
                     style={{
