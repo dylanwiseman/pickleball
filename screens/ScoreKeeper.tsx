@@ -94,6 +94,56 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                 serveObject[4] = serveObject[3];
                 serveObject[3] = serveObject.temp;
             }
+        } else {
+            if (
+                serveObject.currentServeIndex === 1 &&
+                serveObject.firstOrSecond === 'first'
+            ) {
+                serveObject.currentServeIndex = 2;
+                serveObject.currentServerId = serveObject[2];
+            } else if (
+                serveObject.currentServeIndex === 1 &&
+                serveObject.firstOrSecond === 'second'
+            ) {
+                serveObject.currentServeIndex = 3;
+                serveObject.currentServerId = serveObject[3];
+            } else if (
+                serveObject.currentServeIndex === 2 &&
+                serveObject.firstOrSecond === 'first'
+            ) {
+                serveObject.currentServeIndex = 1;
+                serveObject.currentServerId = serveObject[1];
+            } else if (
+                serveObject.currentServeIndex === 2 &&
+                serveObject.firstOrSecond === 'second'
+            ) {
+                serveObject.currentServeIndex = 3;
+                serveObject.currentServerId = serveObject[3];
+            } else if (
+                serveObject.currentServeIndex === 3 &&
+                serveObject.firstOrSecond === 'first'
+            ) {
+                serveObject.currentServeIndex = 4;
+                serveObject.currentServerId = serveObject[4];
+            } else if (
+                serveObject.currentServeIndex === 3 &&
+                serveObject.firstOrSecond === 'second'
+            ) {
+                serveObject.currentServeIndex = 1;
+                serveObject.currentServerId = serveObject[1];
+            } else if (
+                serveObject.currentServeIndex === 4 &&
+                serveObject.firstOrSecond === 'first'
+            ) {
+                serveObject.currentServeIndex = 3;
+                serveObject.currentServerId = serveObject[3];
+            } else if (
+                serveObject.currentServeIndex === 4 &&
+                serveObject.firstOrSecond === 'second'
+            ) {
+                serveObject.currentServeIndex = 1;
+                serveObject.currentServerId = serveObject[1];
+            }
         }
     };
 
@@ -117,18 +167,26 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                     nextServe(false);
                 }
             }
-
-            if (serveObject.currentServerId === player.id) {
-                player.plusPoint++;
-                if (team1Array.includes(player.id)) {
-                    setTeam1Score(team1Score + 1);
+        } else {
+            player.minus++;
+            if (team1Array.includes(player.id)) {
+                if (team1Array.includes(serveObject.currentServerId)) {
+                    nextServe(false);
                 } else {
+                    player.minusPoint++;
                     setTeam2Score(team2Score + 1);
+                    nextServe(true);
+                }
+            } else {
+                if (team2Array.includes(serveObject.currentServerId)) {
+                    nextServe(false);
+                } else {
+                    setTeam1Score(team1Score + 1);
+                    player.minusPoint++;
+                    nextServe(true);
                 }
             }
         }
-        setTeam1Score(team1Score + 1);
-        // game.point(plus, player);
     };
 
     return (
