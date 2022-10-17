@@ -61,21 +61,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
     const [backhand2, setBackhand2] = useState(receivingTeamSecond);
     let temp: number = 0;
 
-    // const serveObject: {
-    //     1: number;
-    //     2: number;
-    //     3: number;
-    //     4: number;
-    //     temp: number;
-    // } = {
-    //     // firstOrSecond: 'second',
-    //     1: firstServe,
-    //     2: servingTeamSecond,
-    //     3: firstReceive,
-    //     4: receivingTeamSecond,
-    //     temp: 0,
-    // };
-    // console.log('serveObject: ', serveObject);
+    const pointArray: any[] = [];
 
     const nextServe = (servingTeamScored: boolean) => {
         console.log('------------LAST SERVE--------------');
@@ -163,6 +149,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
     };
 
     const handlePress = (player: any, plus: boolean) => {
+        let point: boolean = false;
         console.log('---------------------------');
         console.log('***************************');
         console.log('POINT: player: ', player, 'plus: ', plus);
@@ -179,6 +166,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                 if (team1Array.includes(serverId)) {
                     setTeam1Score(team1Score + 1);
                     player.plusPoint++;
+                    point = true;
                     console.log('player plus point: ', player.plusPoint);
                     nextServe(true);
                 } else {
@@ -200,6 +188,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                     nextServe(false);
                 } else {
                     player.minusPoint++;
+                    point = true;
                     setTeam2Score(team2Score + 1);
                     nextServe(true);
                 }
@@ -213,6 +202,50 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                 }
             }
         }
+        let pointArrayObject = {
+            point,
+            plus,
+            playerId: player.id,
+            team1Score,
+            team2Score,
+            serveIndex,
+            serverId,
+            firstOrSecond,
+            forehand1,
+            backhand1,
+            forehand2,
+            backhand2,
+        };
+        pointArray.push(pointArrayObject);
+    };
+
+    const undo = () => {
+        if (pointArray.length === 0) return false;
+        [player1, player2, player3, player4].forEach((player) => {
+            if (player.id === pointArray[pointArray.length - 1].playerId) {
+                if (pointArray[pointArray.length - 1].plus) {
+                    player.plus--;
+                    if (pointArray[pointArray.length - 1].point) {
+                        player.plusPoint--;
+                    }
+                } else {
+                    player.minus--;
+                    if (pointArray[pointArray.length - 1].point) {
+                        player.minusPoint--;
+                    }
+                }
+            }
+        });
+        pointArray.pop();
+        setTeam1Score(pointArray[pointArray.length - 1].team1Score);
+        setTeam2Score(pointArray[pointArray.length - 1].team2Score);
+        setServeIndex(pointArray[pointArray.length - 1].serveIndex);
+        setServerId(pointArray[pointArray.length - 1].serverId);
+        setFirstOrSecond(pointArray[pointArray.length - 1].firstOrSecond);
+        setForehand1(pointArray[pointArray.length - 1].forehand1);
+        setForehand2(pointArray[pointArray.length - 1].forehand2);
+        setBackhand1(pointArray[pointArray.length - 1].backhand1);
+        setBackhand1(pointArray[pointArray.length - 1].backhand2);
     };
 
     const returnPlayerButtons = (player: any, index: number) => {
@@ -413,7 +446,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                     </Pressable>
                     <Pressable
                         onPress={() => {
-                            navigation.navigate('Home');
+                            undo();
                         }}
                     >
                         <Text
