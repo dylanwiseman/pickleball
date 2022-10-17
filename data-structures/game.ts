@@ -61,29 +61,30 @@ class Game {
         }
     }
     point(playerIndex: number, plus: boolean) {
-        if (plus) {
-            if (
-                (playerIndex <= 1 && this.serveIndex <= 1) ||
-                (playerIndex >= 2 && this.serveIndex >= 2)
-            ) {
-                this.playerArray[playerIndex].plusPoint++;
-                playerIndex <= 1 ? this.team1Score : this.team2Score++;
-            } else {
-                this.nextServe();
-            }
-            this.playerArray[playerIndex].plus++;
-        } else {
-            if (
-                (playerIndex <= 1 && this.serveIndex >= 2) ||
-                (playerIndex >= 2 && this.serveIndex <= 1)
-            ) {
-                this.playerArray[playerIndex].minusPoint++;
-                playerIndex <= 1 ? this.team2Score : this.team1Score++;
-            } else {
-                this.nextServe();
-            }
-            this.playerArray[playerIndex].minus++;
-        }
+        // if (plus) {
+        //     if (
+        //         (playerIndex <= 1 && this.serveIndex <= 1) ||
+        //         (playerIndex >= 2 && this.serveIndex >= 2)
+        //     ) {
+        //         this.playerArray[playerIndex].plusPoint++;
+        //         playerIndex <= 1 ? this.team1Score : this.team2Score++;
+        //     } else {
+        //         this.nextServe();
+        //     }
+        //     this.playerArray[playerIndex].plus++;
+        // } else {
+        //     if (
+        //         (playerIndex <= 1 && this.serveIndex >= 2) ||
+        //         (playerIndex >= 2 && this.serveIndex <= 1)
+        //     ) {
+        //         this.playerArray[playerIndex].minusPoint++;
+        //         playerIndex <= 1 ? this.team2Score : this.team1Score++;
+        //     } else {
+        //         this.nextServe();
+        //     }
+        //     this.playerArray[playerIndex].minus++;
+        // }
+        this.team1Score++;
     }
 }
 

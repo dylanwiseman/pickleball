@@ -23,31 +23,113 @@ const ScoreKeeper = ({ route, navigation }: any) => {
         firstServe,
         firstReceive,
         game,
-    } = route.params;
+    } = route?.params;
 
     // Game States:
     const [team1Score, setTeam1Score] = useState(0);
     const [team2Score, setTeam2Score] = useState(0);
-    const [serveIndex, setServeIndex] = useState();
+    const [serveIndex, setServeIndex] = useState(0);
 
-    // const [servingObject, setServingObject]= useState({
-    //     initial: true,
-    //     1: firstServe,
-    //     2:
-    // })
-    // let game: any;
-    // useEffect(() => {
-    //     game = new Game(
-    //         player1,
-    //         player2,
-    //         player3,
-    //         player4,
-    //         firstReceive,
-    //         firstServe
-    //     );
-    // }, []);
+    [player1, player2, player3, player4].forEach((player) => {
+        player = { ...player, plus: 0, plusPoint: 0, minus: 0, minusPoint: 0 };
+    });
 
-    const handlePress = (plus: boolean, player: any) => {};
+    // const second = team1Array.includes(firstServe) ? team1Array.indexOf(firstServe) === 0 ? team1Array[1] : team1array[0] : team2Array.indexOf(firstServe) === 0 ? team2Array[1] : team2array[0]
+
+    let servingTeamSecond: number = 0;
+    if (team1Array.indexOf(firstServe) === 0) servingTeamSecond = team1Array[1];
+    else if (team1Array.indexOf(firstServe) === 1)
+        servingTeamSecond = team1Array[0];
+    else {
+        if (team2Array.indexOf(firstServe) === 0)
+            servingTeamSecond = team2Array[1];
+        else if (team2Array.indexOf(firstServe) === 1)
+            servingTeamSecond = team2Array[0];
+    }
+    let receivingTeamSecond: number = 0;
+    if (team1Array.indexOf(firstReceive) === 0)
+        receivingTeamSecond = team1Array[1];
+    else if (team1Array.indexOf(firstReceive) === 1)
+        receivingTeamSecond = team1Array[0];
+    else {
+        if (team2Array.indexOf(firstReceive) === 0)
+            receivingTeamSecond = team2Array[1];
+        else if (team2Array.indexOf(firstReceive) === 1)
+            receivingTeamSecond = team2Array[0];
+    }
+
+    const serveObject: {
+        currentServerId: number;
+        currentServeIndex: number;
+        firstOrSecond: string;
+        1: number;
+        2: number;
+        3: number;
+        4: number;
+        temp: number;
+    } = {
+        currentServerId: firstServe,
+        currentServeIndex: 1,
+        firstOrSecond: 'second',
+        1: firstServe,
+        2: servingTeamSecond,
+        3: firstReceive,
+        4: receivingTeamSecond,
+        temp: 0,
+    };
+
+    const nextServe = (servingTeamScored: boolean) => {
+        if (servingTeamScored) {
+            serveObject.temp = serveObject[serveObject.currentServeIndex];
+            if (serveObject.currentServeIndex === 1) {
+                serveObject[1] = serveObject[2];
+                serveObject[2] = serveObject.temp;
+            } else if (serveObject.currentServeIndex === 2) {
+                serveObject[2] = serveObject[1];
+                serveObject[1] = serveObject.temp;
+            } else if (serveObject.currentServeIndex === 3) {
+                serveObject[3] = serveObject[4];
+                serveObject[4] = serveObject.temp;
+            } else if (serveObject.currentServeIndex === 4) {
+                serveObject[4] = serveObject[3];
+                serveObject[3] = serveObject.temp;
+            }
+        }
+    };
+
+    const handlePress = (plus: boolean, player: any) => {
+        if (plus) {
+            player.plus++;
+            if (team1Array.includes(player.id)) {
+                if (team1Array.includes(serveObject.currentServerId)) {
+                    setTeam1Score(team1Score + 1);
+                    player.plusPoint++;
+                    nextServe(true);
+                } else {
+                    nextServe(false);
+                }
+            } else {
+                if (team2Array.includes(serveObject.currentServerId)) {
+                    setTeam2Score(team2Score + 1);
+                    player.plusPoint++;
+                    nextServe(true);
+                } else {
+                    nextServe(false);
+                }
+            }
+
+            if (serveObject.currentServerId === player.id) {
+                player.plusPoint++;
+                if (team1Array.includes(player.id)) {
+                    setTeam1Score(team1Score + 1);
+                } else {
+                    setTeam2Score(team2Score + 1);
+                }
+            }
+        }
+        setTeam1Score(team1Score + 1);
+        // game.point(plus, player);
+    };
 
     return (
         <SafeAreaView
@@ -81,7 +163,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                         fontSize: 76,
                         fontWeight: 'bold',
                     }}
-                >{`${game?.getScore(1)} - ${game.getScore(2)}`}</Text>
+                >{`${team1Score} - ${team2Score}`}</Text>
                 <View
                     style={{
                         flexDirection: 'column',
@@ -121,7 +203,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                             ...SHADOWS.dark,
                         }}
                         onPress={() => {
-                            handlePress(true, player1);
+                            handlePress(player1.id, true);
                         }}
                     >
                         <Text

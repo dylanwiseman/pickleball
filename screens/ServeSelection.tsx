@@ -31,8 +31,8 @@ const ServeSelection = ({ route, navigation }: any) => {
         }
     };
 
-    const team1Array = [player1, player2];
-    const team2Array = [player3, player4];
+    const team1Array: any[] = [player1, player2];
+    const team2Array: any[] = [player3, player4];
 
     const createPlayerServeCards = (teamArray: any[]) => {
         return teamArray.map((player: any, index: number) => {
@@ -206,8 +206,8 @@ const ServeSelection = ({ route, navigation }: any) => {
                                 player2,
                                 player3,
                                 player4,
-                                team1Array,
-                                team2Array,
+                                team1Array: [player1.id, player2.id],
+                                team2Array: [player3.id, player4.id],
                                 firstServe,
                                 firstReceive,
                             });
