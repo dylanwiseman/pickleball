@@ -202,10 +202,34 @@ const ServeSelection = ({ route, navigation }: any) => {
                             );
                             navigation.navigate('ScoreKeeper', {
                                 game,
-                                player1,
-                                player2,
-                                player3,
-                                player4,
+                                player1: {
+                                    ...player1,
+                                    plus: 0,
+                                    plusPoint: 0,
+                                    minus: 0,
+                                    minusPoint: 0,
+                                },
+                                player2: {
+                                    ...player2,
+                                    plus: 0,
+                                    plusPoint: 0,
+                                    minus: 0,
+                                    minusPoint: 0,
+                                },
+                                player3: {
+                                    ...player3,
+                                    plus: 0,
+                                    plusPoint: 0,
+                                    minus: 0,
+                                    minusPoint: 0,
+                                },
+                                player4: {
+                                    ...player4,
+                                    plus: 0,
+                                    plusPoint: 0,
+                                    minus: 0,
+                                    minusPoint: 0,
+                                },
                                 team1Array: [player1.id, player2.id],
                                 team2Array: [player3.id, player4.id],
                                 firstServe,
