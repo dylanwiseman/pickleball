@@ -32,6 +32,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
 
     [player1, player2, player3, player4].forEach((player) => {
         player = { ...player, plus: 0, plusPoint: 0, minus: 0, minusPoint: 0 };
+        console.log(player);
     });
 
     // const second = team1Array.includes(firstServe) ? team1Array.indexOf(firstServe) === 0 ? team1Array[1] : team1array[0] : team2Array.indexOf(firstServe) === 0 ? team2Array[1] : team2array[0]
@@ -77,8 +78,10 @@ const ScoreKeeper = ({ route, navigation }: any) => {
         4: receivingTeamSecond,
         temp: 0,
     };
+    console.log('serveObject: ', serveObject);
 
     const nextServe = (servingTeamScored: boolean) => {
+        console.log('serving team scored?: ', servingTeamScored);
         if (servingTeamScored) {
             serveObject.temp = serveObject[serveObject.currentServeIndex];
             if (serveObject.currentServeIndex === 1) {
@@ -147,13 +150,19 @@ const ScoreKeeper = ({ route, navigation }: any) => {
         }
     };
 
-    const handlePress = (plus: boolean, player: any) => {
+    const handlePress = (player: any, plus: boolean) => {
+        console.log('player: ', player, 'plus: ', plus);
         if (plus) {
-            player.plus++;
+            // player.plus++;
+            console.log('team1: ', team1Array);
+            console.log('team1: ', typeof team1Array);
+            console.log(team1Array.includes(player.id));
+            console.log('team2: ', team2Array);
+            console.log(serveObject.currentServerId);
             if (team1Array.includes(player.id)) {
                 if (team1Array.includes(serveObject.currentServerId)) {
                     setTeam1Score(team1Score + 1);
-                    player.plusPoint++;
+                    // player.plusPoint++;
                     nextServe(true);
                 } else {
                     nextServe(false);
@@ -161,7 +170,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
             } else {
                 if (team2Array.includes(serveObject.currentServerId)) {
                     setTeam2Score(team2Score + 1);
-                    player.plusPoint++;
+                    // player.plusPoint++;
                     nextServe(true);
                 } else {
                     nextServe(false);
@@ -187,6 +196,106 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                 }
             }
         }
+    };
+
+    const returnPlayerButtons = (player: any, index: number) => {
+        return (
+            <View
+                key={index}
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
+                    alignItems: 'center',
+                    height: 100,
+                    marginBottom: 20,
+                }}
+            >
+                <View
+                    style={{
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '100%',
+                        padding: 10,
+                        borderRadius: 5,
+                        backgroundColor:
+                            serveObject.currentServerId === player.id
+                                ? 'black'
+                                : 'white',
+                    }}
+                >
+                    <Image source={player.pic} style={styles.playerPic} />
+                    <Text
+                        style={{
+                            color:
+                                serveObject.currentServerId === player.id
+                                    ? 'white'
+                                    : 'black',
+                        }}
+                    >
+                        {player.name}
+                    </Text>
+                    <Text
+                        style={{
+                            fontWeight: 'bold',
+                            color: 'white',
+                        }}
+                    >
+                        SERVE
+                    </Text>
+                </View>
+                <Pressable
+                    style={{
+                        width: '30%',
+                        backgroundColor: COLORS.green,
+                        height: '100%',
+                        borderRadius: 10,
+                        ...SHADOWS.dark,
+                    }}
+                    onPress={() => {
+                        handlePress(player, true);
+                    }}
+                >
+                    <Text
+                        style={{
+                            width: '100%',
+                            textAlign: 'center',
+                            fontSize: 72,
+                            fontWeight: 'bold',
+                            color: COLORS.darkGreen,
+                            marginVertical: 'auto',
+                        }}
+                    >
+                        +
+                    </Text>
+                </Pressable>
+                <Pressable
+                    style={{
+                        width: '30%',
+                        backgroundColor: COLORS.red,
+                        height: '100%',
+                        borderRadius: 10,
+                        ...SHADOWS.dark,
+                    }}
+                    onPress={() => {
+                        handlePress(player, false);
+                    }}
+                >
+                    <Text
+                        style={{
+                            width: '100%',
+                            textAlign: 'center',
+                            fontSize: 72,
+                            fontWeight: 'bold',
+                            color: COLORS.darkRed,
+                            marginVertical: 'auto',
+                        }}
+                    >
+                        -
+                    </Text>
+                </Pressable>
+            </View>
+        );
     };
 
     return (
@@ -234,72 +343,9 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                 </View>
             </View>
             <View style={{ backgroundColor: 'white', height: '100%' }}>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-evenly',
-                        alignItems: 'center',
-                        height: 100,
-                    }}
-                >
-                    <View
-                        style={{
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Image source={player1.pic} style={styles.playerPic} />
-                        <Text>{player1.name}</Text>
-                    </View>
-                    <Pressable
-                        style={{
-                            width: '30%',
-                            backgroundColor: COLORS.green,
-                            height: '100%',
-                            borderRadius: 10,
-                            ...SHADOWS.dark,
-                        }}
-                        onPress={() => {
-                            handlePress(player1.id, true);
-                        }}
-                    >
-                        <Text
-                            style={{
-                                width: '100%',
-                                textAlign: 'center',
-                                fontSize: 72,
-                                fontWeight: 'bold',
-                                color: COLORS.darkGreen,
-                                marginVertical: 'auto',
-                            }}
-                        >
-                            +
-                        </Text>
-                    </Pressable>
-                    <Pressable
-                        style={{
-                            width: '30%',
-                            backgroundColor: COLORS.red,
-                            height: '100%',
-                            borderRadius: 10,
-                            ...SHADOWS.dark,
-                        }}
-                    >
-                        <Text
-                            style={{
-                                width: '100%',
-                                textAlign: 'center',
-                                fontSize: 72,
-                                fontWeight: 'bold',
-                                color: COLORS.darkRed,
-                                marginVertical: 'auto',
-                            }}
-                        >
-                            -
-                        </Text>
-                    </Pressable>
-                </View>
+                {[player1, player2, player3, player4].map((player, index) =>
+                    returnPlayerButtons(player, index)
+                )}
                 <View
                     style={{
                         flexDirection: 'row',
