@@ -85,14 +85,26 @@ const ScoreKeeper = ({ route, navigation }: any) => {
         console.log(firstOrSecond);
         console.log(forehand1, backhand1, forehand2, backhand2);
         if (servingTeamScored) {
-            if (serveIndex <= 2) {
+            if (serveIndex === 1) {
                 temp = forehand1;
                 setForehand1(backhand1);
                 setBackhand1(temp);
-            } else if (serveIndex >= 3) {
+                setServeIndex(2);
+            } else if (serveIndex === 2) {
+                temp = forehand1;
+                setForehand1(backhand1);
+                setBackhand1(temp);
+                setServeIndex(1);
+            } else if (serveIndex === 3) {
                 temp = forehand2;
                 setForehand2(backhand2);
                 setBackhand2(temp);
+                setServeIndex(4);
+            } else if (serveIndex === 4) {
+                temp = forehand2;
+                setForehand2(backhand2);
+                setBackhand2(temp);
+                setServeIndex(3);
             }
         } else {
             if (serveIndex === 1 && firstOrSecond === 'first') {
@@ -220,6 +232,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                         flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center',
+                        width: '25%',
                         height: '100%',
                         padding: 10,
                         borderRadius: 5,
@@ -242,7 +255,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                             fontStyle: 'italic',
                         }}
                     >
-                        SERVE
+                        {`${firstOrSecond === 'first' ? '1st' : '2nd'} SERVE`}
                     </Text>
                     <Text
                         style={{
@@ -251,10 +264,10 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                             fontStyle: 'italic',
                         }}
                     >
-                        {forehand1 === player.id && 'f1'}
-                        {forehand2 === player.id && 'f2'}
-                        {backhand1 === player.id && 'b1'}
-                        {backhand2 === player.id && 'b2'}
+                        {forehand1 === player.id && 'forehand'}
+                        {forehand2 === player.id && 'forehand'}
+                        {backhand1 === player.id && 'backhand'}
+                        {backhand2 === player.id && 'backhand'}
                     </Text>
                 </View>
                 <Pressable
