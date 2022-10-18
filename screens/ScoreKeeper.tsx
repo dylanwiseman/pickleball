@@ -4,13 +4,10 @@ import {
     SafeAreaView,
     Image,
     StyleSheet,
-    FlatList,
     Pressable,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
-// import placeholderData from '../placeholderData';
-// import Game from '../data-structures/game';
 
 const ScoreKeeper = ({ route, navigation }: any) => {
     const {
@@ -22,15 +19,14 @@ const ScoreKeeper = ({ route, navigation }: any) => {
         team2Array,
         firstServe,
         firstReceive,
-        // game,
     } = route?.params;
 
     // Game States:
-    const [team1Score, setTeam1Score] = useState(0);
-    const [team2Score, setTeam2Score] = useState(0);
-    const [serveIndex, setServeIndex] = useState(1);
-    const [serverId, setServerId] = useState(firstServe);
-    const [firstOrSecond, setFirstOrSecond] = useState('second');
+    const [team1Score, setTeam1Score] = useState<number>(0);
+    const [team2Score, setTeam2Score] = useState<number>(0);
+    const [serveIndex, setServeIndex] = useState<number>(1);
+    const [serverId, setServerId] = useState<number>(firstServe);
+    const [firstOrSecond, setFirstOrSecond] = useState<string>('second');
 
     let servingTeamSecond: number = 0;
     if (team1Array.indexOf(firstServe) === 0) servingTeamSecond = team1Array[1];
@@ -55,21 +51,15 @@ const ScoreKeeper = ({ route, navigation }: any) => {
     }
 
     // Court Positions:
-    const [forehand1, setForehand1] = useState(firstServe);
-    const [backhand1, setBackhand1] = useState(servingTeamSecond);
-    const [forehand2, setForehand2] = useState(firstReceive);
-    const [backhand2, setBackhand2] = useState(receivingTeamSecond);
+    const [forehand1, setForehand1] = useState<number>(firstServe);
+    const [backhand1, setBackhand1] = useState<number>(servingTeamSecond);
+    const [forehand2, setForehand2] = useState<number>(firstReceive);
+    const [backhand2, setBackhand2] = useState<number>(receivingTeamSecond);
     let temp: number = 0;
 
-    const pointArray: any[] = [];
+    const [pointArray, setPointArray] = useState<any[]>([{ start: true }]);
 
     const nextServe = (servingTeamScored: boolean) => {
-        console.log('------------LAST SERVE--------------');
-        console.log('serve index: ', serveIndex);
-        console.log('serverId: ', serverId);
-        console.log('temp: ', temp);
-        console.log(firstOrSecond);
-        console.log(forehand1, backhand1, forehand2, backhand2);
         if (servingTeamScored) {
             if (serveIndex === 1) {
                 temp = forehand1;
@@ -98,76 +88,53 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                 setServerId(backhand1);
                 setFirstOrSecond('second');
             } else if (serveIndex === 1 && firstOrSecond === 'second') {
-                console.log('serve switches teams');
                 setServeIndex(3);
                 setServerId(forehand2);
-                console.log('serve index: ', serveIndex);
-                console.log('serverId: ', serverId);
+
                 setFirstOrSecond('first');
             } else if (serveIndex === 2 && firstOrSecond === 'first') {
                 setServeIndex(1);
                 setServerId(forehand1);
                 setFirstOrSecond('second');
             } else if (serveIndex === 2 && firstOrSecond === 'second') {
-                console.log('serve switches teams');
                 setServeIndex(3);
                 setServerId(forehand2);
-                console.log('serve index: ', serveIndex);
-                console.log('serverId: ', serverId);
+
                 setFirstOrSecond('first');
             } else if (serveIndex === 3 && firstOrSecond === 'first') {
                 setServeIndex(4);
                 setServerId(backhand2);
                 setFirstOrSecond('second');
-                console.log('serve index: ', serveIndex);
-                console.log('serverId: ', serverId);
             } else if (serveIndex === 3 && firstOrSecond === 'second') {
-                console.log('serve switches teams');
                 setServeIndex(1);
                 setServerId(forehand1);
-                console.log('serve index: ', serveIndex);
-                console.log('serverId: ', serverId);
+
                 setFirstOrSecond('first');
             } else if (serveIndex === 4 && firstOrSecond === 'first') {
                 setServeIndex(3);
                 setServerId(forehand2);
                 setFirstOrSecond('second');
             } else if (serveIndex === 4 && firstOrSecond === 'second') {
-                console.log('serve switches teams');
                 setServeIndex(1);
                 setServerId(forehand1);
-                console.log('serve index: ', serveIndex);
-                console.log('serverId: ', serverId);
+
                 setFirstOrSecond('first');
             }
         }
-        console.log('------------NEXT SERVE--------------');
-        console.log('serve index: ', serveIndex);
-        console.log('serverId: ', serverId);
-        console.log('temp: ', temp);
-        console.log(firstOrSecond);
     };
 
     const handlePress = (player: any, plus: boolean) => {
         let point: boolean = false;
-        console.log('---------------------------');
-        console.log('***************************');
-        console.log('POINT: player: ', player, 'plus: ', plus);
+
         if (plus) {
             player.plus++;
-            console.log('team1: ', team1Array);
-            console.log(
-                'does team1array include serverid?: ',
-                team1Array.includes(player.id)
-            );
-            console.log('team2: ', team2Array);
-            console.log('what is server id: ', serverId);
+
             if (team1Array.includes(player.id)) {
                 if (team1Array.includes(serverId)) {
                     setTeam1Score(team1Score + 1);
                     player.plusPoint++;
                     point = true;
-                    console.log('player plus point: ', player.plusPoint);
+
                     nextServe(true);
                 } else {
                     nextServe(false);
@@ -202,7 +169,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                 }
             }
         }
-        let pointArrayObject = {
+        let pointArrayObject: any = {
             point,
             plus,
             playerId: player.id,
@@ -216,11 +183,11 @@ const ScoreKeeper = ({ route, navigation }: any) => {
             forehand2,
             backhand2,
         };
-        pointArray.push(pointArrayObject);
+        setPointArray((pointArray) => [...pointArray, pointArrayObject]);
     };
 
     const undo = () => {
-        if (pointArray.length === 0) return false;
+        if (pointArray.length <= 1) return false;
         [player1, player2, player3, player4].forEach((player) => {
             if (player.id === pointArray[pointArray.length - 1].playerId) {
                 if (pointArray[pointArray.length - 1].plus) {
@@ -236,16 +203,16 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                 }
             }
         });
-        pointArray.pop();
+        setPointArray(pointArray.slice(0, -1));
+        setForehand1(pointArray[pointArray.length - 1].forehand1);
+        setForehand2(pointArray[pointArray.length - 1].forehand2);
+        setBackhand1(pointArray[pointArray.length - 1].backhand1);
+        setBackhand2(pointArray[pointArray.length - 1].backhand2);
         setTeam1Score(pointArray[pointArray.length - 1].team1Score);
         setTeam2Score(pointArray[pointArray.length - 1].team2Score);
         setServeIndex(pointArray[pointArray.length - 1].serveIndex);
         setServerId(pointArray[pointArray.length - 1].serverId);
         setFirstOrSecond(pointArray[pointArray.length - 1].firstOrSecond);
-        setForehand1(pointArray[pointArray.length - 1].forehand1);
-        setForehand2(pointArray[pointArray.length - 1].forehand2);
-        setBackhand1(pointArray[pointArray.length - 1].backhand1);
-        setBackhand1(pointArray[pointArray.length - 1].backhand2);
     };
 
     const returnPlayerButtons = (player: any, index: number) => {
@@ -451,7 +418,8 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                     >
                         <Text
                             style={{
-                                color: 'black',
+                                color:
+                                    pointArray.length >= 1 ? 'black' : 'gray',
                                 fontSize: 24,
                                 fontWeight: 'bold',
                             }}
