@@ -9,6 +9,8 @@ import GameDetails from './screens/GameDetails';
 import NewGame from './screens/NewGame';
 import ServeSelection from './screens/ServeSelection';
 import ScoreKeeper from './screens/ScoreKeeper';
+import Login from './screens/Login';
+import Signup from './screens/Signup';
 
 export default function App() {
     const Stack = createStackNavigator();
@@ -17,7 +19,7 @@ export default function App() {
         ...DefaultTheme,
         colors: {
             ...DefaultTheme.colors,
-            background: 'transparent',
+            background: 'white',
         },
     };
     return (
@@ -26,6 +28,8 @@ export default function App() {
                 screenOptions={{ headerShown: false }}
                 initialRouteName="Home"
             >
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="Signup" component={Signup} />
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="GameDetails" component={GameDetails} />
                 <Stack.Screen name="NewGame" component={NewGame} />

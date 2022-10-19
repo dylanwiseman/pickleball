@@ -6,6 +6,10 @@ import HomeHeader from '../components/HomeHeader';
 import { SHADOWS } from '../constants/theme';
 
 const Home = ({ route, navigation }: any) => {
+    const signOut = () => {
+        navigation.navigate('Login');
+    };
+
     return (
         <SafeAreaView
             style={{
@@ -26,7 +30,7 @@ const Home = ({ route, navigation }: any) => {
                         width: '100%',
                         paddingBottom: 75,
                     }}
-                    ListHeaderComponent={<HomeHeader />}
+                    ListHeaderComponent={<HomeHeader signOut={signOut} />}
                 />
                 <View
                     style={{
