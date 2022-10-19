@@ -309,7 +309,7 @@ const styles = StyleSheet.create({
         marginRight: 25,
         borderRadius: 7,
         overflow: 'hidden',
-        borderColor: COLORS.green,
+        borderColor: '#D3D3D3',
         borderWidth: 1,
     },
     playerPic: {

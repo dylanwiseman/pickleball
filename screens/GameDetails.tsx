@@ -298,7 +298,12 @@ const GameDetails = ({ route, navigation }: any) => {
                     </Pressable>
                     <Pressable
                         onPress={() => {
-                            navigation.navigate('Home');
+                            navigation.navigate('ServeSelection', {
+                                player1,
+                                player2,
+                                player3,
+                                player4,
+                            });
                         }}
                     >
                         <Text

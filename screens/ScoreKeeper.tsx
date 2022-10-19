@@ -5,6 +5,7 @@ import {
     Image,
     StyleSheet,
     Pressable,
+    Modal,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
@@ -20,6 +21,8 @@ const ScoreKeeper = ({ route, navigation }: any) => {
         firstServe,
         firstReceive,
     } = route?.params;
+
+    const [modalVisible, setModalVisible] = useState(false);
 
     // Game States:
     const [team1Score, setTeam1Score] = useState<number>(0);
@@ -331,41 +334,135 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                 backgroundColor: 'white',
             }}
         >
-            <View
-                style={{
-                    backgroundColor: 'white',
-                    height: 120,
-                    justifyContent: 'space-evenly',
-                    alignItems: 'center',
-                    flexDirection: 'row',
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
                 }}
             >
                 <View
                     style={{
-                        flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center',
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor: 'rgba(0,0,0,.7)',
                     }}
                 >
-                    <Image source={player1.pic} style={styles.playerPic} />
-                    <Image source={player2.pic} style={styles.playerPic} />
+                    <View
+                        style={{
+                            width: '80%',
+                            height: 300,
+                            backgroundColor: 'white',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            padding: 30,
+                            margin: 30,
+                            borderRadius: 10,
+                            ...SHADOWS.dark,
+                        }}
+                    >
+                        <View
+                            style={{
+                                borderBottomColor: 'black',
+                                borderBottomWidth: 2,
+                                paddingBottom: 20,
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    ...styles.text,
+                                }}
+                            >
+                                End and save game?
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                width: '100%',
+                                paddingHorizontal: 40,
+                                paddingTop: 80,
+                            }}
+                        >
+                            <Pressable
+                                onPress={() => {
+                                    setModalVisible(!modalVisible);
+                                }}
+                            >
+                                <Text style={styles.text}>NO</Text>
+                            </Pressable>
+                            <Pressable
+                                onPress={() => {
+                                    setModalVisible(!modalVisible);
+                                    navigation.navigate('GameDetails', {
+                                        game: {
+                                            player1,
+                                            player2,
+                                            player3,
+                                            player4,
+                                            id: '1',
+                                            userScore: team1Score,
+                                            oppScore: team2Score,
+                                            win:
+                                                team1Score > team2Score
+                                                    ? true
+                                                    : false,
+                                            dayOfWeek: 'Saturday',
+                                            date: 'Aug 20 2022',
+                                            time: '5:13pm',
+                                        },
+                                    });
+                                }}
+                            >
+                                <Text style={styles.text}>YES</Text>
+                            </Pressable>
+                        </View>
+                    </View>
                 </View>
-                <Text
-                    style={{
-                        color: 'black',
-                        fontSize: 76,
-                        fontWeight: 'bold',
-                    }}
-                >{`${team1Score} - ${team2Score}`}</Text>
+            </Modal>
+            <View style={{ overflow: 'hidden' }}>
                 <View
                     style={{
-                        flexDirection: 'column',
-                        justifyContent: 'center',
+                        backgroundColor: 'white',
+                        height: 120,
+                        justifyContent: 'space-evenly',
                         alignItems: 'center',
+                        flexDirection: 'row',
+                        marginBottom: 40,
+                        ...SHADOWS.dark,
                     }}
                 >
-                    <Image source={player3.pic} style={styles.playerPic} />
-                    <Image source={player4.pic} style={styles.playerPic} />
+                    <View
+                        style={{
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Image source={player1.pic} style={styles.playerPic} />
+                        <Image source={player2.pic} style={styles.playerPic} />
+                    </View>
+                    <Text
+                        style={{
+                            color: 'black',
+                            fontSize: 76,
+                            fontWeight: 'bold',
+                        }}
+                    >{`${team1Score} - ${team2Score}`}</Text>
+                    <View
+                        style={{
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Image source={player3.pic} style={styles.playerPic} />
+                        <Image source={player4.pic} style={styles.playerPic} />
+                    </View>
                 </View>
             </View>
             <View style={{ backgroundColor: 'white', height: '100%' }}>
@@ -398,7 +495,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                     </Pressable>
                     <Pressable
                         onPress={() => {
-                            navigation.navigate('GameDetails');
+                            setModalVisible(!modalVisible);
                         }}
                     >
                         <Text
@@ -419,7 +516,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                         <Text
                             style={{
                                 color:
-                                    pointArray.length >= 1 ? 'black' : 'gray',
+                                    pointArray.length <= 1 ? 'gray' : 'black',
                                 fontSize: 24,
                                 fontWeight: 'bold',
                             }}
@@ -449,6 +546,7 @@ const styles = StyleSheet.create({
         borderRadius: '50%',
         ...SHADOWS.dark,
     },
+    text: { color: 'black', fontSize: 24, fontWeight: 'bold' },
 });
 
 export default ScoreKeeper;
