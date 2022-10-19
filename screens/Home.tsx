@@ -24,6 +24,7 @@ const Home = ({ route, navigation }: any) => {
                         flexGrow: 1,
                         justifyContent: 'center',
                         width: '100%',
+                        paddingBottom: 75,
                     }}
                     ListHeaderComponent={<HomeHeader />}
                 />

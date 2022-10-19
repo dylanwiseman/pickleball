@@ -23,6 +23,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
     } = route?.params;
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [resetModalVisible, setResetModalVisible] = useState(false);
 
     // Game States:
     const [team1Score, setTeam1Score] = useState<number>(0);
@@ -337,6 +338,84 @@ const ScoreKeeper = ({ route, navigation }: any) => {
             <Modal
                 animationType="slide"
                 transparent={true}
+                visible={resetModalVisible}
+                onRequestClose={() => {
+                    setResetModalVisible(!resetModalVisible);
+                }}
+            >
+                <View
+                    style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor: 'rgba(0,0,0,.7)',
+                    }}
+                >
+                    <View
+                        style={{
+                            width: '80%',
+                            height: 300,
+                            backgroundColor: 'white',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            padding: 30,
+                            margin: 30,
+                            borderRadius: 10,
+                            ...SHADOWS.dark,
+                        }}
+                    >
+                        <View
+                            style={{
+                                borderBottomColor: 'black',
+                                borderBottomWidth: 2,
+                                paddingBottom: 20,
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    ...styles.text,
+                                }}
+                            >
+                                Return to serve selection and reset game?
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                width: '100%',
+                                paddingHorizontal: 40,
+                                paddingTop: 80,
+                            }}
+                        >
+                            <Pressable
+                                onPress={() => {
+                                    setResetModalVisible(!resetModalVisible);
+                                }}
+                            >
+                                <Text style={styles.text}>NO</Text>
+                            </Pressable>
+                            <Pressable
+                                onPress={() => {
+                                    setResetModalVisible(!resetModalVisible);
+                                    navigation.navigate('ServeSelection', {
+                                        player1,
+                                        player2,
+                                        player3,
+                                        player4,
+                                    });
+                                }}
+                            >
+                                <Text style={styles.text}>YES</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+            <Modal
+                animationType="slide"
+                transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => {
                     setModalVisible(!modalVisible);
@@ -480,7 +559,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                 >
                     <Pressable
                         onPress={() => {
-                            navigation.navigate('Home');
+                            setResetModalVisible(!resetModalVisible);
                         }}
                     >
                         <Text
