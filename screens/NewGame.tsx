@@ -67,7 +67,7 @@ const NewGame = ({ route, navigation }: any) => {
                         <Text
                             style={{
                                 ...styles.text,
-                                fontFamily: 'Montserrat_600SemiBold',
+                                fontFamily: 'Inter_400Regular',
                                 marginBottom: 15,
                             }}
                         >
@@ -77,7 +77,7 @@ const NewGame = ({ route, navigation }: any) => {
                     <Text
                         style={{
                             ...styles.text,
-                            fontFamily: 'Montserrat_600SemiBold',
+                            fontFamily: 'Inter_400Regular',
                             marginBottom: 15,
                         }}
                     >
@@ -165,7 +165,7 @@ const NewGame = ({ route, navigation }: any) => {
                     <Text
                         style={{
                             ...styles.text,
-                            fontFamily: 'Montserrat_600SemiBold',
+                            fontFamily: 'Inter_Regular400',
                             textAlign: 'center',
                             marginVertical: 20,
                         }}
@@ -175,7 +175,7 @@ const NewGame = ({ route, navigation }: any) => {
                     <Text
                         style={{
                             ...styles.text,
-                            fontFamily: 'Montserrat_600SemiBold',
+                            fontFamily: 'Inter_Regular400',
                             marginBottom: 15,
                         }}
                     >
@@ -278,7 +278,7 @@ const NewGame = ({ route, navigation }: any) => {
                         <Text
                             style={{
                                 ...styles.text,
-                                fontFamily: 'Montserrat_900Black',
+                                fontFamily: 'Inter_900Black',
                             }}
                         >
                             BACK
@@ -297,7 +297,7 @@ const NewGame = ({ route, navigation }: any) => {
                         <Text
                             style={{
                                 ...styles.text,
-                                fontFamily: 'Montserrat_900Black',
+                                fontFamily: 'Inter_900Black',
                             }}
                         >
                             NEXT

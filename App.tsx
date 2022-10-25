@@ -3,14 +3,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import * as Font from 'expo-font';
-import { useEffect, useState, useCallback } from 'react';
-import { useFonts, Rubik_900Black } from '@expo-google-fonts/rubik';
+// import { useEffect, useState, useCallback } from 'react';
 import {
-    Lato_900Black,
-    Oxygen_700Bold,
-    LexendDeca_900Black,
-    MuktaMalar_800ExtraBold,
-    Roboto_900Black,
+    Inter_900Black,
+    Inter_400Regular,
+    Inter_600SemiBold,
     Montserrat_900Black,
     Montserrat_900Black_Italic,
     Montserrat_600SemiBold,
@@ -36,16 +33,12 @@ export default function App() {
     // }, []);
     const [fontsLoaded] = Font.useFonts({
         //prettier-ignore
-        // 'Rubik-VariableFont': require('./assets/fonts/Rubik-VariableFont_wght.ttf'),
-        Rubik_900Black,
-        Lato_900Black,
-        Oxygen_700Bold,
-        LexendDeca_900Black,
-        MuktaMalar_800ExtraBold,
-        Roboto_900Black,
         Montserrat_900Black,
         Montserrat_900Black_Italic,
         Montserrat_600SemiBold,
+        Inter_900Black,
+        Inter_400Regular,
+        Inter_600SemiBold,
     });
 
     // const onLayoutRootView = useCallback(async () => {

@@ -54,7 +54,7 @@ const GameCard = ({ game }: { game: any }) => {
                                         ? COLORS.darkGreen
                                         : COLORS.darkRed,
                                     fontStyle: 'italic',
-                                    fontFamily: 'Montserrat_900Black_Italic',
+                                    fontFamily: 'Inter_900Black',
                                     marginLeft: 15,
                                 }}
                             >
@@ -69,7 +69,7 @@ const GameCard = ({ game }: { game: any }) => {
                                     ? COLORS.darkGreen
                                     : COLORS.darkRed,
                                 fontSize: 76,
-                                fontFamily: 'Montserrat_900Black',
+                                fontFamily: 'Inter_900Black',
                             }}
                         >{`${game.userScore}-${game.oppScore}`}</Text>
                     </View>
