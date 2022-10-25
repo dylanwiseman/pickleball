@@ -2,7 +2,19 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
+import * as Font from 'expo-font';
+import { useEffect, useState, useCallback } from 'react';
+import { useFonts, Rubik_900Black } from '@expo-google-fonts/rubik';
+import {
+    Lato_900Black,
+    Oxygen_700Bold,
+    LexendDeca_900Black,
+    MuktaMalar_800ExtraBold,
+    Roboto_900Black,
+    Montserrat_900Black,
+    Montserrat_900Black_Italic,
+    Montserrat_600SemiBold,
+} from '@expo-google-fonts/dev';
 
 import Home from './screens/Home';
 import GameDetails from './screens/GameDetails';
@@ -13,6 +25,38 @@ import Login from './screens/Login';
 import Signup from './screens/Signup';
 
 export default function App() {
+    // useEffect(() => {
+    //     async function loadResources() {
+    //         await Font.loadAsync({
+    //             //prettier-ignore
+    //             'Rubik': require('./assets/fonts/Rubik-VariableFont_wght.ttf'),
+    //         });
+    //     }
+    //     loadResources();
+    // }, []);
+    const [fontsLoaded] = Font.useFonts({
+        //prettier-ignore
+        // 'Rubik-VariableFont': require('./assets/fonts/Rubik-VariableFont_wght.ttf'),
+        Rubik_900Black,
+        Lato_900Black,
+        Oxygen_700Bold,
+        LexendDeca_900Black,
+        MuktaMalar_800ExtraBold,
+        Roboto_900Black,
+        Montserrat_900Black,
+        Montserrat_900Black_Italic,
+        Montserrat_600SemiBold,
+    });
+
+    // const onLayoutRootView = useCallback(async () => {
+    //     if (fontsLoaded) {
+    //         //   await SplashScreen.hideAsync();
+    //     }
+    // }, [fontsLoaded]);
+
+    if (!fontsLoaded) {
+        return null;
+    }
     const Stack = createStackNavigator();
 
     const theme = {

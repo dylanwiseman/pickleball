@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import PlayerNameAndPic from './PlayerNameAndPic';
+import { Rubik_900Black } from '@expo-google-fonts/rubik';
 // import tw from 'twrnc';
 
 const GameCard = ({ game }: { game: any }) => {
@@ -53,6 +54,8 @@ const GameCard = ({ game }: { game: any }) => {
                                         ? COLORS.darkGreen
                                         : COLORS.darkRed,
                                     fontStyle: 'italic',
+                                    fontFamily: 'Montserrat_900Black_Italic',
+                                    marginLeft: 15,
                                 }}
                             >
                                 {`${game.dayOfWeek}\n${game.date}\n${game.time}`}
@@ -60,13 +63,15 @@ const GameCard = ({ game }: { game: any }) => {
                         </View>
                         <Text
                             style={{
+                                marginTop: 10,
+                                marginRight: 15,
                                 color: game?.win
                                     ? COLORS.darkGreen
                                     : COLORS.darkRed,
                                 fontSize: 76,
-                                fontWeight: 'bold',
+                                fontFamily: 'Montserrat_900Black',
                             }}
-                        >{`${game.userScore} - ${game.oppScore}`}</Text>
+                        >{`${game.userScore}-${game.oppScore}`}</Text>
                     </View>
                 </View>
                 <View
@@ -74,6 +79,7 @@ const GameCard = ({ game }: { game: any }) => {
                         flexDirection: 'row',
                         height: '45%',
                         alignItems: 'center',
+                        marginHorizontal: 10,
                     }}
                 >
                     <View
@@ -82,7 +88,7 @@ const GameCard = ({ game }: { game: any }) => {
                             height: '100%',
                             justifyContent: 'center',
                             paddingLeft: SIZES.small,
-                            width: '30%',
+                            width: '40%',
                             left: 0,
                         }}
                     >
@@ -97,7 +103,14 @@ const GameCard = ({ game }: { game: any }) => {
                             pic={game?.player2?.pic}
                         />
                     </View>
-                    <Text style={{ width: '40%', textAlign: 'center' }}>
+                    <Text
+                        style={{
+                            width: '20%',
+                            textAlign: 'center',
+                            fontFamily: 'Montserrat_900Black',
+                            color: 'darkgray',
+                        }}
+                    >
                         vs.
                     </Text>
                     <View
@@ -106,7 +119,7 @@ const GameCard = ({ game }: { game: any }) => {
                             height: '100%',
                             justifyContent: 'center',
                             paddingRight: SIZES.small,
-                            width: '30%',
+                            width: '40%',
                             right: 0,
                         }}
                     >

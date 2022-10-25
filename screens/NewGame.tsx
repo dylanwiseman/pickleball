@@ -67,6 +67,7 @@ const NewGame = ({ route, navigation }: any) => {
                         <Text
                             style={{
                                 ...styles.text,
+                                fontFamily: 'Montserrat_600SemiBold',
                                 marginBottom: 15,
                             }}
                         >
@@ -76,10 +77,11 @@ const NewGame = ({ route, navigation }: any) => {
                     <Text
                         style={{
                             ...styles.text,
+                            fontFamily: 'Montserrat_600SemiBold',
                             marginBottom: 15,
                         }}
                     >
-                        Team 1:
+                        Team 1 :
                     </Text>
                     <View
                         style={{
@@ -163,6 +165,7 @@ const NewGame = ({ route, navigation }: any) => {
                     <Text
                         style={{
                             ...styles.text,
+                            fontFamily: 'Montserrat_900Black',
                             textAlign: 'center',
                             marginVertical: 20,
                         }}
@@ -172,10 +175,11 @@ const NewGame = ({ route, navigation }: any) => {
                     <Text
                         style={{
                             ...styles.text,
+                            fontFamily: 'Montserrat_600SemiBold',
                             marginBottom: 15,
                         }}
                     >
-                        Team 2:
+                        Team 2 :
                     </Text>
                     <View
                         style={{
@@ -271,7 +275,14 @@ const NewGame = ({ route, navigation }: any) => {
                             navigation.navigate('Home');
                         }}
                     >
-                        <Text style={styles.text}>BACK</Text>
+                        <Text
+                            style={{
+                                ...styles.text,
+                                fontFamily: 'Montserrat_900Black',
+                            }}
+                        >
+                            BACK
+                        </Text>
                     </Pressable>
                     <Pressable
                         onPress={() => {
@@ -283,7 +294,14 @@ const NewGame = ({ route, navigation }: any) => {
                             });
                         }}
                     >
-                        <Text style={styles.text}>NEXT</Text>
+                        <Text
+                            style={{
+                                ...styles.text,
+                                fontFamily: 'Montserrat_900Black',
+                            }}
+                        >
+                            NEXT
+                        </Text>
                     </Pressable>
                 </View>
             </KeyboardAwareScrollView>
