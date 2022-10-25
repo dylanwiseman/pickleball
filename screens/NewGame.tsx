@@ -165,7 +165,7 @@ const NewGame = ({ route, navigation }: any) => {
                     <Text
                         style={{
                             ...styles.text,
-                            fontFamily: 'Montserrat_900Black',
+                            fontFamily: 'Montserrat_600SemiBold',
                             textAlign: 'center',
                             marginVertical: 20,
                         }}

@@ -29,8 +29,6 @@ const PlayerNameAndPic = ({
                 style={{
                     fontSize: SIZES.large,
                     textAlign: picSide,
-                    // fontWeight: 'bold',
-                    color: 'darkgray',
                 }}
             >{`${player}`}</Text>
             {picSide === 'right' && (
@@ -46,6 +44,5 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         borderRadius: '50%',
-        // marginHorizontal: 10,
     },
 });
