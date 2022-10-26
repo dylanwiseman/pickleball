@@ -67,7 +67,7 @@ const NewGame = ({ route, navigation }: any) => {
                         <Text
                             style={{
                                 ...styles.text,
-                                fontFamily: 'Inter_400Regular',
+                                // fontFamily: 'Inter_400Regular',
                                 marginBottom: 15,
                             }}
                         >
@@ -77,7 +77,7 @@ const NewGame = ({ route, navigation }: any) => {
                     <Text
                         style={{
                             ...styles.text,
-                            fontFamily: 'Inter_400Regular',
+                            // fontFamily: 'Inter_400Regular',
                             marginBottom: 15,
                         }}
                     >
@@ -165,7 +165,7 @@ const NewGame = ({ route, navigation }: any) => {
                     <Text
                         style={{
                             ...styles.text,
-                            fontFamily: 'Inter_Regular400',
+                            // fontFamily: 'Inter_Regular400',
                             textAlign: 'center',
                             marginVertical: 20,
                         }}
@@ -175,7 +175,7 @@ const NewGame = ({ route, navigation }: any) => {
                     <Text
                         style={{
                             ...styles.text,
-                            fontFamily: 'Inter_Regular400',
+                            // fontFamily: 'Inter_Regular400',
                             marginBottom: 15,
                         }}
                     >
@@ -278,7 +278,7 @@ const NewGame = ({ route, navigation }: any) => {
                         <Text
                             style={{
                                 ...styles.text,
-                                fontFamily: 'Inter_900Black',
+                                // fontFamily: 'Inter_900Black',
                             }}
                         >
                             BACK
@@ -286,6 +286,13 @@ const NewGame = ({ route, navigation }: any) => {
                     </Pressable>
                     <Pressable
                         onPress={() => {
+                            if (
+                                !player1Name ||
+                                !player2Name ||
+                                !player3Name ||
+                                !player4Name
+                            )
+                                return false;
                             navigation.navigate('ServeSelection', {
                                 player1,
                                 player2,
@@ -297,7 +304,14 @@ const NewGame = ({ route, navigation }: any) => {
                         <Text
                             style={{
                                 ...styles.text,
-                                fontFamily: 'Inter_900Black',
+                                color:
+                                    !player1Name ||
+                                    !player2Name ||
+                                    !player3Name ||
+                                    !player4Name
+                                        ? 'lightgray'
+                                        : 'black',
+                                // fontFamily: 'Inter_900Black',
                             }}
                         >
                             NEXT

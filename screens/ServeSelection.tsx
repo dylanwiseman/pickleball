@@ -34,6 +34,12 @@ const ServeSelection = ({ route, navigation }: any) => {
     const team1Array: any[] = [player1, player2];
     const team2Array: any[] = [player3, player4];
 
+    let serveAndReceiveSameTeam =
+        ([player1.id, player2.id].includes(firstServe) &&
+            [player1.id, player2.id].includes(firstReceive)) ||
+        ([player3.id, player4.id].includes(firstServe) &&
+            [player3.id, player4.id].includes(firstReceive));
+
     const createPlayerServeCards = (teamArray: any[]) => {
         return teamArray.map((player: any, index: number) => {
             return (
@@ -192,6 +198,12 @@ const ServeSelection = ({ route, navigation }: any) => {
                     </Pressable>
                     <Pressable
                         onPress={() => {
+                            if (
+                                serveAndReceiveSameTeam ||
+                                !firstServe ||
+                                !firstReceive
+                            )
+                                return false;
                             const game = new Game(
                                 player1,
                                 player2,
@@ -237,7 +249,19 @@ const ServeSelection = ({ route, navigation }: any) => {
                             });
                         }}
                     >
-                        <Text style={styles.text}>NEXT</Text>
+                        <Text
+                            style={{
+                                ...styles.text,
+                                color:
+                                    serveAndReceiveSameTeam ||
+                                    !firstReceive ||
+                                    !firstServe
+                                        ? 'lightgray'
+                                        : 'black',
+                            }}
+                        >
+                            NEXT
+                        </Text>
                     </Pressable>
                 </View>
             </KeyboardAwareScrollView>

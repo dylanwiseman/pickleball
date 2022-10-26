@@ -1,8 +1,7 @@
 import { View, Text, StyleSheet, Image, Touchable } from 'react-native';
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { COLORS, SIZES, SHADOWS } from '../constants/theme';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+// import { useNavigation } from '@react-navigation/native';
+import { SIZES } from '../constants/theme';
 // import tw from 'twrnc';
 
 const PlayerNameAndPic = ({

@@ -2,7 +2,6 @@ import {
     View,
     SafeAreaView,
     Text,
-    Button,
     Image,
     StyleSheet,
     FlatList,
@@ -80,16 +79,19 @@ const PlayerStats = ({
                         justifyContent: 'flex-start',
                         alignItems: 'baseline',
                         marginBottom: 5,
-                        ...SHADOWS.dark,
+                        overflow: 'hidden',
                     }}
                 >
                     <View
                         style={{
+                            position: 'absolute',
+                            left: -5,
                             height: '100%',
-                            width: `${(player.plusPoint / player.plus) * 100}%`,
+                            width: `${(player.plusPoint / player.plus) * 105}%`,
                             backgroundColor: COLORS.darkGreen,
                             borderTopLeftRadius: 3,
                             borderBottomLeftRadius: 3,
+                            transform: [{ skewX: '22deg' }],
                         }}
                     ></View>
                 </View>
@@ -101,18 +103,21 @@ const PlayerStats = ({
                         borderRadius: 3,
                         justifyContent: 'flex-start',
                         alignItems: 'flex-start',
-                        ...SHADOWS.dark,
+                        overflow: 'hidden',
                     }}
                 >
                     <View
                         style={{
+                            position: 'absolute',
+                            left: -5,
                             height: '100%',
                             width: `${
-                                (player.minusPoint / player.minus) * 100
+                                (player.minusPoint / player.minus) * 105
                             }%`,
                             backgroundColor: COLORS.darkRed,
                             borderTopLeftRadius: 3,
                             borderBottomLeftRadius: 3,
+                            transform: [{ skewX: '22deg' }],
                         }}
                     ></View>
                 </View>
@@ -231,7 +236,7 @@ const GameDetails = ({ route, navigation }: any) => {
                     style={{
                         color: game?.win ? COLORS.darkGreen : COLORS.darkRed,
                         fontSize: 76,
-                        fontWeight: 'bold',
+                        fontFamily: 'Inter_900Black',
                     }}
                 >{`${game?.userScore} - ${game?.oppScore}`}</Text>
                 <View
@@ -336,7 +341,6 @@ const styles = StyleSheet.create({
         width: 80,
         height: 80,
         borderRadius: '50%',
-        ...SHADOWS.dark,
     },
 });
 

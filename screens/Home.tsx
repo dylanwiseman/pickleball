@@ -54,7 +54,6 @@ const Home = ({ route, navigation }: any) => {
                                 color: 'black',
                                 fontSize: 24,
                                 fontWeight: 'bold',
-                                fontFamily: 'Montserrat_900Black',
                             }}
                         >
                             NEW GAME

@@ -529,7 +529,7 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                         style={{
                             color: 'black',
                             fontSize: 76,
-                            fontWeight: 'bold',
+                            fontFamily: 'Inter_900Black',
                         }}
                     >{`${team1Score} - ${team2Score}`}</Text>
                     <View
@@ -595,7 +595,9 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                         <Text
                             style={{
                                 color:
-                                    pointArray.length <= 1 ? 'gray' : 'black',
+                                    pointArray.length <= 1
+                                        ? 'lightgray'
+                                        : 'black',
                                 fontSize: 24,
                                 fontWeight: 'bold',
                             }}
