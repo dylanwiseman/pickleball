@@ -15,14 +15,18 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { players } from '../placeholderData';
 
 const NewGame = ({ route, navigation }: any) => {
-    const [player1, setPlayer1] = useState({});
-    const [player1Name, setPlayer1Name] = useState('');
+    const [player1, setPlayer1] = useState(players[0]);
+    const [player1Name, setPlayer1Name] = useState(players[0].name);
     const [player2, setPlayer2] = useState({});
     const [player2Name, setPlayer2Name] = useState('');
     const [player3, setPlayer3] = useState({});
     const [player3Name, setPlayer3Name] = useState('');
     const [player4, setPlayer4] = useState({});
     const [player4Name, setPlayer4Name] = useState('');
+
+    const randomColor = () => {
+        return Math.floor(Math.random() * 16777215).toString(16);
+    };
 
     const getPlayer = (playerName: string) => {
         let tempPlayer;
@@ -32,6 +36,38 @@ const NewGame = ({ route, navigation }: any) => {
                 return;
             }
         });
+        if (!tempPlayer) {
+            tempPlayer = {
+                defaultImg: (
+                    <View
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            borderRadius: '50%',
+                            backgroundColor: `#${randomColor()}`,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            overflow: 'hidden',
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: `#${randomColor()}`,
+                                fontSize: 77,
+                                position: 'absolute',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                width: '100%',
+                                fontFamily: 'Inter_900Black',
+                            }}
+                        >
+                            {playerName.slice(0, 1).toUpperCase()}
+                        </Text>
+                    </View>
+                ),
+                name: playerName,
+            };
+        }
         return tempPlayer;
     };
 
@@ -67,7 +103,6 @@ const NewGame = ({ route, navigation }: any) => {
                         <Text
                             style={{
                                 ...styles.text,
-                                // fontFamily: 'Inter_400Regular',
                                 marginBottom: 15,
                             }}
                         >
@@ -77,7 +112,6 @@ const NewGame = ({ route, navigation }: any) => {
                     <Text
                         style={{
                             ...styles.text,
-                            // fontFamily: 'Inter_400Regular',
                             marginBottom: 15,
                         }}
                     >
@@ -94,6 +128,9 @@ const NewGame = ({ route, navigation }: any) => {
                                 backgroundColor: player1?.name
                                     ? COLORS.green
                                     : 'white',
+                                borderColor: player1?.name
+                                    ? COLORS.green
+                                    : 'lightgray',
                             }}
                         >
                             <InsetShadow
@@ -119,7 +156,9 @@ const NewGame = ({ route, navigation }: any) => {
                                 style={styles.playerPic}
                             />
                         ) : (
-                            ''
+                            <View style={{ width: 55, height: 55 }}>
+                                {player1?.defaultImg}
+                            </View>
                         )}
                     </View>
                     <View
@@ -133,6 +172,9 @@ const NewGame = ({ route, navigation }: any) => {
                                 backgroundColor: player2?.name
                                     ? COLORS.green
                                     : 'white',
+                                borderColor: player2?.name
+                                    ? COLORS.green
+                                    : 'lightgray',
                             }}
                         >
                             <InsetShadow
@@ -158,14 +200,15 @@ const NewGame = ({ route, navigation }: any) => {
                                 style={styles.playerPic}
                             />
                         ) : (
-                            ''
+                            <View style={{ width: 55, height: 55 }}>
+                                {player2?.defaultImg}
+                            </View>
                         )}
                     </View>
 
                     <Text
                         style={{
                             ...styles.text,
-                            // fontFamily: 'Inter_Regular400',
                             textAlign: 'center',
                             marginVertical: 20,
                         }}
@@ -175,7 +218,6 @@ const NewGame = ({ route, navigation }: any) => {
                     <Text
                         style={{
                             ...styles.text,
-                            // fontFamily: 'Inter_Regular400',
                             marginBottom: 15,
                         }}
                     >
@@ -192,6 +234,9 @@ const NewGame = ({ route, navigation }: any) => {
                                 backgroundColor: player3?.name
                                     ? COLORS.green
                                     : 'white',
+                                borderColor: player3?.name
+                                    ? COLORS.green
+                                    : 'lightgray',
                             }}
                         >
                             <InsetShadow
@@ -217,7 +262,9 @@ const NewGame = ({ route, navigation }: any) => {
                                 style={styles.playerPic}
                             />
                         ) : (
-                            ''
+                            <View style={{ width: 55, height: 55 }}>
+                                {player3?.defaultImg}
+                            </View>
                         )}
                     </View>
                     <View
@@ -231,6 +278,9 @@ const NewGame = ({ route, navigation }: any) => {
                                 backgroundColor: player4?.name
                                     ? COLORS.green
                                     : 'white',
+                                borderColor: player4?.name
+                                    ? COLORS.green
+                                    : 'lightgray',
                             }}
                         >
                             <InsetShadow
@@ -256,7 +306,9 @@ const NewGame = ({ route, navigation }: any) => {
                                 style={styles.playerPic}
                             />
                         ) : (
-                            ''
+                            <View style={{ width: 55, height: 55 }}>
+                                {player4?.defaultImg}
+                            </View>
                         )}
                     </View>
                 </View>
@@ -278,7 +330,6 @@ const NewGame = ({ route, navigation }: any) => {
                         <Text
                             style={{
                                 ...styles.text,
-                                // fontFamily: 'Inter_900Black',
                             }}
                         >
                             BACK
@@ -294,10 +345,10 @@ const NewGame = ({ route, navigation }: any) => {
                             )
                                 return false;
                             navigation.navigate('ServeSelection', {
-                                player1,
-                                player2,
-                                player3,
-                                player4,
+                                player1: { ...player1, id: player1?.id || 1 },
+                                player2: { ...player2, id: player2?.id || 2 },
+                                player3: { ...player3, id: player3?.id || 3 },
+                                player4: { ...player4, id: player4?.id || 4 },
                             });
                         }}
                     >
@@ -311,7 +362,6 @@ const NewGame = ({ route, navigation }: any) => {
                                     !player4Name
                                         ? 'lightgray'
                                         : 'black',
-                                // fontFamily: 'Inter_900Black',
                             }}
                         >
                             NEXT

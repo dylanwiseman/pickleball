@@ -68,6 +68,7 @@ const ServeSelection = ({ route, navigation }: any) => {
                             player={player.name}
                             picSide={'left'}
                             pic={player.pic}
+                            defaultImg={player.defaultImg}
                         />
                         {firstServe === player.id && (
                             <Text

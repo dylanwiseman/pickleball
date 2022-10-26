@@ -188,22 +188,22 @@ const data = [
 
 export const players = [
     {
-        id: 4,
+        id: 5,
         name: 'tanjiro',
         pic: tanjiroImg,
     },
     {
-        id: 1,
+        id: 6,
         name: 'inosuke',
         pic: inosukeImg,
     },
     {
-        id: 2,
+        id: 7,
         name: 'nezuko',
         pic: nezukoImg,
     },
     {
-        id: 3,
+        id: 8,
         name: 'zenitsu',
         pic: zenitsuImg,
     },
