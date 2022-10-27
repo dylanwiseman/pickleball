@@ -68,7 +68,6 @@ const ServeSelection = ({ route, navigation }: any) => {
                             player={player.name}
                             picSide={'left'}
                             pic={player.pic}
-                            defaultImg={player.defaultImg}
                         />
                         {firstServe === player.id && (
                             <Text
@@ -316,6 +315,7 @@ const styles = StyleSheet.create({
     playerPic: {
         width: 40,
         height: 40,
+        //@ts-ignore
         borderRadius: '50%',
     },
 });

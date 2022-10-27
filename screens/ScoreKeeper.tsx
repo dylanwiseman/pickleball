@@ -6,6 +6,9 @@ import {
     StyleSheet,
     Pressable,
     Modal,
+    ImageStyle,
+    TextStyle,
+    ViewStyle,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
@@ -522,26 +525,8 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                             alignItems: 'center',
                         }}
                     >
-                        {player1.pic ? (
-                            <Image
-                                source={player1.pic}
-                                style={styles.playerPic}
-                            />
-                        ) : (
-                            <View style={{ width: 40, height: 40 }}>
-                                {player1.defaultImg}
-                            </View>
-                        )}
-                        {player2.pic ? (
-                            <Image
-                                source={player2.pic}
-                                style={styles.playerPic}
-                            />
-                        ) : (
-                            <View style={{ width: 40, height: 40 }}>
-                                {player2.defaultImg}
-                            </View>
-                        )}
+                        <Image source={player1.pic} style={styles.playerPic} />
+                        <Image source={player2.pic} style={styles.playerPic} />
                     </View>
                     <Text
                         style={{
@@ -557,26 +542,8 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                             alignItems: 'center',
                         }}
                     >
-                        {player3.pic ? (
-                            <Image
-                                source={player3.pic}
-                                style={styles.playerPic}
-                            />
-                        ) : (
-                            <View style={{ width: 40, height: 40 }}>
-                                {player3.defaultImg}
-                            </View>
-                        )}
-                        {player4.pic ? (
-                            <Image
-                                source={player4.pic}
-                                style={styles.playerPic}
-                            />
-                        ) : (
-                            <View style={{ width: 40, height: 40 }}>
-                                {player4.defaultImg}
-                            </View>
-                        )}
+                        <Image source={player3.pic} style={styles.playerPic} />
+                        <Image source={player4.pic} style={styles.playerPic} />
                     </View>
                 </View>
             </View>
@@ -610,12 +577,16 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                     </Pressable>
                     <Pressable
                         onPress={() => {
+                            if (pointArray.length <= 1) return false;
                             setModalVisible(!modalVisible);
                         }}
                     >
                         <Text
                             style={{
-                                color: 'black',
+                                color:
+                                    pointArray.length <= 1
+                                        ? 'lightgray'
+                                        : 'black',
                                 fontSize: 24,
                                 fontWeight: 'bold',
                             }}
@@ -647,7 +618,14 @@ const ScoreKeeper = ({ route, navigation }: any) => {
     );
 };
 
-const styles = StyleSheet.create({
+type Style = {
+    playerPic: ImageStyle;
+    text: TextStyle;
+    winningContainer: ViewStyle;
+    playerPicStats: ViewStyle;
+};
+
+const styles = StyleSheet.create<Style>({
     winningContainer: {
         backgroundColor: COLORS.green,
         color: COLORS.darkGreen,
@@ -655,11 +633,13 @@ const styles = StyleSheet.create({
     playerPic: {
         width: 40,
         height: 40,
+        //@ts-ignore
         borderRadius: '50%',
     },
     playerPicStats: {
         width: 80,
         height: 80,
+        //@ts-ignore
         borderRadius: '50%',
         ...SHADOWS.dark,
     },

@@ -21,6 +21,7 @@ const GameCard = ({ game }: { game: any }) => {
             }}
         >
             <TouchableWithoutFeedback
+                //@ts-ignore
                 onPress={() => navigation.navigate('GameDetails', { game })}
             >
                 <View
@@ -148,6 +149,7 @@ const styles = StyleSheet.create({
     playerPic: {
         width: 40,
         height: 40,
+        //@ts-ignore
         borderRadius: '50%',
     },
 });

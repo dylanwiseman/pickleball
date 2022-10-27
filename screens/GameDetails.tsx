@@ -6,9 +6,11 @@ import {
     StyleSheet,
     FlatList,
     Pressable,
+    ImageStyle,
+    TextStyle,
+    ViewStyle,
 } from 'react-native';
-import React from 'react';
-import { COLORS, SIZES, SHADOWS } from '../constants/theme';
+import { COLORS, SHADOWS } from '../constants/theme';
 
 const PlayerStats = ({
     player,
@@ -28,23 +30,28 @@ const PlayerStats = ({
             }}
         >
             <View style={{ position: 'relative' }}>
-                <Image source={player.pic} style={styles.playerPicStats} />
+                <Image
+                    source={player.pic}
+                    style={styles.playerPicStats as ImageStyle}
+                />
                 <View
-                    style={{
-                        backgroundColor:
-                            player.plus - player.minus >= 0
-                                ? COLORS.darkGreen
-                                : COLORS.darkRed,
-                        height: 50,
-                        width: 50,
-                        borderRadius: '50%',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        position: 'absolute',
-                        bottom: 20,
-                        left: 45,
-                        ...SHADOWS.dark,
-                    }}
+                    style={
+                        {
+                            backgroundColor:
+                                player.plus - player.minus >= 0
+                                    ? COLORS.darkGreen
+                                    : COLORS.darkRed,
+                            height: 50,
+                            width: 50,
+                            borderRadius: '50%',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            position: 'absolute',
+                            bottom: 20,
+                            left: 45,
+                            ...SHADOWS.dark,
+                        } as unknown as ViewStyle
+                    }
                 >
                     <Text
                         style={{
@@ -331,7 +338,14 @@ const GameDetails = ({ route, navigation }: any) => {
     );
 };
 
-const styles = StyleSheet.create({
+type Style = {
+    playerPic: ImageStyle;
+    text: TextStyle;
+    winningContainer: ViewStyle;
+    playerPicStats: ImageStyle;
+};
+
+const styles = StyleSheet.create<Style>({
     winningContainer: {
         backgroundColor: COLORS.green,
         color: COLORS.darkGreen,
@@ -339,12 +353,14 @@ const styles = StyleSheet.create({
     playerPic: {
         width: 40,
         height: 40,
+        //@ts-ignore
         borderRadius: '50%',
         marginVertical: 4,
     },
     playerPicStats: {
         width: 80,
         height: 80,
+        //@ts-ignore
         borderRadius: '50%',
     },
 });

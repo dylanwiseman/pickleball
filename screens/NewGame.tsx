@@ -6,8 +6,11 @@ import {
     StyleSheet,
     Dimensions,
     Image,
+    ImageStyle,
+    TextStyle,
+    ViewStyle,
 } from 'react-native';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import InsetShadow from 'react-native-inset-shadow';
@@ -18,16 +21,24 @@ import defaultImg from '../assets/default-pic.jpeg';
 const NewGame = ({ route, navigation }: any) => {
     const [player1, setPlayer1] = useState(players[0]);
     const [player1Name, setPlayer1Name] = useState(players[0].name);
-    const [player2, setPlayer2] = useState({});
+    const [player2, setPlayer2] = useState({
+        name: '',
+        pic: defaultImg,
+        id: 1,
+    });
     const [player2Name, setPlayer2Name] = useState('');
-    const [player3, setPlayer3] = useState({});
+    const [player3, setPlayer3] = useState({
+        name: '',
+        pic: defaultImg,
+        id: 1,
+    });
     const [player3Name, setPlayer3Name] = useState('');
-    const [player4, setPlayer4] = useState({});
+    const [player4, setPlayer4] = useState({
+        name: '',
+        pic: defaultImg,
+        id: 1,
+    });
     const [player4Name, setPlayer4Name] = useState('');
-
-    const randomColor = () => {
-        return Math.floor(Math.random() * 16777215).toString(16);
-    };
 
     const getPlayer = (playerName: string) => {
         let tempPlayer;
@@ -39,35 +50,9 @@ const NewGame = ({ route, navigation }: any) => {
         });
         if (!tempPlayer) {
             tempPlayer = {
-                // defaultImg: (
-                //     <View
-                //         style={{
-                //             width: '100%',
-                //             height: '100%',
-                //             borderRadius: '50%',
-                //             backgroundColor: `#E6E6EA`,
-                //             justifyContent: 'center',
-                //             alignItems: 'center',
-                //             overflow: 'hidden',
-                //         }}
-                //     >
-                //         <Text
-                //             style={{
-                //                 color: `#303036`,
-                //                 fontSize: 42,
-                //                 position: 'absolute',
-                //                 fontWeight: 'bold',
-                //                 textAlign: 'center',
-                //                 width: '100%',
-                //                 fontFamily: 'Inter_900Black',
-                //             }}
-                //         >
-                //             {playerName.slice(0, 1).toUpperCase()}
-                //         </Text>
-                //     </View>
-                // ),
                 pic: defaultImg,
                 name: playerName,
+                id: 1,
             };
         }
         return tempPlayer;
@@ -152,15 +137,11 @@ const NewGame = ({ route, navigation }: any) => {
                                 />
                             </InsetShadow>
                         </View>
-                        {player1?.pic ? (
+                        {player1?.pic && (
                             <Image
                                 source={player1.pic}
-                                style={styles.playerPic}
+                                style={styles.playerPic as ImageStyle}
                             />
-                        ) : (
-                            <View style={{ width: 55, height: 55 }}>
-                                {player1?.defaultImg}
-                            </View>
                         )}
                     </View>
                     <View
@@ -196,15 +177,11 @@ const NewGame = ({ route, navigation }: any) => {
                                 />
                             </InsetShadow>
                         </View>
-                        {player2?.pic ? (
+                        {player2?.pic && (
                             <Image
                                 source={player2.pic}
                                 style={styles.playerPic}
                             />
-                        ) : (
-                            <View style={{ width: 55, height: 55 }}>
-                                {player2?.defaultImg}
-                            </View>
                         )}
                     </View>
 
@@ -258,15 +235,11 @@ const NewGame = ({ route, navigation }: any) => {
                                 />
                             </InsetShadow>
                         </View>
-                        {player3?.pic ? (
+                        {player3?.pic && (
                             <Image
                                 source={player3?.pic}
                                 style={styles.playerPic}
                             />
-                        ) : (
-                            <View style={{ width: 55, height: 55 }}>
-                                {player3?.defaultImg}
-                            </View>
                         )}
                     </View>
                     <View
@@ -302,15 +275,11 @@ const NewGame = ({ route, navigation }: any) => {
                                 />
                             </InsetShadow>
                         </View>
-                        {player4?.pic ? (
+                        {player4?.pic && (
                             <Image
                                 source={player4?.pic}
                                 style={styles.playerPic}
                             />
-                        ) : (
-                            <View style={{ width: 55, height: 55 }}>
-                                {player4?.defaultImg}
-                            </View>
                         )}
                     </View>
                 </View>
@@ -348,9 +317,18 @@ const NewGame = ({ route, navigation }: any) => {
                                 return false;
                             navigation.navigate('ServeSelection', {
                                 player1: { ...player1, id: player1?.id || 1 },
-                                player2: { ...player2, id: player2?.id || 2 },
-                                player3: { ...player3, id: player3?.id || 3 },
-                                player4: { ...player4, id: player4?.id || 4 },
+                                player2: {
+                                    ...player2,
+                                    id: player2?.id === 1 ? 2 : player2?.id,
+                                },
+                                player3: {
+                                    ...player3,
+                                    id: player3?.id === 1 ? 3 : player3?.id,
+                                },
+                                player4: {
+                                    ...player4,
+                                    id: player4?.id === 1 ? 4 : player4?.id,
+                                },
                             });
                         }}
                     >
@@ -375,7 +353,14 @@ const NewGame = ({ route, navigation }: any) => {
     );
 };
 
-const styles = StyleSheet.create({
+type Style = {
+    playerPic: ImageStyle;
+    text: TextStyle;
+    shadowContainer: ViewStyle;
+    textInput: ViewStyle;
+};
+
+const styles = StyleSheet.create<Style>({
     textInput: {
         width: '100%',
         borderRadius: 7,
@@ -399,6 +384,7 @@ const styles = StyleSheet.create({
     playerPic: {
         width: 55,
         height: 55,
+        //@ts-ignore
         borderRadius: '50%',
     },
 });

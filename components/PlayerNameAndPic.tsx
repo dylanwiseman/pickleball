@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    ImageStyle,
+    TextStyle,
+} from 'react-native';
 import React from 'react';
 import { SIZES } from '../constants/theme';
 
@@ -6,12 +13,10 @@ const PlayerNameAndPic = ({
     player,
     pic,
     picSide,
-    defaultImg,
 }: {
     player: any;
     pic: any;
     picSide: string;
-    defaultImg: any;
 }) => {
     return (
         <View
@@ -21,25 +26,21 @@ const PlayerNameAndPic = ({
                 justifyContent: 'space-between',
             }}
         >
-            {picSide === 'left' &&
-                (pic ? (
-                    <Image source={pic} style={styles.playerPic} />
-                ) : (
-                    <View style={{ width: 40, height: 40 }}>{defaultImg}</View>
-                ))}
+            {picSide === 'left' && (
+                <Image source={pic} style={styles.playerPic as ImageStyle} />
+            )}
             <Text
-                style={{
-                    fontSize: SIZES.large,
-                    textAlign: picSide,
-                    marginHorizontal: 10,
-                }}
+                style={
+                    {
+                        fontSize: SIZES.large,
+                        textAlign: picSide,
+                        marginHorizontal: 10,
+                    } as TextStyle
+                }
             >{`${player}`}</Text>
-            {picSide === 'right' &&
-                (pic ? (
-                    <Image source={pic} style={styles.playerPic} />
-                ) : (
-                    <View>{defaultImg}</View>
-                ))}
+            {picSide === 'right' && (
+                <Image source={pic} style={styles.playerPic as ImageStyle} />
+            )}
         </View>
     );
 };
@@ -49,6 +50,7 @@ const styles = StyleSheet.create({
     playerPic: {
         width: 40,
         height: 40,
+        //@ts-ignore
         borderRadius: '50%',
         fontFamily: 'Inter_400Regular',
     },
