@@ -1,11 +1,10 @@
 import { View, SafeAreaView, FlatList, Text, Pressable } from 'react-native';
-import React from 'react';
 import placeholderData from '../placeholderData';
 import GameCard from '../components/GameCard';
 import HomeHeader from '../components/HomeHeader';
 import { SHADOWS } from '../constants/theme';
 
-const Home = ({ route, navigation }: any) => {
+const Home = ({ navigation }: any) => {
     const signOut = () => {
         navigation.navigate('Login');
     };

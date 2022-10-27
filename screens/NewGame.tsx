@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
-import { COLORS, SIZES, SHADOWS } from '../constants/theme';
+import { COLORS } from '../constants/theme';
 import InsetShadow from 'react-native-inset-shadow';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { players } from '../placeholderData';

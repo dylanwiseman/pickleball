@@ -6,7 +6,6 @@ import {
     ImageStyle,
     TextStyle,
 } from 'react-native';
-import React from 'react';
 import { SIZES } from '../constants/theme';
 
 const PlayerNameAndPic = ({

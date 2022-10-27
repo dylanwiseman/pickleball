@@ -1,11 +1,8 @@
-import { View, Text, StyleSheet, Image, Touchable } from 'react-native';
-import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import PlayerNameAndPic from './PlayerNameAndPic';
-import { Rubik_900Black } from '@expo-google-fonts/rubik';
-// import tw from 'twrnc';
 
 const GameCard = ({ game }: { game: any }) => {
     const navigation = useNavigation();

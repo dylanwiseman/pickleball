@@ -10,8 +10,8 @@ import {
     TextStyle,
     ViewStyle,
 } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import { COLORS, SIZES, SHADOWS } from '../constants/theme';
+import { useState } from 'react';
+import { COLORS, SHADOWS } from '../constants/theme';
 
 const ScoreKeeper = ({ route, navigation }: any) => {
     const {

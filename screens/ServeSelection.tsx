@@ -6,8 +6,8 @@ import {
     StyleSheet,
     Dimensions,
 } from 'react-native';
-import React, { useState } from 'react';
-import { COLORS, SIZES, SHADOWS } from '../constants/theme';
+import { useState } from 'react';
+import { COLORS, SHADOWS } from '../constants/theme';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import PlayerNameAndPic from '../components/PlayerNameAndPic';
 import Game from '../data-structures/game';
