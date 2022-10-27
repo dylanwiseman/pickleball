@@ -13,6 +13,7 @@ import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import InsetShadow from 'react-native-inset-shadow';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { players } from '../placeholderData';
+import defaultImg from '../assets/default-pic.jpeg';
 
 const NewGame = ({ route, navigation }: any) => {
     const [player1, setPlayer1] = useState(players[0]);
@@ -38,33 +39,34 @@ const NewGame = ({ route, navigation }: any) => {
         });
         if (!tempPlayer) {
             tempPlayer = {
-                defaultImg: (
-                    <View
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            borderRadius: '50%',
-                            backgroundColor: `#E6E6EA`,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            overflow: 'hidden',
-                        }}
-                    >
-                        <Text
-                            style={{
-                                color: `#303036`,
-                                fontSize: 42,
-                                position: 'absolute',
-                                fontWeight: 'bold',
-                                textAlign: 'center',
-                                width: '100%',
-                                fontFamily: 'Inter_900Black',
-                            }}
-                        >
-                            {playerName.slice(0, 1).toUpperCase()}
-                        </Text>
-                    </View>
-                ),
+                // defaultImg: (
+                //     <View
+                //         style={{
+                //             width: '100%',
+                //             height: '100%',
+                //             borderRadius: '50%',
+                //             backgroundColor: `#E6E6EA`,
+                //             justifyContent: 'center',
+                //             alignItems: 'center',
+                //             overflow: 'hidden',
+                //         }}
+                //     >
+                //         <Text
+                //             style={{
+                //                 color: `#303036`,
+                //                 fontSize: 42,
+                //                 position: 'absolute',
+                //                 fontWeight: 'bold',
+                //                 textAlign: 'center',
+                //                 width: '100%',
+                //                 fontFamily: 'Inter_900Black',
+                //             }}
+                //         >
+                //             {playerName.slice(0, 1).toUpperCase()}
+                //         </Text>
+                //     </View>
+                // ),
+                pic: defaultImg,
                 name: playerName,
             };
         }

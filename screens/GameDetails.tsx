@@ -24,6 +24,7 @@ const PlayerStats = ({
                 height: 100,
                 justifyContent: 'space-between',
                 paddingHorizontal: 20,
+                marginBottom: 20,
             }}
         >
             <View style={{ position: 'relative' }}>
@@ -40,8 +41,8 @@ const PlayerStats = ({
                         justifyContent: 'center',
                         alignItems: 'center',
                         position: 'absolute',
-                        bottom: 0,
-                        left: 40,
+                        bottom: 20,
+                        left: 45,
                         ...SHADOWS.dark,
                     }}
                 >
@@ -60,6 +61,9 @@ const PlayerStats = ({
                             : `-${player.minus - player.plus}`}
                     </Text>
                 </View>
+                <Text style={{ textAlign: 'center', marginTop: 5 }}>
+                    {player.name}
+                </Text>
             </View>
             <View
                 style={{
@@ -336,6 +340,7 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         borderRadius: '50%',
+        marginVertical: 4,
     },
     playerPicStats: {
         width: 80,
