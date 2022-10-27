@@ -44,7 +44,7 @@ const NewGame = ({ route, navigation }: any) => {
                             width: '100%',
                             height: '100%',
                             borderRadius: '50%',
-                            backgroundColor: `#${randomColor()}`,
+                            backgroundColor: `#E6E6EA`,
                             justifyContent: 'center',
                             alignItems: 'center',
                             overflow: 'hidden',
@@ -52,8 +52,8 @@ const NewGame = ({ route, navigation }: any) => {
                     >
                         <Text
                             style={{
-                                color: `#${randomColor()}`,
-                                fontSize: 77,
+                                color: `#303036`,
+                                fontSize: 42,
                                 position: 'absolute',
                                 fontWeight: 'bold',
                                 textAlign: 'center',

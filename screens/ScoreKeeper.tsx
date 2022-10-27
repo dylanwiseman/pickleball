@@ -522,8 +522,26 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                             alignItems: 'center',
                         }}
                     >
-                        <Image source={player1.pic} style={styles.playerPic} />
-                        <Image source={player2.pic} style={styles.playerPic} />
+                        {player1.pic ? (
+                            <Image
+                                source={player1.pic}
+                                style={styles.playerPic}
+                            />
+                        ) : (
+                            <View style={{ width: 40, height: 40 }}>
+                                {player1.defaultImg}
+                            </View>
+                        )}
+                        {player2.pic ? (
+                            <Image
+                                source={player2.pic}
+                                style={styles.playerPic}
+                            />
+                        ) : (
+                            <View style={{ width: 40, height: 40 }}>
+                                {player2.defaultImg}
+                            </View>
+                        )}
                     </View>
                     <Text
                         style={{
@@ -539,8 +557,26 @@ const ScoreKeeper = ({ route, navigation }: any) => {
                             alignItems: 'center',
                         }}
                     >
-                        <Image source={player3.pic} style={styles.playerPic} />
-                        <Image source={player4.pic} style={styles.playerPic} />
+                        {player3.pic ? (
+                            <Image
+                                source={player3.pic}
+                                style={styles.playerPic}
+                            />
+                        ) : (
+                            <View style={{ width: 40, height: 40 }}>
+                                {player3.defaultImg}
+                            </View>
+                        )}
+                        {player4.pic ? (
+                            <Image
+                                source={player4.pic}
+                                style={styles.playerPic}
+                            />
+                        ) : (
+                            <View style={{ width: 40, height: 40 }}>
+                                {player4.defaultImg}
+                            </View>
+                        )}
                     </View>
                 </View>
             </View>
