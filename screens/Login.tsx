@@ -7,16 +7,23 @@ import {
     Dimensions,
     Image,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import InsetShadow from 'react-native-inset-shadow';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { players } from '../placeholderData';
 
-const Login = ({ navigation, route }) => {
+const Login = ({ navigation, route }: any) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {}, []);
+
+    const handleLogin = () => {
+
+    }
+
     return (
         <SafeAreaView
             style={{

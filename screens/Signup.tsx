@@ -7,17 +7,20 @@ import {
     Dimensions,
     Image,
 } from 'react-native';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import InsetShadow from 'react-native-inset-shadow';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { players } from '../placeholderData';
+import { useApolloClient } from '@apollo/client';
+// import { players } from '../placeholderData';
 
-const SignUp = ({ navigation, route }) => {
+const SignUp = ({ navigation, route }: any) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const client = useApolloClient();
     return (
         <SafeAreaView
             style={{
@@ -138,7 +141,8 @@ const SignUp = ({ navigation, route }) => {
                     <Pressable
                         style={{ width: '80%' }}
                         onPress={() => {
-                            navigation.navigate('Home');
+
+                            // navigation.navigate('Home');
                         }}
                     >
                         <View

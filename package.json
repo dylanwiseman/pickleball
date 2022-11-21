@@ -6,9 +6,12 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "precodegen": "NODE_ENV=production npx apollo service:download --endpoint=http://localhost:4000/graphql ./graphql/graphql-schema.json",
+    "codegen": "npx apollo codegen:generate --localSchemaFile=./graphql/graphql-schema.json --target=typescript --tagName=gql"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.1",
     "@expo-google-fonts/dev": "^0.2.2",
     "@expo-google-fonts/rubik": "^0.2.2",
     "@react-navigation/native": "^6.0.8",
@@ -16,6 +19,7 @@
     "expo": "~46.0.7",
     "expo-font": "~10.2.0",
     "expo-status-bar": "~1.4.0",
+    "graphql": "~16.5.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-native": "0.69.6",
