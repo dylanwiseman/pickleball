@@ -5,9 +5,11 @@ import {
     Pressable,
     StyleSheet,
     Dimensions,
-    Image,
+    ImageStyle,
+    ViewStyle,
+    TextStyle,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import InsetShadow from 'react-native-inset-shadow';
@@ -187,7 +189,14 @@ const Login = ({ navigation, route }: any) => {
     );
 };
 
-const styles = StyleSheet.create({
+type Style = {
+    playerPic: ImageStyle;
+    text: TextStyle;
+    shadowContainer: ViewStyle;
+    textInput: ViewStyle;
+};
+
+const styles = StyleSheet.create<Style>({
     textInput: {
         width: '100%',
         borderRadius: 7,
@@ -211,6 +220,7 @@ const styles = StyleSheet.create({
     playerPic: {
         width: 55,
         height: 55,
+        //@ts-ignore
         borderRadius: '50%',
     },
 });

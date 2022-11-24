@@ -233,6 +233,7 @@ const styles = StyleSheet.create({
     playerPic: {
         width: 55,
         height: 55,
+        //@ts-ignore
         borderRadius: '50%',
     },
 });

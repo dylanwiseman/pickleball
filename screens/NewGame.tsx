@@ -18,7 +18,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { players } from '../placeholderData';
 import defaultImg from '../assets/default-pic.jpeg';
 
-const NewGame = ({ route, navigation }: any) => {
+const NewGame = ({ navigation }: any) => {
     const [player1, setPlayer1] = useState(players[0]);
     const [player1Name, setPlayer1Name] = useState(players[0].name);
     const [player2, setPlayer2] = useState({
