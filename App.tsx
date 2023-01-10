@@ -19,8 +19,10 @@ import ScoreKeeper from "./screens/ScoreKeeper";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+// import * as dotenv from "dotenv";
 
 export default function App() {
+  //   dotenv.config();
   const client = new ApolloClient({
     cache: new InMemoryCache(),
     uri: "http://192.168.1.62:4000/graphql",

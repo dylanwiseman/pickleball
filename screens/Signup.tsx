@@ -5,7 +5,6 @@ import {
   Pressable,
   StyleSheet,
   Dimensions,
-  Image,
 } from "react-native";
 import { useState } from "react";
 import { TextInput } from "react-native-gesture-handler";
@@ -14,7 +13,7 @@ import InsetShadow from "react-native-inset-shadow";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useMutation } from "@apollo/client";
 import { RegisterUser } from "../graphql/Users/mutations";
-// import { players } from '../placeholderData';
+import { signIn } from "../services/auth/signIn";
 
 const SignUp = ({ navigation, route }: any) => {
   const [username, setUsername] = useState("");
@@ -79,9 +78,6 @@ const SignUp = ({ navigation, route }: any) => {
                   style={styles.textInput}
                   onChangeText={(text) => setUsername(text)}
                   value={username}
-                  onBlur={() => {
-                    // setPlayer1(getPlayer(player1Name));
-                  }}
                 />
               </InsetShadow>
             </View>
@@ -103,9 +99,6 @@ const SignUp = ({ navigation, route }: any) => {
                   style={styles.textInput}
                   onChangeText={(text) => setEmail(text)}
                   value={email}
-                  onBlur={() => {
-                    // setPlayer1(getPlayer(player1Name));
-                  }}
                 />
               </InsetShadow>
             </View>
@@ -128,9 +121,6 @@ const SignUp = ({ navigation, route }: any) => {
                   style={styles.textInput}
                   onChangeText={(text) => setPassword(text)}
                   value={password}
-                  onBlur={() => {
-                    // setPlayer3(getPlayer(player3Name));
-                  }}
                 />
               </InsetShadow>
             </View>
@@ -143,24 +133,22 @@ const SignUp = ({ navigation, route }: any) => {
         >
           <Pressable
             style={{ width: "80%" }}
-            onPress={() => {
-              try {
-                console.log("signing up!");
-                register({
-                  variables: {
-                    userName: username,
-                    email: email,
-                    password: password,
-                  },
-                });
-              } catch (error) {
-                console.warn(error);
-              } finally {
-                console.log("registered?");
-                console.log(data);
+            onPress={async () => {
+              const variables = {
+                userName: username.toLowerCase(),
+                email: email,
+                password: password,
+              };
+              //   console.log("register params: ", variables);
+              const data = await register({
+                variables: variables,
+              });
+              console.log("registration complete!");
+              const auth = await signIn(variables);
 
-                navigation.navigate("Home", { user: data });
-              }
+              // TODO: getSelf() to get signin data
+              console.log("data: ", data);
+              navigation.navigate("Home", { user: data });
             }}
           >
             <View
