@@ -1,7 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import * as Font from "expo-font";
-// import { useEffect, useState, useCallback } from 'react';
+import { useState } from "react";
+import AppContext from "./components/AppContext";
 import {
   Inter_900Black,
   Inter_400Regular,
@@ -45,6 +46,11 @@ export default function App() {
     Inter_400Regular,
     Inter_600SemiBold,
   });
+  const [loggedInUser, setLoggedInUser] = useState({});
+  const userData = {
+    loggedInUser,
+    setLoggedInUser,
+  };
 
   // const onLayoutRootView = useCallback(async () => {
   //     if (fontsLoaded) {
@@ -66,20 +72,22 @@ export default function App() {
   };
   return (
     <ApolloProvider client={client}>
-      <NavigationContainer theme={theme}>
-        <Stack.Navigator
-          screenOptions={{ headerShown: false }}
-          initialRouteName="Home"
-        >
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Signup" component={Signup} />
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="GameDetails" component={GameDetails} />
-          <Stack.Screen name="NewGame" component={NewGame} />
-          <Stack.Screen name="ServeSelection" component={ServeSelection} />
-          <Stack.Screen name="ScoreKeeper" component={ScoreKeeper} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <AppContext.Provider value={userData}>
+        <NavigationContainer theme={theme}>
+          <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            initialRouteName="Home"
+          >
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Signup" component={Signup} />
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="GameDetails" component={GameDetails} />
+            <Stack.Screen name="NewGame" component={NewGame} />
+            <Stack.Screen name="ServeSelection" component={ServeSelection} />
+            <Stack.Screen name="ScoreKeeper" component={ScoreKeeper} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AppContext.Provider>
     </ApolloProvider>
   );
 }

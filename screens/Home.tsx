@@ -3,6 +3,9 @@ import placeholderData from "../placeholderData";
 import GameCard from "../components/GameCard";
 import HomeHeader from "../components/HomeHeader";
 import { SHADOWS } from "../constants/theme";
+import { useEffect, useContext } from "react";
+import AppContext from "../components/AppContext";
+import PlaceholderCard from "../components/PlaceholderCard";
 
 const Home = ({ navigation, route }: any) => {
   const signOut = () => {
@@ -10,6 +13,8 @@ const Home = ({ navigation, route }: any) => {
   };
 
   // getSelf when we come to homepage, store that data locally.
+  const { loggedInUser } = useContext(AppContext);
+  console.log("context: ", loggedInUser);
 
   return (
     <SafeAreaView
@@ -22,7 +27,13 @@ const Home = ({ navigation, route }: any) => {
         <FlatList
           stickyHeaderIndices={[0]}
           data={placeholderData}
-          renderItem={({ item }) => <GameCard game={item} />}
+          renderItem={({ item }) =>
+            loggedInUser?.games?.length > 0 ? (
+              <GameCard game={item} />
+            ) : (
+              <PlaceholderCard game={item} />
+            )
+          }
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{

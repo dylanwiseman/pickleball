@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import AppContext from "../components/AppContext";
 import { TextInput } from "react-native-gesture-handler";
 import { COLORS, SIZES, SHADOWS } from "../constants/theme";
 import InsetShadow from "react-native-inset-shadow";
@@ -22,6 +23,8 @@ const SignUp = ({ navigation, route }: any) => {
 
   // const client = useApolloClient();
   const [register, { data, loading, error, reset }] = useMutation(RegisterUser);
+
+  const context = useContext(AppContext);
 
   return (
     <SafeAreaView
@@ -140,15 +143,16 @@ const SignUp = ({ navigation, route }: any) => {
                 password: password,
               };
               //   console.log("register params: ", variables);
-              const data = await register({
+              const { data } = await register({
                 variables: variables,
               });
               console.log("registration complete!");
               const auth = await signIn(variables);
 
               // TODO: getSelf() to get signin data
-              console.log("data: ", data);
-              navigation.navigate("Home", { user: data });
+              console.log("RegisterUser: ", data.RegisterUser);
+              context.setLoggedInUser(data?.RegisterUser);
+              navigation.navigate("Home" /*, { user: data } */);
             }}
           >
             <View
