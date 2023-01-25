@@ -27,12 +27,14 @@ const Home = ({ navigation, route }: any) => {
         <FlatList
           stickyHeaderIndices={[0]}
           data={placeholderData}
-          renderItem={({ item }) =>
-            loggedInUser?.games?.length > 0 ? (
+          renderItem={
+            ({ item }) => (
+              // loggedInUser?.games?.length > 0 ? (
               <GameCard game={item} />
-            ) : (
-              <PlaceholderCard game={item} />
             )
+            // ) : (
+            //   <PlaceholderCard game={item} />
+            // )
           }
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}

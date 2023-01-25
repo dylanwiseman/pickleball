@@ -76,7 +76,7 @@ const HomeHeader = ({ signOut }) => {
                   fontSize: SIZES.large,
                 }}
               >
-                {loggedInUser?.userName}
+                {loggedInUser?.userName ? loggedInUser.userName : "tanjiro"}
               </Text>
               <Text
                 style={{
