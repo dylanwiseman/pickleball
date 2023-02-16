@@ -6,10 +6,10 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import AppContext from "../components/AppContext";
 import { TextInput } from "react-native-gesture-handler";
-import { COLORS, SIZES, SHADOWS } from "../constants/theme";
+import { COLORS, SIZES } from "../constants/theme";
 import InsetShadow from "react-native-inset-shadow";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useMutation } from "@apollo/client";
@@ -23,6 +23,10 @@ const SignUp = ({ navigation, route }: any) => {
 
   // const client = useApolloClient();
   const [register, { data, loading, error, reset }] = useMutation(RegisterUser);
+
+  useEffect(() => {
+    if (error) console.log(error);
+  }, [error]);
 
   const context = useContext(AppContext);
 
