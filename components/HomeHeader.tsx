@@ -4,10 +4,11 @@ import pic from "../assets/tanjiro.png";
 import { useState, useContext } from "react";
 import AppContext from "./AppContext";
 
-const HomeHeader = ({ signOut }) => {
+const HomeHeader = ({ signOut }: any) => {
   const [showStats, setShowStats] = useState(false);
 
   const { loggedInUser } = useContext(AppContext);
+  console.log(loggedInUser);
   return (
     <Pressable
       onPress={() => {
