@@ -25,7 +25,7 @@ const SignUp = ({ navigation, route }: any) => {
   const [register, { data, loading, error, reset }] = useMutation(RegisterUser);
 
   useEffect(() => {
-    if (error) console.log(error);
+    if (error) console.log(JSON.parse(JSON.stringify(error)));
   }, [error]);
 
   const context = useContext(AppContext);

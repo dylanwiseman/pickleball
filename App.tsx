@@ -26,8 +26,8 @@ export default function App() {
   //   dotenv.config();
   const client = new ApolloClient({
     cache: new InMemoryCache(),
-    uri: "http://localhost:4000/graphql",
-    // uri: "http://192.168.1.62:4000/graphql",
+    // if you are getting "network request failed, make sure this ip is accurate, machine's internal IP: "
+    uri: "http://192.168.1.73:4000/graphql",
   });
   // useEffect(() => {
   //     async function loadResources() {
