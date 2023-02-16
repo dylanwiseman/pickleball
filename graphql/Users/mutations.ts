@@ -7,6 +7,11 @@ export const RegisterUser = gql`
     $password: String!
   ) {
     RegisterUser(userName: $userName, email: $email, password: $password) {
+      stats {
+        gamesPlayed
+        avgContribution
+        totalContribution
+      }
       authId
       email
       userName
@@ -14,6 +19,9 @@ export const RegisterUser = gql`
       _id
       updatedAt
       createdAt
+      gamesPlayed
+      avgContribution
+      totalContribution
     }
   }
 `;

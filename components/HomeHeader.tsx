@@ -1,6 +1,6 @@
 import { View, Text, Image, Pressable, StyleSheet } from "react-native";
 import { COLORS, SIZES, SHADOWS } from "../constants/theme";
-import pic from "../assets/tanjiro.png";
+import pic from "../assets/default-pic.jpeg";
 import { useState, useContext } from "react";
 import AppContext from "./AppContext";
 
@@ -8,7 +8,7 @@ const HomeHeader = ({ signOut }: any) => {
   const [showStats, setShowStats] = useState(false);
 
   const { loggedInUser } = useContext(AppContext);
-  console.log(loggedInUser);
+  console.log("user: ", loggedInUser);
   return (
     <Pressable
       onPress={() => {
@@ -52,9 +52,15 @@ const HomeHeader = ({ signOut }: any) => {
               </Text>
             </Pressable>
           </View>
-          <Text style={styles.text}>Games played: 4</Text>
-          <Text style={styles.text}>Avg. contribution: +3</Text>
-          <Text style={styles.text}>Total contribution: +12</Text>
+          <Text style={styles.text}>
+            Games played: {loggedInUser?.gamesPlayed}
+          </Text>
+          <Text style={styles.text}>
+            Avg. contribution: {loggedInUser?.avgContribution}
+          </Text>
+          <Text style={styles.text}>
+            Total contribution: {loggedInUser?.totalContribution}
+          </Text>
         </View>
         <View
           style={{
@@ -85,7 +91,7 @@ const HomeHeader = ({ signOut }: any) => {
                   fontStyle: "italic",
                 }}
               >
-                +12
+                {loggedInUser?.avgContribution}
               </Text>
             </View>
             <Image
