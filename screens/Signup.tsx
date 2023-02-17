@@ -154,7 +154,7 @@ const SignUp = ({ navigation, route }: any) => {
               const auth = await signIn(variables);
 
               // TODO: getSelf() to get signin data
-              console.log("RegisterUser: ", data.RegisterUser);
+              // console.log("RegisterUser: ", data.RegisterUser);
               context.setLoggedInUser(data?.RegisterUser);
               navigation.navigate("Home" /*, { user: data } */);
             }}

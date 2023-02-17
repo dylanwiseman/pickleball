@@ -16,7 +16,7 @@ export const signIn = async (variables: any) => {
         }),
       }
     );
-    console.log("signup complete!");
+    console.log("sign in complete!");
     return await auth.json();
   } catch (error) {
     console.warn(JSON.parse(JSON.stringify(error)));

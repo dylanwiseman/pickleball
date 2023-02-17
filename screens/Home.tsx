@@ -14,7 +14,7 @@ const Home = ({ navigation, route }: any) => {
 
   // getSelf when we come to homepage, store that data locally.
   const { loggedInUser } = useContext(AppContext);
-  console.log("context: ", loggedInUser);
+  // console.log("context: ", loggedInUser);
 
   return (
     <SafeAreaView

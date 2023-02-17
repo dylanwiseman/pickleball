@@ -19,25 +19,47 @@ import ServeSelection from "./screens/ServeSelection";
 import ScoreKeeper from "./screens/ScoreKeeper";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import {
+  ApolloProvider,
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import * as dotenv from "dotenv";
 
 export default function App() {
   //   dotenv.config();
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    // if you are getting "network request failed", make sure this ip is accurate, machine's internal IP: "
+
+  // if you are getting "network request failed", make sure this ip is accurate, machine's internal IP:
+  const httpLink = createHttpLink({
     uri: "http://192.168.1.73:4000/graphql",
   });
-  // useEffect(() => {
-  //     async function loadResources() {
-  //         await Font.loadAsync({
-  //             //prettier-ignore
-  //             'Rubik': require('./assets/fonts/Rubik-VariableFont_wght.ttf'),
-  //         });
-  //     }
-  //     loadResources();
-  // }, []);
+
+  const getToken = async () => {
+    const token = await AsyncStorage.getItem("@idToken");
+    console.log("token: ", token);
+  };
+
+  const authLink = setContext((_, { headers }) => {
+    // get the authentication token from local storage if it exists
+
+    // return the headers to the context so httpLink can read them
+    return {
+      headers: {
+        ...headers,
+        "pickleball-access-token": getToken(),
+        // authorization: token ? `Bearer ${token}` : "",
+      },
+    };
+  });
+
+  const client = new ApolloClient({
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
+  });
+
   const [fontsLoaded] = Font.useFonts({
     //prettier-ignore
     Montserrat_900Black,
