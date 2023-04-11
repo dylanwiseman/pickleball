@@ -8,7 +8,7 @@ const HomeHeader = ({ signOut }: any) => {
   const [showStats, setShowStats] = useState(false);
 
   const { loggedInUser } = useContext(AppContext);
-  console.log("user: ", loggedInUser);
+  console.log("user in HomeHeader from context: ", loggedInUser);
   return (
     <Pressable
       onPress={() => {
@@ -83,7 +83,7 @@ const HomeHeader = ({ signOut }: any) => {
                   fontSize: SIZES.large,
                 }}
               >
-                {loggedInUser?.userName ? loggedInUser.userName : "tanjiro"}
+                {loggedInUser?.userName ? loggedInUser.userName : "no user"}
               </Text>
               <Text
                 style={{

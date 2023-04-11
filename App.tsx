@@ -39,7 +39,7 @@ export default function App() {
 
   const getToken = async () => {
     const token = await AsyncStorage.getItem("@idToken");
-    console.log("token: ", token);
+    console.log("token from getToken on App.tsx: ", token);
   };
 
   const authLink = setContext((_, { headers }) => {
@@ -55,10 +55,12 @@ export default function App() {
     };
   });
 
+  console.log("App.tsx component!");
   const client = new ApolloClient({
     link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
   });
+  console.log("CLIENT LINK: ", client?.link);
 
   const [fontsLoaded] = Font.useFonts({
     //prettier-ignore

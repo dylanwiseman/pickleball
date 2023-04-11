@@ -48,7 +48,8 @@ const Login = ({ navigation, route }: any) => {
     // TODO: getSelf() to get signin data
     if (!loading) console.log("GET SELF DATA: ", data);
     // context.setLoggedInUser(data?.RegisterUser);
-    // navigation.navigate("Home" /*, { user: data } */);
+    context.loggedInUser = data?.RegisterUser;
+    navigation.navigate("Home" /*, { user: data } */);
   };
 
   return (
@@ -181,7 +182,7 @@ const Login = ({ navigation, route }: any) => {
                   fontWeight: "bold",
                 }}
               >
-                LOG IN
+                {loading ? "LOGGING IN..." : "LOG IN"}
               </Text>
             </View>
           </Pressable>
