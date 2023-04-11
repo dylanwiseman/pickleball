@@ -20,6 +20,9 @@ import AppContext from "../components/AppContext";
 import { GetSelf } from "../graphql/Users/queries";
 import { useLazyQuery } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import updateHeaders from "../services/auth/updateHeaders";
+import getToken from "../services/auth/getToken";
+import { httpLink, client } from "../services/auth/apolloClient";
 
 const Login = ({ navigation, route }: any) => {
   const [username, setUsername] = useState("");
@@ -43,6 +46,7 @@ const Login = ({ navigation, route }: any) => {
     } catch (e) {
       // saving error
     }
+    await updateHeaders(client, httpLink, auth.idToken);
     await getSelf();
     if (error) console.log("ERROR: ", JSON.parse(JSON.stringify(error)));
     // TODO: getSelf() to get signin data

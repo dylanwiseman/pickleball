@@ -7,6 +7,8 @@ import AppContext from "./AppContext";
 const HomeHeader = ({ signOut }: any) => {
   const [showStats, setShowStats] = useState(false);
 
+  let context = useContext(AppContext);
+  console.log("context: ", context);
   const { loggedInUser } = useContext(AppContext);
   console.log("user in HomeHeader from context: ", loggedInUser);
   return (

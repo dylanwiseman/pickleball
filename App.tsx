@@ -19,49 +19,10 @@ import ServeSelection from "./screens/ServeSelection";
 import ScoreKeeper from "./screens/ScoreKeeper";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
-import {
-  ApolloProvider,
-  ApolloClient,
-  InMemoryCache,
-  createHttpLink,
-} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-// import * as dotenv from "dotenv";
+import { client } from "./services/auth/apolloClient";
+import { ApolloProvider } from "@apollo/client";
 
 export default function App() {
-  //   dotenv.config();
-
-  // if you are getting "network request failed", make sure this ip is accurate, machine's internal IP:
-  const httpLink = createHttpLink({
-    uri: "http://192.168.1.73:4000/graphql",
-  });
-
-  const getToken = async () => {
-    const token = await AsyncStorage.getItem("@idToken");
-    console.log("token from getToken on App.tsx: ", token);
-  };
-
-  const authLink = setContext((_, { headers }) => {
-    // get the authentication token from local storage if it exists
-
-    // return the headers to the context so httpLink can read them
-    return {
-      headers: {
-        ...headers,
-        "pickleball-access-token": getToken(),
-        // authorization: token ? `Bearer ${token}` : "",
-      },
-    };
-  });
-
-  console.log("App.tsx component!");
-  const client = new ApolloClient({
-    link: authLink.concat(httpLink),
-    cache: new InMemoryCache(),
-  });
-  console.log("CLIENT LINK: ", client?.link);
-
   const [fontsLoaded] = Font.useFonts({
     //prettier-ignore
     Montserrat_900Black,
@@ -76,12 +37,6 @@ export default function App() {
     loggedInUser,
     setLoggedInUser,
   };
-
-  // const onLayoutRootView = useCallback(async () => {
-  //     if (fontsLoaded) {
-  //         //   await SplashScreen.hideAsync();
-  //     }
-  // }, [fontsLoaded]);
 
   if (!fontsLoaded) {
     return null;
