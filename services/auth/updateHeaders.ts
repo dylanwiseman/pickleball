@@ -10,7 +10,7 @@ export default function updateHeaders(
       new ApolloLink((operation, forward) => {
         operation.setContext({
           headers: {
-            Authorization: newHeaderValue,
+            "pickleball-access-token": newHeaderValue,
           },
         });
         return forward(operation);
