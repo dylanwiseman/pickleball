@@ -1,4 +1,13 @@
-import { View, Text, Image, Pressable, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  Pressable,
+  StyleSheet,
+  ImageStyle,
+  TextStyle,
+  ViewStyle,
+} from "react-native";
 import { COLORS, SIZES, SHADOWS } from "../constants/theme";
 import pic from "../assets/default-pic.jpeg";
 import { useState, useContext } from "react";
@@ -17,14 +26,7 @@ const HomeHeader = ({ signOut }: any) => {
         setShowStats(!showStats);
       }}
     >
-      <View
-        style={{
-          backgroundColor: COLORS.white,
-          padding: SIZES.font,
-          ...SHADOWS.dark,
-          position: "fixed",
-        }}
-      >
+      <View style={styles.view1}>
         <View style={{ display: showStats ? "flex" : "none" }}>
           <View
             style={{
@@ -93,7 +95,7 @@ const HomeHeader = ({ signOut }: any) => {
                   fontStyle: "italic",
                 }}
               >
-                {loggedInUser?.avgContribution}
+                {loggedInUser?.stats?.avgContribution}
               </Text>
             </View>
             <Image
@@ -110,7 +112,13 @@ const HomeHeader = ({ signOut }: any) => {
   );
 };
 
-const styles = StyleSheet.create({
+type Style = {
+  playerPic: ImageStyle;
+  text: TextStyle;
+  view1: ViewStyle;
+};
+
+const styles = StyleSheet.create<Style>({
   text: {
     fontSize: SIZES.large,
     marginBottom: 5,
@@ -118,7 +126,15 @@ const styles = StyleSheet.create({
   playerPic: {
     width: 40,
     height: 40,
+    //@ts-ignore
     borderRadius: "50%",
+  },
+  view1: {
+    backgroundColor: COLORS.white,
+    padding: SIZES.font,
+    ...SHADOWS.dark,
+    //@ts-ignore
+    position: "fixed",
   },
 });
 

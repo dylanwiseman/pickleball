@@ -32,10 +32,13 @@ export default function App() {
     Inter_400Regular,
     Inter_600SemiBold,
   });
-  const [loggedInUser, setLoggedInUser] = useState({});
+  // const [loggedInUser, setLoggedInUser] = useState({});
   const userData = {
-    loggedInUser,
-    setLoggedInUser,
+    loggedInUser: {
+      userName: "",
+      games: [],
+      stats: { gamesPlayed: 0, avgContribution: 0, totalContribution: 0 },
+    },
   };
 
   if (!fontsLoaded) {
