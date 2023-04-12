@@ -45,7 +45,7 @@ const Login = ({ navigation, route }: any) => {
     try {
       await AsyncStorage.setItem("@idToken", auth.idToken);
       await updateHeaders(client, httpLink, auth.idToken);
-      const data = await client.query({
+      const { data } = await client.query({
         query: gql`
           query Query {
             GetSelf {
@@ -70,8 +70,9 @@ const Login = ({ navigation, route }: any) => {
           },
         },
       });
-      console.log("query data: ", data);
-      console.log("hmm");
+      console.log("query data: ", data.GetSelf);
+      context.loggedInUser = data?.GetSelf;
+      console.log("context: ", context);
       // await getSelf();
     } catch (e) {
       console.warn(JSON.stringify(e, null, 2));
@@ -81,8 +82,8 @@ const Login = ({ navigation, route }: any) => {
     // TODO: getSelf() to get signin data
     // if (!loading) console.log("GET SELF DATA: ", data);
     // context.setLoggedInUser(data?.RegisterUser);
-    // context.loggedInUser = data?.RegisterUser;
-    // navigation.navigate("Home" /*, { user: data } */);
+
+    navigation.navigate("Home" /*, { user: data } */);
   };
 
   return (

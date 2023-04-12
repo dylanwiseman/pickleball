@@ -55,13 +55,13 @@ const HomeHeader = ({ signOut }: any) => {
             </Pressable>
           </View>
           <Text style={styles.text}>
-            Games played: {loggedInUser?.gamesPlayed}
+            Games played: {loggedInUser?.stats?.gamesPlayed || 0}
           </Text>
           <Text style={styles.text}>
-            Avg. contribution: {loggedInUser?.avgContribution}
+            Avg. contribution: {loggedInUser?.stats?.avgContribution || 0}
           </Text>
           <Text style={styles.text}>
-            Total contribution: {loggedInUser?.totalContribution}
+            Total contribution: {loggedInUser?.stats?.totalContribution || 0}
           </Text>
         </View>
         <View
