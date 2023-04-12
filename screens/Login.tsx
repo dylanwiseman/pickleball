@@ -75,7 +75,6 @@ const Login = ({ navigation, route }: any) => {
       // await getSelf();
     } catch (e) {
       console.warn(JSON.stringify(e, null, 2));
-      // saving error
     }
 
     // if (error) console.log("ERROR: ", JSON.parse(JSON.stringify(error)));
