@@ -23,6 +23,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import updateHeaders from "../services/auth/updateHeaders";
 import getToken from "../services/auth/getToken";
 import { httpLink, client } from "../services/auth/apolloClient";
+import { gql } from "@apollo/client";
 
 const Login = ({ navigation, route }: any) => {
   const [username, setUsername] = useState("");
@@ -43,17 +44,46 @@ const Login = ({ navigation, route }: any) => {
     // console.log("auth: ", auth);
     try {
       await AsyncStorage.setItem("@idToken", auth.idToken);
+      await updateHeaders(client, httpLink, auth.idToken);
+      const data = await client.query({
+        query: gql`
+          query Query {
+            GetSelf {
+              authId
+              email
+              userName
+              _id
+              updatedAt
+              createdAt
+              games
+              stats {
+                gamesPlayed
+                avgContribution
+                totalContribution
+              }
+            }
+          }
+        `,
+        context: {
+          headers: {
+            "pickleball-access-token": auth.idToken,
+          },
+        },
+      });
+      console.log("query data: ", data);
+      console.log("hmm");
+      // await getSelf();
     } catch (e) {
+      console.warn(JSON.stringify(e, null, 2));
       // saving error
     }
-    await updateHeaders(client, httpLink, auth.idToken);
-    await getSelf();
-    if (error) console.log("ERROR: ", JSON.parse(JSON.stringify(error)));
+
+    // if (error) console.log("ERROR: ", JSON.parse(JSON.stringify(error)));
     // TODO: getSelf() to get signin data
-    if (!loading) console.log("GET SELF DATA: ", data);
+    // if (!loading) console.log("GET SELF DATA: ", data);
     // context.setLoggedInUser(data?.RegisterUser);
-    context.loggedInUser = data?.RegisterUser;
-    navigation.navigate("Home" /*, { user: data } */);
+    // context.loggedInUser = data?.RegisterUser;
+    // navigation.navigate("Home" /*, { user: data } */);
   };
 
   return (
