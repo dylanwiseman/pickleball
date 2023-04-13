@@ -4,9 +4,8 @@ export const GetSelf = gql`
   query Query {
     GetSelf {
       authId
+      userName
       email
-      firstName
-      lastName
       _id
       updatedAt
       createdAt

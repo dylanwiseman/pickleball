@@ -10,30 +10,25 @@ import {
   TextStyle,
   ViewStyle,
 } from "react-native";
-import { useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { TextInput } from "react-native-gesture-handler";
 import { COLORS } from "../constants/theme";
 import InsetShadow from "react-native-inset-shadow";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { players } from "../placeholderData";
 import defaultImg from "../assets/default-pic.jpeg";
-import { useLazyQuery } from "@apollo/client";
 import { GetUserByName as FindUserByName } from "../graphql/Users/queries";
-import { httpLink, client } from "../services/auth/apolloClient";
+import { client } from "../services/auth/apolloClient";
+import AppContext from "../components/AppContext";
 
 const NewGame = ({ navigation }: any) => {
-  //   const [findUser, setFindUser] = useState("");
-  //   const [getUserByName, { data, loading, error, called }] = useLazyQuery(
-  //     GetUserByName,
-  //     { variables: { userName: findUser } }
-  //   );
-
-  //   useEffect(() => {
-  //     if (error) console.log(JSON.parse(JSON.stringify(error)));
-  //   }, [error]);
-
-  const [player1, setPlayer1] = useState(players[0]);
-  const [player1Name, setPlayer1Name] = useState(players[0].name);
+  const { loggedInUser } = useContext(AppContext);
+  const [player1, setPlayer1] = useState({
+    name: loggedInUser?.userName,
+    pic: defaultImg,
+    id: loggedInUser?._id,
+  });
+  const [player1Name, setPlayer1Name] = useState(loggedInUser?.userName);
   const [player2, setPlayer2] = useState({
     name: "",
     pic: defaultImg,
@@ -54,7 +49,6 @@ const NewGame = ({ navigation }: any) => {
   const [player4Name, setPlayer4Name] = useState("");
 
   const getPlayer = async (playerName: string) => {
-    let tempPlayer;
     try {
       const { data } = await client.query({
         query: FindUserByName,
@@ -69,20 +63,6 @@ const NewGame = ({ navigation }: any) => {
     } catch (error) {
       console.warn(error);
     }
-    // players.forEach((player) => {
-    //   if (player.name === playerName.toLowerCase()) {
-    //     tempPlayer = player;
-    //     return;
-    //   }
-    // });
-    // if (!tempPlayer) {
-    //   tempPlayer = {
-    //     pic: defaultImg,
-    //     name: playerName,
-    //     id: 1,
-    //   };
-    // }
-    // return tempPlayer;
   };
 
   return (
@@ -149,8 +129,8 @@ const NewGame = ({ navigation }: any) => {
                   style={styles.textInput}
                   onChangeText={(text) => setPlayer1Name(text)}
                   value={player1Name}
-                  onBlur={() => {
-                    setPlayer1(getPlayer(player1Name));
+                  onBlur={async () => {
+                    setPlayer1(await getPlayer(player1Name));
                   }}
                 />
               </InsetShadow>
