@@ -9,12 +9,11 @@ import {
   ViewStyle,
   TextStyle,
 } from "react-native";
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { TextInput } from "react-native-gesture-handler";
 import { COLORS, SIZES, SHADOWS } from "../constants/theme";
 import InsetShadow from "react-native-inset-shadow";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { players } from "../placeholderData";
 import { signIn } from "../services/auth/signIn";
 import AppContext from "../components/AppContext";
 import { GetSelf } from "../graphql/Users/queries";
@@ -23,10 +22,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import updateHeaders from "../services/auth/updateHeaders";
 import getToken from "../services/auth/getToken";
 import { httpLink, client } from "../services/auth/apolloClient";
-import { gql } from "@apollo/client";
 
 const Login = ({ navigation, route }: any) => {
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
@@ -36,54 +34,30 @@ const Login = ({ navigation, route }: any) => {
 
   const handleLogin = async () => {
     const variables = {
-      userName: username.toLowerCase(),
+      // userName: username.toLowerCase(),
       email: email,
       password: password,
     };
-    const auth = await signIn(variables);
-    // console.log("auth: ", auth);
     try {
+      const auth = await signIn(variables);
       await AsyncStorage.setItem("@idToken", auth.idToken);
       await updateHeaders(client, httpLink, auth.idToken);
       const { data } = await client.query({
-        query: gql`
-          query Query {
-            GetSelf {
-              authId
-              email
-              userName
-              _id
-              updatedAt
-              createdAt
-              games
-              stats {
-                gamesPlayed
-                avgContribution
-                totalContribution
-              }
-            }
-          }
-        `,
+        query: GetSelf,
         context: {
           headers: {
             "pickleball-access-token": auth.idToken,
           },
         },
       });
-      console.log("query data: ", data.GetSelf);
+      console.log("QUERY DATA: ", data?.GetSelf);
       context.loggedInUser = data?.GetSelf;
-      console.log("context: ", context);
-      // await getSelf();
+      console.log("CONTEXT: ", context);
     } catch (e) {
       console.warn(JSON.stringify(e, null, 2));
+    } finally {
+      navigation.navigate("Home" /*, { user: data } */);
     }
-
-    // if (error) console.log("ERROR: ", JSON.parse(JSON.stringify(error)));
-    // TODO: getSelf() to get signin data
-    // if (!loading) console.log("GET SELF DATA: ", data);
-    // context.setLoggedInUser(data?.RegisterUser);
-
-    navigation.navigate("Home" /*, { user: data } */);
   };
 
   return (
@@ -175,9 +149,7 @@ const Login = ({ navigation, route }: any) => {
                   style={styles.textInput}
                   onChangeText={(text) => setPassword(text)}
                   value={password}
-                  onBlur={() => {
-                    // setPlayer3(getPlayer(player3Name));
-                  }}
+                  onBlur={() => {}}
                 />
               </InsetShadow>
             </View>
@@ -192,7 +164,6 @@ const Login = ({ navigation, route }: any) => {
             style={{ width: "80%" }}
             onPress={() => {
               handleLogin();
-              //   navigation.navigate("Home");
             }}
           >
             <View

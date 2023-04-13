@@ -19,3 +19,13 @@ export const GetSelf = gql`
     }
   }
 `;
+
+export const GetUserByName = gql`
+  query Query($userName: String) {
+    GetUserByName(userName: $userName) {
+      _id
+      userName
+      email
+    }
+  }
+`;

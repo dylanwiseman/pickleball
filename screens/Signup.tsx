@@ -15,13 +15,13 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useMutation } from "@apollo/client";
 import { RegisterUser } from "../graphql/Users/mutations";
 import { signIn } from "../services/auth/signIn";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SignUp = ({ navigation, route }: any) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // const client = useApolloClient();
   const [register, { data, loading, error, reset }] = useMutation(RegisterUser);
 
   useEffect(() => {
@@ -146,16 +146,13 @@ const SignUp = ({ navigation, route }: any) => {
                 email: email,
                 password: password,
               };
-              //   console.log("register params: ", variables);
               const { data } = await register({
                 variables: variables,
               });
               console.log("registration complete!");
               const auth = await signIn(variables);
-
-              // TODO: getSelf() to get signin data
-              // console.log("RegisterUser: ", data.RegisterUser);
-              context.setLoggedInUser(data?.RegisterUser);
+              await AsyncStorage.setItem("@idToken", auth.idToken);
+              context.loggedInUser = data?.RegisterUser;
               navigation.navigate("Home" /*, { user: data } */);
             }}
           >
