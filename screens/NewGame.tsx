@@ -15,7 +15,6 @@ import { TextInput } from "react-native-gesture-handler";
 import { COLORS } from "../constants/theme";
 import InsetShadow from "react-native-inset-shadow";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { players } from "../placeholderData";
 import defaultImg from "../assets/default-pic.jpeg";
 import { GetUserByName as FindUserByName } from "../graphql/Users/queries";
 import { client } from "../services/auth/apolloClient";

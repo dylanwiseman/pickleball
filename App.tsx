@@ -32,7 +32,6 @@ export default function App() {
     Inter_400Regular,
     Inter_600SemiBold,
   });
-  // const [loggedInUser, setLoggedInUser] = useState({});
   const userData = {
     loggedInUser: {
       userName: "",
