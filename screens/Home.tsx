@@ -14,7 +14,7 @@ const Home = ({ navigation, route }: any) => {
 
   // getSelf when we come to homepage, store that data locally.
   const { loggedInUser } = useContext(AppContext);
-  // console.log("context: ", loggedInUser);
+  console.log("context at home: ", loggedInUser);
 
   return (
     <SafeAreaView
@@ -26,7 +26,7 @@ const Home = ({ navigation, route }: any) => {
       <View style={{ position: "relative", overflow: "hidden" }}>
         <FlatList
           stickyHeaderIndices={[0]}
-          data={placeholderData}
+          data={loggedInUser?.games}
           renderItem={({ item }) =>
             loggedInUser?.games?.length > 0 ? (
               <GameCard game={item} />
@@ -34,7 +34,7 @@ const Home = ({ navigation, route }: any) => {
               <PlaceholderCard game={item} />
             )
           }
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item?.id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             flexGrow: 1,

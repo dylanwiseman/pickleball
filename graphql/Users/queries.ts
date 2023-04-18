@@ -10,11 +10,9 @@ export const GetSelf = gql`
       updatedAt
       createdAt
       games
-      stats {
-        gamesPlayed
-        avgContribution
-        totalContribution
-      }
+      gamesPlayed
+      avgContribution
+      totalContribution
     }
   }
 `;
