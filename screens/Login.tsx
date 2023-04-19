@@ -51,7 +51,7 @@ const Login = ({ navigation, route }: any) => {
         },
       });
       console.log("QUERY DATA: ", data?.GetSelf);
-      context.loggedInUser = data?.GetSelf;
+      context.setLoggedInUser(data?.GetSelf);
       console.log("CONTEXT: ", context);
     } catch (e) {
       console.warn(JSON.stringify(e, null, 2));
