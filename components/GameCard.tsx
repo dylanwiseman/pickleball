@@ -3,11 +3,34 @@ import { useNavigation } from "@react-navigation/native";
 import { COLORS, SIZES, SHADOWS } from "../constants/theme";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import PlayerNameAndPic from "./PlayerNameAndPic";
+import { useQuery } from "@apollo/client";
+import { GetGame } from "../graphql/Games/queries";
+import { useEffect } from "react";
 
 const GameCard = ({ game }: { game: any }) => {
   const navigation = useNavigation();
   console.log("gameCard:");
   console.log(game);
+
+  const { loading, data, error } = useQuery(GetGame, {
+    variables: { getGameId: game },
+  });
+  if (!loading) console.log("GAME DATA: ", data);
+
+  useEffect(() => {
+    if (error) console.log(error);
+  }, [error]);
+
+  if (loading)
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+
+  let gameData = data?.GetGame;
+  console.log("------- gameData: ", gameData);
+
   return (
     <View
       style={{
@@ -21,11 +44,11 @@ const GameCard = ({ game }: { game: any }) => {
     >
       <TouchableWithoutFeedback
         //@ts-ignore
-        onPress={() => navigation.navigate("GameDetails", { game })}
+        onPress={() => navigation.navigate("GameDetails", { gameData })}
       >
         <View
           style={{
-            backgroundColor: game?.win ? COLORS.green : COLORS.red,
+            backgroundColor: gameData?.win ? COLORS.green : COLORS.red,
             height: "55%",
             width: "100%",
             borderTopLeftRadius: 20,
@@ -50,24 +73,24 @@ const GameCard = ({ game }: { game: any }) => {
             >
               <Text
                 style={{
-                  color: game?.win ? COLORS.darkGreen : COLORS.darkRed,
+                  color: gameData?.win ? COLORS.darkGreen : COLORS.darkRed,
                   fontStyle: "italic",
                   fontFamily: "Inter_900Black",
                   marginLeft: 15,
                 }}
               >
-                {`${game.dayOfWeek}\n${game.date}\n${game.time}`}
+                {/* {`${gameData?.dayOfWeek}\n${gameData?.date}\n${gameData?.time}`} */}
               </Text>
             </View>
             <Text
               style={{
                 marginTop: 10,
                 marginRight: 15,
-                color: game?.win ? COLORS.darkGreen : COLORS.darkRed,
+                color: gameData?.win ? COLORS.darkGreen : COLORS.darkRed,
                 fontSize: 76,
                 fontFamily: "Inter_900Black",
               }}
-            >{`${game.userScore}-${game.oppScore}`}</Text>
+            >{`${gameData?.team1Score}-${gameData?.team2Score}`}</Text>
           </View>
         </View>
         <View
@@ -89,14 +112,14 @@ const GameCard = ({ game }: { game: any }) => {
             }}
           >
             <PlayerNameAndPic
-              player={game?.player1?.name}
+              player={gameData?.player1?.name}
               picSide={"right"}
-              pic={game?.player1?.pic}
+              pic={gameData?.player1?.pic}
             />
             <PlayerNameAndPic
-              player={game?.player2?.name}
+              player={gameData?.player2?.name}
               picSide={"right"}
-              pic={game?.player2?.pic}
+              pic={gameData?.player2?.pic}
             />
           </View>
           <Text
@@ -120,14 +143,14 @@ const GameCard = ({ game }: { game: any }) => {
             }}
           >
             <PlayerNameAndPic
-              player={game?.player3?.name}
+              player={gameData?.player3?.name}
               picSide={"left"}
-              pic={game?.player3?.pic}
+              pic={gameData?.player3?.pic}
             />
             <PlayerNameAndPic
-              player={game?.player4?.name}
+              player={gameData?.player4?.name}
               picSide={"left"}
-              pic={game?.player4?.pic}
+              pic={gameData?.player4?.pic}
             />
           </View>
         </View>
