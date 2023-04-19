@@ -34,7 +34,7 @@ const Home = ({ navigation, route }: any) => {
               <PlaceholderCard game={item} />
             )
           }
-          keyExtractor={(item) => item?.id}
+          keyExtractor={(item: any) => item?.id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             flexGrow: 1,
