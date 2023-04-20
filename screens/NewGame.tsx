@@ -53,7 +53,7 @@ const NewGame = ({ navigation }: any) => {
         query: FindUserByName,
         variables: { userName: playerName.toLowerCase() },
       });
-      console.log("GET USER: ", data);
+      //   console.log("GET USER: ", data);
       return {
         pic: defaultImg,
         name: data?.GetUserByName?.userName,

@@ -3,23 +3,30 @@ import { useNavigation } from "@react-navigation/native";
 import { COLORS, SIZES, SHADOWS } from "../constants/theme";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import PlayerNameAndPic from "./PlayerNameAndPic";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { GetGame } from "../graphql/Games/queries";
-import { useEffect } from "react";
+import { GetUserById } from "../graphql/Users/queries";
+import { useContext, useEffect } from "react";
+import AppContext from "./AppContext";
+import { client } from "../services/auth/apolloClient";
+import { useState } from "react";
 
 const GameCard = ({ game }: { game: any }) => {
   const navigation = useNavigation();
-  console.log("gameCard:");
-  console.log(game);
+
+  const context = useContext(AppContext);
 
   const { loading, data, error } = useQuery(GetGame, {
     variables: { getGameId: game },
   });
-  if (!loading) console.log("GAME DATA: ", data);
 
   useEffect(() => {
     if (error) console.log(error);
   }, [error]);
+
+  const [player2Name, setPlayer2Name] = useState("loading...");
+  const [player3Name, setPlayer3Name] = useState("loading...");
+  const [player4Name, setPlayer4Name] = useState("loading...");
 
   if (loading)
     return (
@@ -29,7 +36,88 @@ const GameCard = ({ game }: { game: any }) => {
     );
 
   let gameData = data?.GetGame;
-  console.log("------- gameData: ", gameData);
+  //   console.log("------- gameData: ", gameData);
+
+  async function getPlayerNames() {
+    const playerIds = [
+      gameData?.player2?.id,
+      gameData?.player3?.id,
+      gameData?.player4?.id,
+    ];
+    let count = 0;
+
+    await Promise.all(
+      playerIds.map(async (id) => {
+        try {
+          const { data } = await client.query({
+            query: GetUserById,
+            variables: { getUserByIdId: id },
+          });
+          //   console.log("GET USER BY ID: ", data);
+          if (count === 0) setPlayer2Name(data?.GetUserById?.userName);
+          else if (count === 1) setPlayer3Name(data?.GetUserById?.userName);
+          else setPlayer4Name(data?.GetUserById?.userName);
+          count++;
+          return {
+            name: data?.GetUserById?.userName,
+          };
+        } catch (error) {
+          console.warn(error);
+          return { name: "error" };
+        }
+      })
+    );
+  }
+  getPlayerNames();
+
+  const weekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let date = new Date(gameData?.updatedAt);
+
+  function formatDate(date: Date) {
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const monthIndex = date.getMonth();
+    const year = date.getFullYear();
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = months[monthIndex];
+    return `${month} ${day}, ${year}`;
+  }
+
+  function formatTime(date: Date) {
+    const hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const amOrPm = hours < 12 ? "am" : "pm";
+    const twelveHourFormat = hours % 12 === 0 ? 12 : hours % 12;
+    return `${twelveHourFormat}:${minutes}${amOrPm}`;
+  }
+
+  gameData = {
+    ...gameData,
+    player1Name: context?.loggedInUser?.userName,
+    player2Name,
+    player3Name,
+    player4Name,
+  };
 
   return (
     <View
@@ -79,7 +167,9 @@ const GameCard = ({ game }: { game: any }) => {
                   marginLeft: 15,
                 }}
               >
-                {/* {`${gameData?.dayOfWeek}\n${gameData?.date}\n${gameData?.time}`} */}
+                {`${weekday[date.getDay()]}\n${formatDate(date)}\n${formatTime(
+                  date
+                )}`}
               </Text>
             </View>
             <Text
@@ -112,12 +202,12 @@ const GameCard = ({ game }: { game: any }) => {
             }}
           >
             <PlayerNameAndPic
-              player={gameData?.player1?.name}
+              player={context.loggedInUser?.userName}
               picSide={"right"}
               pic={gameData?.player1?.pic}
             />
             <PlayerNameAndPic
-              player={gameData?.player2?.name}
+              player={player2Name}
               picSide={"right"}
               pic={gameData?.player2?.pic}
             />
@@ -143,12 +233,12 @@ const GameCard = ({ game }: { game: any }) => {
             }}
           >
             <PlayerNameAndPic
-              player={gameData?.player3?.name}
+              player={player3Name}
               picSide={"left"}
               pic={gameData?.player3?.pic}
             />
             <PlayerNameAndPic
-              player={gameData?.player4?.name}
+              player={player4Name}
               picSide={"left"}
               pic={gameData?.player4?.pic}
             />

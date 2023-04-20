@@ -149,7 +149,7 @@ const SignUp = ({ navigation, route }: any) => {
               const { data } = await register({
                 variables: variables,
               });
-              console.log("registration complete!");
+              // console.log("registration complete!");
               const auth = await signIn(variables);
               await AsyncStorage.setItem("@idToken", auth.idToken);
               context.setLoggedInUser(data?.RegisterUser);

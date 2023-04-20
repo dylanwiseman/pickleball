@@ -26,3 +26,15 @@ export const GetUserByName = gql`
     }
   }
 `;
+
+export const GetUserById = gql`
+  query GetUserById($getUserByIdId: MongoID) {
+    GetUserById(id: $getUserByIdId) {
+      userName
+      gamesPlayed
+      avgContribution
+      totalContribution
+      _id
+    }
+  }
+`;
