@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "precodegen": "NODE_ENV=production npx apollo service:download --endpoint=http://localhost:4000/graphql ./graphql/graphql-schema.json",
-    "codegen": "npx apollo codegen:generate --localSchemaFile=./graphql/graphql-schema.json --target=typescript --tagName=gql"
+    "codegen": "npx apollo codegen:generate --localSchemaFile=./graphql/graphql-schema.json --target=typescript --tagName=gql",
+    "ts:check": "tsc"
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
